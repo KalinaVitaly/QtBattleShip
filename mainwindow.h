@@ -1,0 +1,35 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QWidget>
+
+#include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QFont>
+#include <QVBoxLayout>
+#include "Gamewidget.h"
+
+class MainWindow : public QWidget
+{
+    Q_OBJECT
+
+private:
+    QPixmap *background_ships;
+    QPushButton *start_game;
+    QPushButton *settings;
+    QPushButton *exit;
+    QLabel *game_name;
+    QVBoxLayout *layout;
+
+    void setButtons(QPushButton *&button, const QFont &font, const QSize &size, const QString &str);
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+
+private slots:
+    void startGameClicked();
+    void settingsClicked();
+    void exitClicked();
+};
+#endif // MAINWINDOW_H
