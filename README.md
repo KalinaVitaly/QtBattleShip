@@ -1,0 +1,2 @@
+# QtBattleShip
+Game BattleShip 
