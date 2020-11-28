@@ -2,10 +2,6 @@
 #include <QDebug>
 
 Player::Player() :
-    max_ship1(4),
-    max_ship2(3),
-    max_ship3(2),
-    max_ship4(1),
     ship1_count(0),
     ship2_count(0),
     ship3_count(0),
@@ -19,6 +15,62 @@ Player::Player() :
     for (int i = 0; i < 10; ++i)
         for (int j = 0; j < 10; ++j)
             field[i][j] = 0;
+}
+
+const int Player::max_ship1 {4};
+const int Player::max_ship2 {3};
+const int Player::max_ship3 {2};
+const int Player::max_ship4 {1};
+
+int Player::getMaxShip1() const { return max_ship1; }
+int Player::getMaxShip2() const { return max_ship2; }
+int Player::getMaxShip3() const { return max_ship3; }
+int Player::getMaxShip4() const { return max_ship4; }
+
+bool Player::hasShipOnPosition(const QPair<int, int> &point)
+{
+    for(int i = 0; i < max_ship1; ++i)
+        if (ship1[i]->isShipPoint(point))
+            return true;
+
+    for(int i = 0; i < max_ship2; ++i)
+        if (ship2[i]->isShipPoint(point))
+            return true;
+
+    for(int i = 0; i < max_ship3; ++i)
+        if (ship3[i]->isShipPoint(point))
+            return true;
+
+    for(int i = 0; i < max_ship4; ++i)
+        if (ship4[i]->isShipPoint(point))
+            return true;
+
+    return false;
+}
+
+void Player::deleteShipFromPosition()
+{
+
+}
+
+Ship*& Player::findShipOnField(const QPair<int, int> &point)
+{
+    for(int i = 0; i < max_ship1; ++i)
+        if (ship1[i]->isShipPoint(point))
+            return ship1[i];
+
+    for(int i = 0; i < max_ship2; ++i)
+        if (ship2[i]->isShipPoint(point))
+            return ship2[i];
+
+    for(int i = 0; i < max_ship3; ++i)
+        if (ship3[i]->isShipPoint(point))
+            return ship3[i];
+
+    for(int i = 0; i < max_ship4; ++i)
+        if (ship4[i]->isShipPoint(point))
+            return ship4[i];
+
 }
 
 bool Player::checkHit(const QPair<int, int> &position)
@@ -99,6 +151,34 @@ bool Player::canSetShipInThisPosition(int type, const QPair<int, int> &position,
                  return false;
     }
     return true;
+}
+
+void Player::deleteShipFromField(const QPair<int, int> &position, bool orientation, int deck_count)
+{
+    if (orientation) {
+        for(int i = 0; i < deck_count; ++i)
+             field[position.second][position.first + i] = 0;
+    }
+    else {
+        for(int i = 0; i < deck_count; ++i)
+             field[position.second + i][position.first] = 0;
+    }
+}
+
+void Player::setNewShipPosition(Ship *ship, const QPair<int, int> &position, bool orientation)
+{
+    deleteShipFromField(position, orientation, ship->getShipDeckCount());
+
+    if (orientation) {
+        for(int i = 0; i < ship->getShipDeckCount(); ++i)
+             field[position.second][position.first + i] = 1;
+    }
+    else {
+        for(int i = 0; i < ship->getShipDeckCount(); ++i)
+             field[position.second + i][position.first] = 1;
+    }
+
+    ship->setShipPosition(position, orientation);
 }
 
 void Player::setShipPositionInField(int type, const QPair<int, int> &position, bool orientation)

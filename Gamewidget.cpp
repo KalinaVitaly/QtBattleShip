@@ -1,5 +1,6 @@
 #include "Gamewidget.h"
 #include <QDebug>
+
 GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),
     fields_count(100)
@@ -30,21 +31,28 @@ void GameWidget::connectFielButtondWithFieldClicked()
 
 void GameWidget::fieldClicked()
 {
-    if (*(QApplication::overrideCursor()) == Qt::ClosedHandCursor)
+    qDebug() << "fieldClicked()";
+
+    int number = grid_widget->findFieldNumber((QPushButton*)sender());
+    QPair<int, int> position;
+    position.first = number % 10;
+    position.second = number / 10;
+
+    QCursor *current_global_cursor = (QApplication::overrideCursor());
+    if (current_global_cursor != 0 && *(QApplication::overrideCursor()) == Qt::ClosedHandCursor)
     {
         bool orientation = true;
-        int number = grid_widget->findFieldNumber((QPushButton*)sender());
-        QPair<int, int> position;
-        position.first = number % 10;
-        position.second = number / 10;
-        qDebug() << position.first << " " << position.second;
-        qDebug() << ships_and_digits->getClickedShipType();
 
         if (player1.canSetShipInThisPosition(ships_and_digits->getClickedShipType(), position, orientation))
         {
             player1.setShipPosition(ships_and_digits->getClickedShipType(), position, orientation);
             grid_widget->setShipPositionInGrid(position, orientation, ships_and_digits->getClickedShipType());
-            QApplication::setOverrideCursor(Qt::ArrowCursor);
+            ships_and_digits->changeDigitPixMap();
+            QApplication::restoreOverrideCursor();
         }
+    }
+    else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPosition(position))
+    {
+
     }
 }

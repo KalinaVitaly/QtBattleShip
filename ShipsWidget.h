@@ -33,14 +33,19 @@ private:
     QLabel *dig2;
     QLabel *dig3;
     QLabel *dig4;
+    int have_ship1;
+    int have_ship2;
+    int have_ship3;
+    int have_ship4;
 
     int choose_ship_type;
     void setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2);
-    void changeDigit();
 public:
     ShipsWidget(QWidget *parent = nullptr);
 
     int getClickedShipType() const;
+    void changeDigitPixMap();
+    void checkingBeforeGameStarting();
 
 private slots:
     void shipClicked();

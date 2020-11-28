@@ -38,24 +38,14 @@ private:
     };
 
     void connectFielButtondWithFieldClicked();
-//    void setButtonParams(QPushButton *&button, const QSize &size, QPixmap *pix);
-//    void setShipButtonParams(QPushButton *&button, QLabel *&digit, QHBoxLayout *&layout,
-//                             QPalette &palette, const QSize &size, QPixmap *pixship, QPixmap *pixdigit);
-//    size_t getOccupiedShipField();
-//    size_t getNumberClickField(QPushButton *button);
-//    QLabel* getLabelShip(const QPushButton *button);
-//    QPixmap* getPixMapDigit(int digit);
+
 
 public:
     explicit GameWidget(QWidget *parent = nullptr);
-    //~GameWidget();
 
-    //void
 private slots:
     void fieldClicked();
-//    void processingKeyboardClicks();
-//    void shipClicked();
-//    void putShipInPosition();
+
 };
 
 

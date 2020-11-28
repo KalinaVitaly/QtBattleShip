@@ -8,6 +8,15 @@ Ship::Ship(int ship_type, int deck_count) :
 
 int Ship::getShipType() const { return ship_type; }
 int Ship::getShipDeckCount() const { return deck_count; }
+bool Ship::getIsShipDestroyed() const { return is_ship_destroyed; }
+
+bool Ship::isShipPoint(const QPair<int, int> &point)
+{
+    for(auto i : ship_coordinates_and_deck_condition)
+        if (i.first == point)
+            return true;
+    return false;
+}
 
 void Ship::setShipPosition(const QPair<int, int> &point, bool orientation)
 {
@@ -38,6 +47,7 @@ bool Ship::isShipDeath()
     for(int i = 0; i < deck_count; ++i)
          if(ship_coordinates_and_deck_condition[i].second == true)
              return false;
+    is_ship_destroyed = true;
     return true;
 }
 
