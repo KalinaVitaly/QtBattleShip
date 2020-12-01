@@ -46,9 +46,12 @@ public:
     int getClickedShipType() const;
     void changeDigitPixMap();
     void checkingBeforeGameStarting();
+    void returnChangedDigitPixMap();
+    void setChooseShip(int type);
 
 private slots:
     void shipClicked();
+
 };
 
 #endif // SHIPSWIDGET_H

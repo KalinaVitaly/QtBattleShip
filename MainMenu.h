@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINMENU_H
+#define MAINMENU_H
 
 #include <QWidget>
 
@@ -8,7 +8,7 @@
 #include <QLabel>
 #include <QFont>
 #include <QVBoxLayout>
-#include "Gamewidget.h"
+#include "GameWidget.h"
 
 class MainWindow : public QWidget
 {
@@ -32,4 +32,4 @@ private slots:
     void settingsClicked();
     void exitClicked();
 };
-#endif // MAINWINDOW_H
+#endif // MAINMENU_H

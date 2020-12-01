@@ -1,14 +1,21 @@
 #include "Ship.h"
 #include <QDebug>
 
-Ship::Ship(int ship_type, int deck_count) :
-    ship_type(ship_type),
-    deck_count(deck_count)
-{}
+Ship::Ship() {}
 
 int Ship::getShipType() const { return ship_type; }
 int Ship::getShipDeckCount() const { return deck_count; }
 bool Ship::getIsShipDestroyed() const { return is_ship_destroyed; }
+bool Ship::getOrientation() const { return  orientation; }
+QPair<int, int> Ship::getShipbegin() { return ship_coordinates_and_deck_condition[0].first; }
+
+QVector<QPair<int, int>> Ship::getShipCoordinates() const {
+    QVector<QPair<int, int>> coordinates(deck_count);
+    for(int i = 0; i < deck_count; ++i) {
+        coordinates[i] = ship_coordinates_and_deck_condition[i].first;
+    }
+    return coordinates;
+}
 
 bool Ship::isShipPoint(const QPair<int, int> &point)
 {
@@ -18,17 +25,17 @@ bool Ship::isShipPoint(const QPair<int, int> &point)
     return false;
 }
 
-void Ship::setShipPosition(const QPair<int, int> &point, bool orientation)
+void Ship::setShipPosition(const QVector<QPair<int, int>> &position, int _ship_type, bool _orientation)
 {
-    if (orientation) {
-        for(int i = 0; i < deck_count; ++i) {
-             ship_coordinates_and_deck_condition.append(qMakePair(qMakePair(point.first + i, point.second), true));
-             qDebug() << point.first + i << " " << point.second;
-        }
-    }
-    else {
-        for(int i = 0; i < deck_count; ++i)
-             ship_coordinates_and_deck_condition.append(qMakePair(qMakePair(point.first, point.second + i), true));
+    is_ship_destroyed = false;
+    orientation = _orientation;
+    ship_type = _ship_type;
+    deck_count = position.size();
+    QPair<QPair<int, int>, bool> node;
+    for (QPair<int, int> i : position) {
+        node.first = i;
+        node.second = true;
+        ship_coordinates_and_deck_condition.push_back(node);
     }
 }
 

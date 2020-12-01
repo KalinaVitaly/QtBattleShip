@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainMenu.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -59,5 +59,7 @@ void MainWindow::settingsClicked()
 {
     //add settings=)
 }
+
+
 
 

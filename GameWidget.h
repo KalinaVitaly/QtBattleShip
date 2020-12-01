@@ -9,7 +9,7 @@
 #include <QLabel>
 #include "Ship.h"
 #include "Player.h"
-#include "Gridwidget.h"
+#include "GridWidget.h"
 #include "ShipsWidget.h"
 
 class GameWidget : public QWidget

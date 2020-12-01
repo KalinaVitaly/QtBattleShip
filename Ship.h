@@ -12,18 +12,21 @@ private:
     int ship_type;
     int deck_count;
     bool is_ship_destroyed;
+    bool orientation;
 public:
-    Ship(int ship_type, int deck_count);
+    Ship();
 
     bool getIsShipDestroyed() const;
     int getShipType() const;
     int getShipDeckCount() const;
-    void setShipPosition(const QPair<int, int> &point, bool orientation);
+    void setShipPosition(const QVector<QPair<int, int>> &position, int _ship_type, bool _orientation);
     bool isShipInjured(const QPair<int, int> &point);
     bool isShipDeath();
     bool isShipPoint(const QPair<int, int> &point);
+    bool getOrientation() const;
+    QPair<int, int> getShipbegin();
+    QVector<QPair<int, int>> getShipCoordinates() const;
 public slots:
 
 };
-
 #endif // SHIP_H

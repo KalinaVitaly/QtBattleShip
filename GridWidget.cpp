@@ -1,4 +1,5 @@
-#include "Gridwidget.h"
+#include "GridWidget.h"
+#include <QDebug>
 
 GridWidget::GridWidget(QWidget *parent) :
     QWidget(parent),
@@ -20,6 +21,7 @@ size_t GridWidget::getFieldCount() { return field_count; }
 
 void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length)
 {
+    //qDebug() << "setShipPositionInGrid:";
     if (orientation) {
         for(int i = 0; i < length; ++i) {
              buttons_sea_fieald[pos.first + 10 * pos.second + i]->setIcon(QPixmap());
@@ -31,6 +33,7 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
     }
     else {
         for(int i = 0; i < length; ++i) {
+             //qDebug() << pos.first << " " << pos.second << " " << pos.first + 10 * pos.second + i * 10;
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setIcon(QPixmap());
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setStyleSheet("background-color: grey;\
                                                                            border-style: outset;\
@@ -38,6 +41,30 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
                                                                            border-color: beige;");
         }
     }
+    //qDebug() << "End";
+}
+
+void GridWidget::setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation)
+{
+    //qDebug() << "setFieldPixOnShipPositionInGrid";
+    for (auto i : pos)
+        qDebug() << i.first << " " << i.second;
+    if (orientation) {
+        for(int i = 0; i < pos.size(); ++i) {
+             buttons_sea_fieald[pos[0].first + 10 * pos[i].second + i]->setIcon(*field);
+             buttons_sea_fieald[pos[0].first + 10 * pos[i].second + i]->setIconSize(QSize(80, 80));
+             buttons_sea_fieald[pos[0].first + 10 * pos[i].second + i]->setFlat(false);
+        }
+    }
+    else {
+        for(int i = 0; i < pos.size(); ++i) {
+             //qDebug() << pos[i].first << " " << pos[i].second << " " << pos[i].first + 10 * pos[i].second + i * 10;
+             buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setIcon(*field);
+             buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setIconSize(QSize(80, 80));
+             buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setFlat(false);
+        }
+    }
+    //qDebug() << "End";
 }
 
 size_t GridWidget::findFieldNumber(QPushButton *button)
@@ -49,6 +76,18 @@ size_t GridWidget::findFieldNumber(QPushButton *button)
 }
 
 void GridWidget::setFields()
+{
+    for (size_t i = 0; i < field_count; ++i)
+    {
+        buttons_sea_fieald[i] = new QPushButton(*field, "", this);
+        buttons_sea_fieald[i]->setIconSize(QSize(80, 80));
+        buttons_sea_fieald[i]->setFlat(false);
+        buttons_sea_fieald[i]->setFixedSize(QSize(80, 80));
+        grid->addWidget(buttons_sea_fieald[i], 1 + i / 10, 1 + i % 10, Qt::AlignCenter);
+    }
+}
+
+void GridWidget::setGameFields()
 {
     for (size_t i = 0; i < field_count; ++i)
     {

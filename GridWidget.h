@@ -27,6 +27,8 @@ public:
     size_t getFieldCount();
     size_t findFieldNumber(QPushButton *button);
     void setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length);
+    void setGameFields();
+    void setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation);
 };
 
 #endif // GRIDWIDGET_H

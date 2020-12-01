@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "Gridwidget.h"
+#include "MainMenu.h"
+#include "GridWidget.h"
 #include "ShipsWidget.h"
 #include <QApplication>
 

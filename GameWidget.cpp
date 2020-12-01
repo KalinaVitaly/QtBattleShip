@@ -1,4 +1,4 @@
-#include "Gamewidget.h"
+#include "GameWidget.h"
 #include <QDebug>
 
 GameWidget::GameWidget(QWidget *parent) :
@@ -21,38 +21,42 @@ GameWidget::GameWidget(QWidget *parent) :
     connectFielButtondWithFieldClicked();
 }
 
-void GameWidget::connectFielButtondWithFieldClicked()
-{
+void GameWidget::connectFielButtondWithFieldClicked() {
     QPushButton **button = grid_widget->getField();
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
         QObject::connect(button[i], SIGNAL(clicked()),
                          this, SLOT(fieldClicked()));
 }
 
-void GameWidget::fieldClicked()
-{
-    qDebug() << "fieldClicked()";
-
+void GameWidget::fieldClicked() {
     int number = grid_widget->findFieldNumber((QPushButton*)sender());
     QPair<int, int> position;
     position.first = number % 10;
     position.second = number / 10;
+    bool orientation = 1;
 
     QCursor *current_global_cursor = (QApplication::overrideCursor());
     if (current_global_cursor != 0 && *(QApplication::overrideCursor()) == Qt::ClosedHandCursor)
     {
-        bool orientation = true;
-
-        if (player1.canSetShipInThisPosition(ships_and_digits->getClickedShipType(), position, orientation))
+        QVector<QPair<int, int>> coordinates = player1.convertPointAndOrientation2Coordinates(position, ships_and_digits->getClickedShipType(), orientation);
+        if (player1.canSetShipOnPosition(coordinates))
         {
-            player1.setShipPosition(ships_and_digits->getClickedShipType(), position, orientation);
+            player1.setShipOnPosition(coordinates, ships_and_digits->getClickedShipType(), orientation);
             grid_widget->setShipPositionInGrid(position, orientation, ships_and_digits->getClickedShipType());
             ships_and_digits->changeDigitPixMap();
             QApplication::restoreOverrideCursor();
         }
     }
-    else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPosition(position))
+    else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
     {
-
+        Ship *ship = player1.findShipByPosition(position);
+        if (ship != nullptr) {
+            ships_and_digits->setChooseShip(player1.findShipByPosition(position)->getShipType());
+            grid_widget->setFieldPixOnShipPositionInGrid(player1.convertPointAndOrientation2Coordinates(ship->getShipbegin(), ships_and_digits->getClickedShipType(), orientation),
+                                                         ship->getOrientation());
+            player1.deleteShipFromPosition(position);
+            ships_and_digits->returnChangedDigitPixMap();
+            QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+        }
     }
 }

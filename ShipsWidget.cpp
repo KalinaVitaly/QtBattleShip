@@ -19,6 +19,8 @@ ShipsWidget::ShipsWidget(QWidget *parent) :
 
 int ShipsWidget::getClickedShipType() const { return choose_ship_type; }
 
+void ShipsWidget::setChooseShip(int type) { choose_ship_type = type; }
+
 void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2)
 {
     static int i = 1;
@@ -44,21 +46,40 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
 
 void ShipsWidget::changeDigitPixMap()
 {
-    int number;
     if (choose_ship_type == 1) {
-        number = --have_ship1;
+        --have_ship1;
         dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
     }
     else if (choose_ship_type == 2) {
-        number = --have_ship2;
+        --have_ship2;
         dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
     }
     else if (choose_ship_type == 3) {
-        number = --have_ship3;
+        --have_ship3;
         dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
     }
     else if (choose_ship_type == 4) {
-        number = --have_ship4;
+        --have_ship4;
+        dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
+    }
+}
+
+void ShipsWidget::returnChangedDigitPixMap()
+{
+    if (choose_ship_type == 1) {
+        ++have_ship1;
+        dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
+    }
+    else if (choose_ship_type == 2) {
+        ++have_ship2;
+        dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
+    }
+    else if (choose_ship_type == 3) {
+        ++have_ship3;
+        dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
+    }
+    else if (choose_ship_type == 4) {
+        ++have_ship4;
         dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
     }
 }

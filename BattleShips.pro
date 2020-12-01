@@ -17,22 +17,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     AutomaticShipsPlacement.cpp \
-    Gamewidget.cpp \
-    Gridwidget.cpp \
+    GameWidget.cpp \
+    GridWidget.cpp \
+    MainMenu.cpp \
     Player.cpp \
     Ship.cpp \
     ShipsWidget.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     AutomaticShipsPlacement.h \
-    Gamewidget.h \
-    Gridwidget.h \
+    GameWidget.h \
+    GridWidget.h \
+    MainMenu.h \
     Player.h \
     Ship.h \
-    ShipsWidget.h \
-    mainwindow.h
+    ShipsWidget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
