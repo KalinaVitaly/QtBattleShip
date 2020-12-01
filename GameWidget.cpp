@@ -49,6 +49,7 @@ void GameWidget::fieldClicked() {
     }
     else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
     {
+        qDebug() << "here";
         Ship *ship = player1.findShipByPosition(position);
         if (ship != nullptr) {
             ships_and_digits->setChooseShip(player1.findShipByPosition(position)->getShipType());

@@ -2,11 +2,20 @@
 #include <QDebug>
 
 Player::Player() :
-    ship1_count(0),
-    ship2_count(0),
+//    ship1_count(0),
+//    ship2_count(0),
     ship1(max_ship1),
     ship2(max_ship2)
 {
+    ships.insert(1, QVector<Ship *>(max_ship1));
+    ships.insert(2, QVector<Ship *>(max_ship2));
+    ships.insert(3, QVector<Ship *>(max_ship3));
+    ships.insert(4, QVector<Ship *>(max_ship4));
+    ships_count.insert(1, 0);
+    ships_count.insert(2, 0);
+    ships_count.insert(3, 0);
+    ships_count.insert(4, 0);
+
     for (int i = 0; i < 10; ++i)
         for (int j = 0; j < 10; ++j)
             field[i][j] = 0;
@@ -14,35 +23,26 @@ Player::Player() :
 
 const int Player::max_ship1 {4};
 const int Player::max_ship2 {3};
-
-int Player::getMaxShip1() const { return max_ship1; }
+const int Player::max_ship3 {2};
+const int Player::max_ship4 {1};
 
 void Player::findAndDeleteShip(Ship * ship) {
-    int pos = ship1.indexOf(ship);
-    if (pos >= 0) {
-        ship1.swapItemsAt(pos, ship1_count - 1);
+    int type = ship->getShipType();
+    int ship_index = ships[type].indexOf(ship);
+    if (ship_index >= 0) {
+        ship1.swapItemsAt(ship_index, ships_count[ship->getShipType()] - 1);
         delete ship;
-        --ship1_count;
+        --ships_count[ship->getShipType()];
     }
-
-    pos = ship2.indexOf(ship);
-    if (pos >= 0) {
-        ship2.swapItemsAt(pos, ship2_count - 1);
-        delete ship;
-        --ship2_count;
-    }
-
 }
 
 bool Player::hasShipOnPoint(const QPair<int, int> & point) const {
-    for(int i = 0; i < ship1_count; ++i)
-        if (ship1[i]->isShipPoint(point))
-            return true;
-
-    for(int i = 0; i < ship2_count; ++i)
-        if (ship2[i]->isShipPoint(point))
-            return true;
-
+    for (int i = 1; i <= 4; ++i) {
+        for(int j = 0; j < ships_count[i]; ++j) {
+            if (ships[i][j]->isShipPoint(point))
+                return true;
+        }
+    }
     return false;
 }
 
@@ -65,8 +65,6 @@ void Player::deleteShipFromPosition(const QPair<int, int>& point) {
 QVector<QPair<int, int>> Player::convertPointAndOrientation2Coordinates(const QPair<int, int>& point, int type, bool orientation) {
     //Из точки и направления получаем вектор координат
     QVector<QPair<int, int>> ship_coordinates(type);
-//    Ship *ship = findShipByPosition(point);
-//    QPair<int, int> first_point = ship->getShipbegin();
     if (orientation) {
         for(int i = 0; i < type; ++i) {
              ship_coordinates[i] = qMakePair(point.first + i, point.second);
@@ -85,14 +83,9 @@ void Player::setShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates
     for (QPair<int, int> i : ship_coordinates){
         field[i.second][i.first] = 1;
     }
-    if (type == 1) {
-        ship1[ship1_count] = new Ship;
-        ship1[ship1_count++]->setShipPosition(ship_coordinates, type, orientation);
-    }
-    else if (type == 2) {
-        ship2[ship2_count] = new Ship;
-        ship2[ship2_count++]->setShipPosition(ship_coordinates, type, orientation);
-    }
+    ships[type][ships_count[type]] = new Ship;
+    ships[type][ships_count[type]]->setShipPosition(ship_coordinates, type, orientation);
+    ++ships_count[type];
 }
 
 bool Player::canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates) {
@@ -104,30 +97,23 @@ bool Player::canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordina
 
 bool Player::checkingPointPresenceShip(const QPair<int, int> &point) const {
     //проверка не попал ли в какой-нибудь корабль
-    for(Ship* i : ship1)
-        if (i->isShipPoint(point))
-            return true;
-
-    for(Ship* i : ship2)
-        if (i->isShipPoint(point))
-            return true;
-
+    for (int i = 1; i <= 4; ++i) {
+        for(int j = 0; j < ships_count[i]; ++j) {
+            if (ships[i][j]->isShipPoint(point))
+                return true;
+        }
+    }
     return false;
 }
 
 Ship* Player::findShipByPosition(const QPair<int, int> & point) {
     //находим корабль по координате
-    qDebug() << "Ship1";
-    for(int i = 0; i < ship1_count; ++i)
-        if (ship1[i]->isShipPoint(point))
-            return ship1[i];
-
-    for(int i = 0; i < ship2_count; ++i)
-        if (ship2[i]->isShipPoint(point)) {
-            qDebug() << "Ship2";
-            return ship2[i];
+    for (int i = 1; i <= 4; ++i) {
+        for(int j = 0; j < ships_count[i]; ++j) {
+            if (ships[i][j]->isShipPoint(point))
+                return ships[i][j];
         }
-
+    }
     return nullptr;
 }
 

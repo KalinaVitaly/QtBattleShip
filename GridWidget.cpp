@@ -47,8 +47,6 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
 void GridWidget::setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation)
 {
     //qDebug() << "setFieldPixOnShipPositionInGrid";
-    for (auto i : pos)
-        qDebug() << i.first << " " << i.second;
     if (orientation) {
         for(int i = 0; i < pos.size(); ++i) {
              buttons_sea_fieald[pos[0].first + 10 * pos[i].second + i]->setIcon(*field);

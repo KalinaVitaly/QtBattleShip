@@ -3,6 +3,7 @@
 
 
 #include <QObject>
+#include <QMap>
 #include "Ship.h"
 
 class Player
@@ -12,8 +13,10 @@ class Player
 private:
     static const int max_ship1;
     static const int max_ship2;
-    int ship1_count;
-    int ship2_count;
+    static const int max_ship3;
+    static const int max_ship4;
+    QMap<int, QVector<Ship *>> ships;
+    QMap<int, int> ships_count;
     QVector<Ship *> ship1;
     QVector<Ship *> ship2;
     int field[10][10];
@@ -24,7 +27,6 @@ public:
     explicit Player();
     //~Player();
 
-    int getMaxShip1() const;
     bool checkingPointPresenceShip(const QPair<int, int> &point) const;
     bool hasShipOnPoint(const QPair<int, int> & point) const;
     void setBombHitOnPoint(const QPair<int, int> &point);
