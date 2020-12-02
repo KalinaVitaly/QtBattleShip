@@ -8,7 +8,7 @@
 #include <QLabel>
 #include <QFont>
 #include <QVBoxLayout>
-#include "GameWidget.h"
+#include "PreparationGameWidget.h"
 
 class MainWindow : public QWidget
 {

@@ -17,20 +17,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     AutomaticShipsPlacement.cpp \
-    GameWidget.cpp \
+    BattleGameWidget.cpp \
     GridWidget.cpp \
     MainMenu.cpp \
     Player.cpp \
+    PreparationGameWidget.cpp \
+    RadioButtonsAndPushButtons.cpp \
     Ship.cpp \
     ShipsWidget.cpp \
     main.cpp
 
 HEADERS += \
     AutomaticShipsPlacement.h \
-    GameWidget.h \
+    BattleGameWidget.h \
     GridWidget.h \
     MainMenu.h \
     Player.h \
+    PreparationGameWidget.h \
+    RadioButtonsAndPushButtons.h \
     Ship.h \
     ShipsWidget.h
 

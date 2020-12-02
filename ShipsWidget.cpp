@@ -62,6 +62,7 @@ void ShipsWidget::changeDigitPixMap()
         --have_ship4;
         dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
     }
+    checkingBeforeGameStarting();
 }
 
 void ShipsWidget::returnChangedDigitPixMap()
@@ -82,6 +83,7 @@ void ShipsWidget::returnChangedDigitPixMap()
         ++have_ship4;
         dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
     }
+    checkingBeforeGameStarting();
 }
 
 void ShipsWidget::shipClicked()
@@ -104,5 +106,10 @@ void ShipsWidget::shipClicked()
 
 void ShipsWidget::checkingBeforeGameStarting()
 {
-    qDebug() << (have_ship1 | have_ship2 | have_ship3 | have_ship4);
+    if (have_ship1 | have_ship2 | have_ship3 | have_ship4) {
+        emit hideStartGame();
+    }
+    else {
+        emit showStartGame();
+    }
 }

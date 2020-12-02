@@ -1,11 +1,7 @@
 #include "Player.h"
 #include <QDebug>
 
-Player::Player() :
-//    ship1_count(0),
-//    ship2_count(0),
-    ship1(max_ship1),
-    ship2(max_ship2)
+Player::Player()
 {
     ships.insert(1, QVector<Ship *>(max_ship1));
     ships.insert(2, QVector<Ship *>(max_ship2));
@@ -30,7 +26,7 @@ void Player::findAndDeleteShip(Ship * ship) {
     int type = ship->getShipType();
     int ship_index = ships[type].indexOf(ship);
     if (ship_index >= 0) {
-        ship1.swapItemsAt(ship_index, ships_count[ship->getShipType()] - 1);
+        ships[type].swapItemsAt(ship_index, ships_count[ship->getShipType()] - 1);
         delete ship;
         --ships_count[ship->getShipType()];
     }
@@ -123,5 +119,13 @@ void Player::setBombHitOnPoint(const QPair<int, int> &point) {
     if (ship != nullptr) {
         field[point.second][point.first] = 3;
         ship->isShipInjured(point);
+    }
+}
+
+Player::~Player() {
+    for (auto i : ships) {
+        for (int j = 0; j < i.size(); ++j) {
+            delete i[j];
+        }
     }
 }

@@ -51,7 +51,10 @@ public:
 
 private slots:
     void shipClicked();
-
+    
+signals:
+    void showStartGame();
+    void hideStartGame();
 };
 
 #endif // SHIPSWIDGET_H

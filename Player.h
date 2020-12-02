@@ -17,15 +17,13 @@ private:
     static const int max_ship4;
     QMap<int, QVector<Ship *>> ships;
     QMap<int, int> ships_count;
-    QVector<Ship *> ship1;
-    QVector<Ship *> ship2;
     int field[10][10];
 
     void DebugPrintField() const;
     void findAndDeleteShip(Ship *);
 public:
     explicit Player();
-    //~Player();
+    ~Player();
 
     bool checkingPointPresenceShip(const QPair<int, int> &point) const;
     bool hasShipOnPoint(const QPair<int, int> & point) const;

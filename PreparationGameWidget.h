@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "GridWidget.h"
 #include "ShipsWidget.h"
+#include "RadioButtonsAndPushButtons.h"
+#include "BattleGameWidget.h"
 
 class GameWidget : public QWidget
 {
@@ -26,10 +28,12 @@ private:
     QPixmap *field;
     GridWidget *grid_widget;
     ShipsWidget *ships_and_digits;
+    RadioButtonsAndPushButtons *rbapb;
 
     Player player1;             //current player
     Player player2;             //enimy player
     const size_t fields_count;
+    bool orientation;
 
     enum game_state {
         wait_enemy_motion,
@@ -45,7 +49,10 @@ public:
 
 private slots:
     void fieldClicked();
-
+    void radioButtonClicked();
+    void activateStartButton();
+    void diactivateStartButton();
+    void startGameClicked();
 };
 
 

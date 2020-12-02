@@ -1,6 +1,8 @@
 #include "MainMenu.h"
 #include "GridWidget.h"
 #include "ShipsWidget.h"
+#include "RadioButtonsAndPushButtons.h"
+#include "BattleGameWidget.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -9,6 +11,8 @@ int main(int argc, char *argv[])
     MainWindow w;
     //GridWidget w;
     //ShipsWidget w;
+    //RadioButtonsAndPushButtons w1;
     w.show();
+    //w1.show();
     return a.exec();
 }
