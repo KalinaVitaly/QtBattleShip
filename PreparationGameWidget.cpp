@@ -35,6 +35,13 @@ GameWidget::GameWidget(QWidget *parent) :
                      this, SLOT(diactivateStartButton()));
     QObject::connect(rbapb->getStart(), SIGNAL(clicked()),
                      this, SLOT(startGameClicked()));
+    QObject::connect(rbapb->getAutoPlacementShips(), SIGNAL(clicked()),
+                     this, SLOT(autoPlacementShipsClicked()));
+}
+
+void GameWidget::autoPlacementShipsClicked() {
+    AutomaticShipsPlacement::setRandomPositionShips(&player1, grid_widget, ships_and_digits);
+    rbapb->getAutoPlacementShips()->hide();
 }
 
 void GameWidget::startGameClicked() {

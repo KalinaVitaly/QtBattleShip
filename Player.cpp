@@ -22,6 +22,17 @@ const int Player::max_ship2 {3};
 const int Player::max_ship3 {2};
 const int Player::max_ship4 {1};
 
+void Player::DebugPrintField() {
+    QString a = "";
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; ++j) {
+            a += QString::number(field[i][j]);
+        }
+        qDebug() << a;
+        a = "";
+    }
+}
+
 void Player::findAndDeleteShip(Ship * ship) {
     int type = ship->getShipType();
     int ship_index = ships[type].indexOf(ship);

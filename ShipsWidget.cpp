@@ -17,6 +17,8 @@ ShipsWidget::ShipsWidget(QWidget *parent) :
     this->setFixedSize(300, 880);
 }
 
+void ShipsWidget::setChooseShipType(int type) { choose_ship_type = type; }
+
 int ShipsWidget::getClickedShipType() const { return choose_ship_type; }
 
 void ShipsWidget::setChooseShip(int type) { choose_ship_type = type; }

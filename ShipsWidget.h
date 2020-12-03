@@ -48,6 +48,7 @@ public:
     void checkingBeforeGameStarting();
     void returnChangedDigitPixMap();
     void setChooseShip(int type);
+    void setChooseShipType(int type);
 
 private slots:
     void shipClicked();

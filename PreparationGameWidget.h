@@ -13,6 +13,7 @@
 #include "ShipsWidget.h"
 #include "RadioButtonsAndPushButtons.h"
 #include "BattleGameWidget.h"
+#include "AutomaticShipsPlacement.h"
 
 class GameWidget : public QWidget
 {
@@ -53,6 +54,7 @@ private slots:
     void activateStartButton();
     void diactivateStartButton();
     void startGameClicked();
+    void autoPlacementShipsClicked();
 };
 
 

@@ -12,6 +12,7 @@ class RadioButtonsAndPushButtons : public QWidget
     
 private:
     QPushButton *start;
+    QPushButton *automatic_placement_ships;
     QRadioButton *horizontal;
     QRadioButton *vertical;
     QVBoxLayout *vertical_layout;
@@ -20,6 +21,7 @@ public:
     RadioButtonsAndPushButtons(QWidget * parent = nullptr);
 
     QPushButton*& getStart();
+    QPushButton*& getAutoPlacementShips();
     QRadioButton*& getHorizantal();
     QRadioButton*& getVertical();
 };

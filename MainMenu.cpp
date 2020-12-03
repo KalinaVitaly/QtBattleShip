@@ -38,8 +38,11 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::setButtons(QPushButton *&button, const QFont &font, const QSize &size, const QString &str)
 {
     button = new QPushButton(str, this);
+    QPalette pal = button->palette();
+    pal.setBrush(QPalette::Button, Qt::blue);
     button->setFont(font);
     button->setFixedSize(size);
+    button->setPalette(pal);
     layout->addWidget(button, 0, Qt::AlignCenter);
 }
 

@@ -19,7 +19,7 @@ private:
     QMap<int, int> ships_count;
     int field[10][10];
 
-    void DebugPrintField() const;
+    //void DebugPrintField() const;
     void findAndDeleteShip(Ship *);
 public:
     explicit Player();
@@ -33,7 +33,7 @@ public:
     void setShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, int type, bool orientation);
     QVector<QPair<int, int>> convertPointAndOrientation2Coordinates(const QPair<int, int>& point, int type, bool orientation);
     void deleteShipFromPosition(const QPair<int, int>& point);
-
+    void DebugPrintField();
 signals:
 
 public slots:

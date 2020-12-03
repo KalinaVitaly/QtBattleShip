@@ -8,6 +8,7 @@ RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) : QWidg
     start = new QPushButton("Start");
     horizontal = new QRadioButton("Horizantal");
     vertical = new QRadioButton("Vertival");
+    automatic_placement_ships = new QPushButton("Ships automatic placement");
 
     QFont font("times", 15);
     start->setFont(font);
@@ -26,9 +27,11 @@ RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) : QWidg
 
     vertical_layout->addWidget(horizontal, Qt::AlignCenter);
     vertical_layout->addWidget(vertical, Qt::AlignCenter);
+    vertical_layout->addWidget(automatic_placement_ships, Qt::AlignCenter);
     vertical_layout->addWidget(start, Qt::AlignCenter);
 }
 
 QPushButton*& RadioButtonsAndPushButtons::getStart() { return start; }
 QRadioButton*& RadioButtonsAndPushButtons::getHorizantal() { return horizontal; }
 QRadioButton*& RadioButtonsAndPushButtons::getVertical() { return vertical; }
+QPushButton*& RadioButtonsAndPushButtons::getAutoPlacementShips() { return automatic_placement_ships; }

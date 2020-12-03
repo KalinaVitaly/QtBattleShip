@@ -4,15 +4,20 @@
 #include "RadioButtonsAndPushButtons.h"
 #include "BattleGameWidget.h"
 #include <QApplication>
+#include "AutomaticShipsPlacement.h"
+#include "Player.h"
+#include <QSpinBox>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+//    Player player;
+//    AutomaticShipsPlacement::setRandomPositionShips(&player);
     MainWindow w;
     //GridWidget w;
     //ShipsWidget w;
     //RadioButtonsAndPushButtons w1;
     w.show();
-    //w1.show();
+//    w1.show();
     return a.exec();
 }
