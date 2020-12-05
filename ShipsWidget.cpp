@@ -23,6 +23,26 @@ int ShipsWidget::getClickedShipType() const { return choose_ship_type; }
 
 void ShipsWidget::setChooseShip(int type) { choose_ship_type = type; }
 
+void ShipsWidget::updateDigits() {
+    dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
+    dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
+    dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
+    dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
+}
+
+void ShipsWidget::setNulls() {
+     have_ship1 = have_ship2 = have_ship3 = have_ship4 = 0;
+     updateDigits();
+}
+
+void ShipsWidget::setMax() {
+   have_ship1 = 4;
+   have_ship2 = 3;
+   have_ship3 = 2;
+   have_ship4 = 1;
+   updateDigits();
+}
+
 void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2)
 {
     static int i = 1;

@@ -55,6 +55,10 @@ private slots:
     void diactivateStartButton();
     void startGameClicked();
     void autoPlacementShipsClicked();
+
+signals:
+    void setNullsShipsAndWidget();
+    void setMaxShipsAndWidget();
 };
 
 

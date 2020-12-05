@@ -18,6 +18,9 @@ GridWidget::GridWidget(QWidget *parent) :
 QPushButton** GridWidget::getField() { return  buttons_sea_fieald; }
 size_t GridWidget::getFieldCount() { return field_count; }
 
+void GridWidget::setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation) {
+    setFieldPixOnShipPositionInGrid(pos, orientation);
+}
 
 void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length)
 {

@@ -1,14 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-
-#include <QObject>
 #include <QMap>
 #include "Ship.h"
 
-class Player
+class Player : public QObject
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 private:
     static const int max_ship1;
@@ -25,6 +23,7 @@ public:
     explicit Player();
     ~Player();
 
+    int getShipCount(int type) const;
     bool checkingPointPresenceShip(const QPair<int, int> &point) const;
     bool hasShipOnPoint(const QPair<int, int> & point) const;
     void setBombHitOnPoint(const QPair<int, int> &point);
@@ -34,8 +33,9 @@ public:
     QVector<QPair<int, int>> convertPointAndOrientation2Coordinates(const QPair<int, int>& point, int type, bool orientation);
     void deleteShipFromPosition(const QPair<int, int>& point);
     void DebugPrintField();
+    void deleteAllShips();
 signals:
-
+    void deleteShipFromFields(const QVector<QPair<int, int>> & pos, bool orientation);
 public slots:
 };
 

@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include "GridWidget.h"
-#include "BattleGameWidget.h"
 
 class BattleGameWidget : public QWidget
 {

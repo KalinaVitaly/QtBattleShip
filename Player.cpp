@@ -22,6 +22,27 @@ const int Player::max_ship2 {3};
 const int Player::max_ship3 {2};
 const int Player::max_ship4 {1};
 
+int Player::getShipCount(int type) const {
+    if (type < 1 || type > 4) {
+        qDebug() << "Player::getShipCount: Index error";
+        exit(1);
+    }
+    return ships_count[type];
+}
+
+void Player::deleteAllShips() {
+    for (int i = 1; i <= 4; ++i) {
+        for(int j = ships_count[i] - 1; j >= 0; --j) {
+            QVector<QPair<int, int>> coordinates = ships[i][j]->getShipCoordinates();
+            for (int k = 0; k < ships[i][j]->getShipDeckCount(); ++k) {
+                field[coordinates[k].second][coordinates[k].first] = 0;
+            }
+            emit deleteShipFromFields(ships[i][j]->getShipCoordinates(), ships[i][j]->getOrientation());
+            findAndDeleteShip(ships[i][j]);
+        }
+    }
+}
+
 void Player::DebugPrintField() {
     QString a = "";
     for (int i = 0; i < 10; i++) {

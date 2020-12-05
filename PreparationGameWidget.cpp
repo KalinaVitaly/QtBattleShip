@@ -37,11 +37,23 @@ GameWidget::GameWidget(QWidget *parent) :
                      this, SLOT(startGameClicked()));
     QObject::connect(rbapb->getAutoPlacementShips(), SIGNAL(clicked()),
                      this, SLOT(autoPlacementShipsClicked()));
+
+    //connect player with grid widget
+    QObject::connect(&player1, &Player::deleteShipFromFields,
+                     grid_widget, &GridWidget::setFieldsOnShipPosition);
+    QObject::connect(this, &GameWidget::setNullsShipsAndWidget,
+                     ships_and_digits, &ShipsWidget::setNulls);
+    QObject::connect(this, &GameWidget::setMaxShipsAndWidget,
+                     ships_and_digits, &ShipsWidget::setMax);
 }
 
 void GameWidget::autoPlacementShipsClicked() {
+    if ((player1.getShipCount(1) + player1.getShipCount(2) + player1.getShipCount(3) + player1.getShipCount(4)) == 10) {
+        player1.deleteAllShips();
+         emit setMaxShipsAndWidget();
+    }
     AutomaticShipsPlacement::setRandomPositionShips(&player1, grid_widget, ships_and_digits);
-    rbapb->getAutoPlacementShips()->hide();
+    emit setNullsShipsAndWidget();
 }
 
 void GameWidget::startGameClicked() {
@@ -108,7 +120,7 @@ void GameWidget::fieldClicked() {
     }
     else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
     {
-        qDebug() << "here";
+        //qDebug() << "here";
         Ship *ship = player1.findShipByPosition(position);
         if (ship != nullptr) {
             ships_and_digits->setChooseShip(player1.findShipByPosition(position)->getShipType());
