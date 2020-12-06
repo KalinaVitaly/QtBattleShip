@@ -110,15 +110,16 @@ void GameWidget::fieldClicked() {
     if (current_global_cursor != 0 && *(QApplication::overrideCursor()) == Qt::ClosedHandCursor)
     {
         QVector<QPair<int, int>> coordinates = player1.convertPointAndOrientation2Coordinates(position, ships_and_digits->getClickedShipType(), orientation);
-        if (player1.canSetShipOnPosition(coordinates))
+        if (player1.canSetShipOnPosition(coordinates, orientation))
         {
             player1.setShipOnPosition(coordinates, ships_and_digits->getClickedShipType(), orientation);
             grid_widget->setShipPositionInGrid(position, orientation, ships_and_digits->getClickedShipType());
             ships_and_digits->changeDigitPixMap();
             QApplication::restoreOverrideCursor();
+            cursor() = Qt::ArrowCursor;
         }
     }
-    else if ((current_global_cursor == 0) && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
+    else if (current_global_cursor == nullptr && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
     {
         //qDebug() << "here";
         Ship *ship = player1.findShipByPosition(position);

@@ -19,6 +19,10 @@ private:
 
     //void DebugPrintField() const;
     void findAndDeleteShip(Ship *);
+    bool checkingPossiblePutInFrontOfTheVerticalShip(const QPair<int, int> &center) const;
+    bool checkingPossiblePutInBackOfTheVerticalShip(const QPair<int, int> &center) const;
+    bool checkingPossiblePutInFrontOfTheHorizantalShip(const QPair<int, int> &center) const;
+    bool checkingPossiblePutInBackOfTheHorizantalShip(const QPair<int, int> &center) const;
 public:
     explicit Player();
     ~Player();
@@ -28,7 +32,7 @@ public:
     bool hasShipOnPoint(const QPair<int, int> & point) const;
     void setBombHitOnPoint(const QPair<int, int> &point);
     Ship* findShipByPosition(const QPair<int, int> & point);
-    bool canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates);
+    bool canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, bool orientation);
     void setShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, int type, bool orientation);
     QVector<QPair<int, int>> convertPointAndOrientation2Coordinates(const QPair<int, int>& point, int type, bool orientation);
     void deleteShipFromPosition(const QPair<int, int>& point);

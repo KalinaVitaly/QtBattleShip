@@ -7,6 +7,6 @@ BattleGameWidget::BattleGameWidget(GridWidget *_player_field, QWidget *parent) :
     player_field = _player_field;
     enemy_field = new GridWidget;
 
-    h_layout->addWidget(player_field);
     h_layout->addWidget(enemy_field);
+    h_layout->addWidget(player_field);
 }

@@ -116,10 +116,124 @@ void Player::setShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates
     ++ships_count[type];
 }
 
-bool Player::canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates) {
+bool Player::checkingPossiblePutInFrontOfTheVerticalShip(const QPair<int, int> &center) const {
+    if (center.second - 1 >= 0) {
+        if (field[center.second - 1][center.first] == 1) {
+            //проверка перед кораблем
+            return true;
+        }
+        if (center.first - 1 >= 0) {
+            //проверка слева от корабля
+            if (field[center.second - 1][center.first - 1] == 1) {
+                return true;
+            }
+        }
+        if (center.first + 1 < 10) {
+            //проверка справа от корабля
+            if (field[center.second - 1][center.first + 1] == 1) {
+                return true;
+            }
+        }
+    }
+   return false;
+}
+
+bool Player::checkingPossiblePutInBackOfTheVerticalShip(const QPair<int, int> &center) const {
+    if (center.second + 1 < 10) {
+        if (field[center.second + 1][center.first] == 1) {
+            //проверка перед кораблем
+            return true;
+        }
+        if (center.first - 1 >= 0) {
+            //проверка слева от корабля
+            if (field[center.second + 1][center.first - 1] == 1) {
+                return true;
+            }
+        }
+        if (center.first + 1 < 10) {
+            //проверка справа от корабля
+            if (field[center.second + 1][center.first + 1] == 1) {
+                return true;
+            }
+        }
+    }
+   return false;
+}
+
+bool Player::checkingPossiblePutInFrontOfTheHorizantalShip(const QPair<int, int> &center) const {
+    if (center.first - 1 >= 0) {
+        if (field[center.second][center.first - 1] == 1) {
+            //проверка перед кораблем
+            return true;
+        }
+        if (center.second - 1 >= 0) {
+            //проверка слева от корабля
+            if (field[center.second - 1][center.first - 1] == 1) {
+                return true;
+            }
+        }
+        if (center.second + 1 < 10) {
+            //проверка справа от корабля
+            if (field[center.second + 1][center.first - 1] == 1) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Player::checkingPossiblePutInBackOfTheHorizantalShip(const QPair<int, int> &center) const {
+    if (center.first + 1 < 10) {
+        if (field[center.second][center.first + 1] == 1) {
+            //проверка перед кораблем
+            return true;
+        }
+        if (center.second - 1 >= 0) {
+            //проверка слева от корабля
+            if (field[center.second - 1][center.first + 1] == 1) {
+                return true;
+            }
+        }
+        if (center.second + 1 < 10) {
+            //проверка справа от корабля
+            if (field[center.second + 1][center.first + 1] == 1) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Player::canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, bool orientation) {
     for (QPair<int, int> i : ship_coordinates)
         if (field[i.second][i.first] == 1 || i.second >= 10 || i.first >= 10)
             return false;
+
+    if (orientation) {
+        if (checkingPossiblePutInBackOfTheHorizantalShip(ship_coordinates[ship_coordinates.size() - 1]))
+                return false;
+
+        if (checkingPossiblePutInFrontOfTheHorizantalShip(ship_coordinates[0]))
+                return false;
+
+         for (QPair<int, int> i : ship_coordinates) {
+             if ((i.second + 1 < 10 && field[i.second + 1][i.first] != 0) ||
+                     (i.second - 1 >= 0 && field[i.second - 1][i.first] != 0))
+                return false;
+         }
+    }
+    else {
+        if (checkingPossiblePutInBackOfTheVerticalShip(ship_coordinates[ship_coordinates.size() - 1]))
+                return false;
+
+        if (checkingPossiblePutInFrontOfTheVerticalShip(ship_coordinates[0]))
+                return false;
+
+        for (QPair<int, int> i : ship_coordinates)
+            if ((i.first + 1 < 10 && field[i.second][i.first + 1] != 0) ||
+                    (i.first - 1 >= 0 && field[i.second][i.first - 1] != 0))
+               return false;
+    }
     return true;
 }
 

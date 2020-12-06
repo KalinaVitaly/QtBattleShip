@@ -36,7 +36,6 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
     }
     else {
         for(int i = 0; i < length; ++i) {
-             //qDebug() << pos.first << " " << pos.second << " " << pos.first + 10 * pos.second + i * 10;
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setIcon(QPixmap());
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setStyleSheet("background-color: grey;\
                                                                            border-style: outset;\
@@ -44,12 +43,10 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
                                                                            border-color: beige;");
         }
     }
-    //qDebug() << "End";
 }
 
 void GridWidget::setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation)
 {
-    //qDebug() << "setFieldPixOnShipPositionInGrid";
     if (orientation) {
         for(int i = 0; i < pos.size(); ++i) {
              buttons_sea_fieald[pos[0].first + 10 * pos[i].second + i]->setIcon(*field);
@@ -59,13 +56,11 @@ void GridWidget::setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> 
     }
     else {
         for(int i = 0; i < pos.size(); ++i) {
-             //qDebug() << pos[i].first << " " << pos[i].second << " " << pos[i].first + 10 * pos[i].second + i * 10;
              buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setIcon(*field);
              buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setIconSize(QSize(80, 80));
              buttons_sea_fieald[pos[i].first + 10 * pos[0].second + i * 10]->setFlat(false);
         }
     }
-    //qDebug() << "End";
 }
 
 size_t GridWidget::findFieldNumber(QPushButton *button)

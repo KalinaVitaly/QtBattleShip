@@ -21,7 +21,7 @@ void AutomaticShipsPlacement::setRandomPositionShips(Player *_player, GridWidget
                 point.first = mersenne() % 10;
                 point.second = mersenne() % 10;
                 coordinates = _player->convertPointAndOrientation2Coordinates(point, i, orientation);
-            } while (!_player->canSetShipOnPosition(coordinates));
+            } while (!_player->canSetShipOnPosition(coordinates, orientation));
             _player->setShipOnPosition(coordinates, i, orientation);
             grid_widget->setShipPositionInGrid(point, orientation, i);
             ships_widget->setChooseShipType(i);
