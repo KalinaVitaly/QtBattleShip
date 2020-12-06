@@ -14,14 +14,16 @@ private:
     QPixmap *field;
     QVector<QPixmap *> symbols;
     QVector<QPixmap *> digit;
+    QVector<QLabel *> symbol_label;
+    QVector<QLabel *> digit_label;
     QPushButton *buttons_sea_fieald[100];
     const size_t field_count;
 
-    void setSymbols();
-    void setDigits();
-    void setFields();
+    void setSymbols(const QSize & size);
+    void setDigits(const QSize & size);
+    void setFields(const QSize & size);
 public:
-    GridWidget(QWidget *parent = nullptr);
+    GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
 
     QPushButton** getField();
     size_t getFieldCount();
@@ -29,6 +31,11 @@ public:
     void setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length);
     void setGameFields();
     void setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation);
+
+    void setNewFieldSize(const QSize & size);
+    void setNewSymbolsSize(const QSize & size);
+    void setNewDigitsSize(const QSize & size);
+    void setNewWidgetSize(const QSize & size);
 
 public slots:
     void setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation);

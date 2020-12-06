@@ -7,7 +7,7 @@ GameWidget::GameWidget(QWidget *parent) :
     orientation(true)
 {
     //grid widget 880*880
-    this->setFixedSize(1800, 1000);
+    //this->setFixedSize(1800, 1000);
     horizantal_layout = new QHBoxLayout;
     vertical_layout = new QVBoxLayout;
 
