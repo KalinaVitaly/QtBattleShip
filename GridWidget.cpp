@@ -10,7 +10,6 @@ GridWidget::GridWidget(QSize field_size, QWidget *parent) :
     this->setFixedSize(field_size.width() * 11, field_size.height() * 11);
     grid = new QGridLayout(this);
     field = new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/field.jpg");
-
     setSymbols(field_size);
     setDigits(field_size);
     setFields(field_size);

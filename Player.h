@@ -3,6 +3,7 @@
 
 #include <QMap>
 #include "Ship.h"
+#include <array>
 
 class Player : public QObject
 {
@@ -15,7 +16,7 @@ private:
     static const int max_ship4;
     QMap<int, QVector<Ship *>> ships;
     QMap<int, int> ships_count;
-    int field[10][10];
+    std::array<std::array<int, 10>, 10> field;
 
     //void DebugPrintField() const;
     void findAndDeleteShip(Ship *);
@@ -27,6 +28,7 @@ public:
     explicit Player();
     ~Player();
 
+    std::array<std::array<int, 10>, 10> getField();
     int getShipCount(int type) const;
     bool checkingPointPresenceShip(const QPair<int, int> &point) const;
     bool hasShipOnPoint(const QPair<int, int> & point) const;

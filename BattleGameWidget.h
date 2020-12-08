@@ -3,7 +3,11 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QPushButton>
 #include "GridWidget.h"
+#include "GridLabelWidget.h"
+#include <array>
 
 class BattleGameWidget : public QWidget
 {
@@ -11,10 +15,13 @@ class BattleGameWidget : public QWidget
 
 private:
     QHBoxLayout *h_layout;
-    GridWidget *player_field;
+    QVBoxLayout *v_layout;
     GridWidget *enemy_field;
+    GridLabelWidget *player_ships;
+    QPushButton *pause;
+
 public:
-    BattleGameWidget(GridWidget *player_field, QWidget *parent = nullptr);
+    BattleGameWidget(std::array<std::array<int, 10>, 10> player_field, QWidget *parent = nullptr);
 };
 
 #endif // BATTLEGAMEWIDGET_H

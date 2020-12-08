@@ -22,6 +22,8 @@ const int Player::max_ship2 {3};
 const int Player::max_ship3 {2};
 const int Player::max_ship4 {1};
 
+std::array<std::array<int, 10>, 10> Player::getField() { return field; }
+
 int Player::getShipCount(int type) const {
     if (type < 1 || type > 4) {
         qDebug() << "Player::getShipCount: Index error";
