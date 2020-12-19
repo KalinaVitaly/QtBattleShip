@@ -12,6 +12,10 @@ Player::Player()
     ships_count.insert(3, 0);
     ships_count.insert(4, 0);
 
+    //0 - empty field
+    //1 - ship
+    //2 - miss hit
+    //3 - hit on ship field
     for (int i = 0; i < 10; ++i)
         for (int j = 0; j < 10; ++j)
             field[i][j] = 0;
@@ -267,6 +271,9 @@ void Player::setBombHitOnPoint(const QPair<int, int> &point) {
     if (ship != nullptr) {
         field[point.second][point.first] = 3;
         ship->isShipInjured(point);
+    }
+    else {
+        field[point.second][point.first] = 2;
     }
 }
 

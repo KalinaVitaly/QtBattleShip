@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     AutomaticShipsPlacement.cpp \
     BattleGameWidget.cpp \
+    ComputerPlayer.cpp \
+    GameLogic.cpp \
     GridLabelWidget.cpp \
     GridWidget.cpp \
     MainMenu.cpp \
@@ -32,6 +34,8 @@ SOURCES += \
 HEADERS += \
     AutomaticShipsPlacement.h \
     BattleGameWidget.h \
+    ComputerPlayer.h \
+    GameLogic.h \
     GridLabelWidget.h \
     GridWidget.h \
     MainMenu.h \

@@ -31,16 +31,9 @@ private:
     ShipsWidget *ships_and_digits;
     RadioButtonsAndPushButtons *rbapb;
 
-    Player player1;             //current player
-    Player player2;             //enimy player
+    Player *player1;             //current player
     const size_t fields_count;
     bool orientation;
-
-    enum game_state {
-        wait_enemy_motion,
-        player_motion,
-        pause
-    };
 
     void connectFielButtondWithFieldClicked();
 

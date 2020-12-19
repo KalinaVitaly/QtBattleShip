@@ -14,6 +14,7 @@ GameWidget::GameWidget(QWidget *parent) :
     grid_widget = new GridWidget;
     ships_and_digits = new ShipsWidget;
     rbapb = new RadioButtonsAndPushButtons;
+    player1 = new Player;
 
     horizantal_layout->addWidget(grid_widget);
     horizantal_layout->addWidget(ships_and_digits);
@@ -39,7 +40,7 @@ GameWidget::GameWidget(QWidget *parent) :
                      this, SLOT(autoPlacementShipsClicked()));
 
     //connect player with grid widget
-    QObject::connect(&player1, &Player::deleteShipFromFields,
+    QObject::connect(player1, &Player::deleteShipFromFields,
                      grid_widget, &GridWidget::setFieldsOnShipPosition);
     QObject::connect(this, &GameWidget::setNullsShipsAndWidget,
                      ships_and_digits, &ShipsWidget::setNulls);
@@ -48,11 +49,11 @@ GameWidget::GameWidget(QWidget *parent) :
 }
 
 void GameWidget::autoPlacementShipsClicked() {
-    if ((player1.getShipCount(1) + player1.getShipCount(2) + player1.getShipCount(3) + player1.getShipCount(4)) == 10) {
-        player1.deleteAllShips();
+    if ((player1->getShipCount(1) + player1->getShipCount(2) + player1->getShipCount(3) + player1->getShipCount(4)) == 10) {
+        player1->deleteAllShips();
          emit setMaxShipsAndWidget();
     }
-    AutomaticShipsPlacement::setRandomPositionShips(&player1, grid_widget, ships_and_digits);
+    AutomaticShipsPlacement::setRandomPositionShips(player1, grid_widget, ships_and_digits);
     emit setNullsShipsAndWidget();
 }
 
@@ -61,7 +62,7 @@ void GameWidget::startGameClicked() {
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
         QObject::disconnect(button[i], SIGNAL(clicked()),
                          this, SLOT(fieldClicked()));
-    BattleGameWidget *bgw = new BattleGameWidget(player1.getField());
+    BattleGameWidget *bgw = new BattleGameWidget(player1, player1->getField());
     bgw->show();
     this->hide();
 }
@@ -109,25 +110,25 @@ void GameWidget::fieldClicked() {
     QCursor *current_global_cursor = (QApplication::overrideCursor());
     if (current_global_cursor != 0 && *(QApplication::overrideCursor()) == Qt::ClosedHandCursor)
     {
-        QVector<QPair<int, int>> coordinates = player1.convertPointAndOrientation2Coordinates(position, ships_and_digits->getClickedShipType(), orientation);
-        if (player1.canSetShipOnPosition(coordinates, orientation))
+        QVector<QPair<int, int>> coordinates = player1->convertPointAndOrientation2Coordinates(position, ships_and_digits->getClickedShipType(), orientation);
+        if (player1->canSetShipOnPosition(coordinates, orientation))
         {
-            player1.setShipOnPosition(coordinates, ships_and_digits->getClickedShipType(), orientation);
+            player1->setShipOnPosition(coordinates, ships_and_digits->getClickedShipType(), orientation);
             grid_widget->setShipPositionInGrid(position, orientation, ships_and_digits->getClickedShipType());
             ships_and_digits->changeDigitPixMap();
             QApplication::restoreOverrideCursor();
             cursor() = Qt::ArrowCursor;
         }
     }
-    else if (current_global_cursor == nullptr && (cursor() == Qt::ArrowCursor) && player1.hasShipOnPoint(position))
+    else if (current_global_cursor == nullptr && (cursor() == Qt::ArrowCursor) && player1->hasShipOnPoint(position))
     {
         //qDebug() << "here";
-        Ship *ship = player1.findShipByPosition(position);
+        Ship *ship = player1->findShipByPosition(position);
         if (ship != nullptr) {
-            ships_and_digits->setChooseShip(player1.findShipByPosition(position)->getShipType());
-            grid_widget->setFieldPixOnShipPositionInGrid(player1.convertPointAndOrientation2Coordinates(ship->getShipbegin(), ships_and_digits->getClickedShipType(), ship->getOrientation()),
+            ships_and_digits->setChooseShip(player1->findShipByPosition(position)->getShipType());
+            grid_widget->setFieldPixOnShipPositionInGrid(player1->convertPointAndOrientation2Coordinates(ship->getShipbegin(), ships_and_digits->getClickedShipType(), ship->getOrientation()),
                                                          ship->getOrientation());
-            player1.deleteShipFromPosition(position);
+            player1->deleteShipFromPosition(position);
             ships_and_digits->returnChangedDigitPixMap();
             QApplication::setOverrideCursor(Qt::ClosedHandCursor);
         }

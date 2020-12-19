@@ -19,6 +19,14 @@ GridWidget::GridWidget(QSize field_size, QWidget *parent) :
 QPushButton** GridWidget::getField() { return  buttons_sea_fieald; }
 size_t GridWidget::getFieldCount() { return field_count; }
 
+void GridWidget::setMissOnField(const QPair<int, int> &pos) {
+    buttons_sea_fieald[pos.first + pos.second * 10]->setIcon(QPixmap("/home/vitaly/QtProject/BattleShips/images/miss.png"));
+}
+
+void GridWidget::setHitOnField(const QPair<int, int> &pos) {
+    buttons_sea_fieald[pos.first + pos.second * 10]->setIcon(QPixmap("/home/vitaly/QtProject/BattleShips/images/x.png"));
+}
+
 void GridWidget::setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation) {
     setFieldPixOnShipPositionInGrid(pos, orientation);
 }

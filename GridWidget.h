@@ -39,6 +39,8 @@ public:
 
 public slots:
     void setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation);
+    void setMissOnField(const QPair<int, int> &);
+    void setHitOnField(const QPair<int, int> &);
 };
 
 #endif // GRIDWIDGET_H

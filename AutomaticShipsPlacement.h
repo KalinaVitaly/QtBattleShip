@@ -15,6 +15,7 @@ public:
     AutomaticShipsPlacement() = delete;
 
     static void setRandomPositionShips(Player *_player, GridWidget *&grid_widget, ShipsWidget *&ships_widget);
+    static void setRandomPositionShips(Player *_player);
 
 signals:
     void shipsSet(int type);
