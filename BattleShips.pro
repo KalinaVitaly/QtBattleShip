@@ -19,7 +19,7 @@ SOURCES += \
     AutomaticShipsPlacement.cpp \
     BattleGameWidget.cpp \
     ComputerPlayer.cpp \
-    GameLogic.cpp \
+    GameLogicWithComputer.cpp \
     GridLabelWidget.cpp \
     GridWidget.cpp \
     MainMenu.cpp \
@@ -35,7 +35,7 @@ HEADERS += \
     AutomaticShipsPlacement.h \
     BattleGameWidget.h \
     ComputerPlayer.h \
-    GameLogic.h \
+    GameLogicWithComputer.h \
     GridLabelWidget.h \
     GridWidget.h \
     MainMenu.h \

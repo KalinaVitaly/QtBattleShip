@@ -18,6 +18,10 @@ private:
     void setLabel();
 public:
     GridLabelWidget(std::array<std::array<int, 10>, 10> field, const QSize & size, QWidget * parent = nullptr);
+
+public slots:
+    void setBombHit(const QPair<int, int> &);
+    void setBombMiss(const QPair<int, int> &);
 };
 
 #endif // GRIDLABELWIDGET_H

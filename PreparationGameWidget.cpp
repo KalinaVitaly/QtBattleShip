@@ -51,7 +51,7 @@ GameWidget::GameWidget(QWidget *parent) :
 void GameWidget::autoPlacementShipsClicked() {
     if ((player1->getShipCount(1) + player1->getShipCount(2) + player1->getShipCount(3) + player1->getShipCount(4)) == 10) {
         player1->deleteAllShips();
-         emit setMaxShipsAndWidget();
+        emit setMaxShipsAndWidget();
     }
     AutomaticShipsPlacement::setRandomPositionShips(player1, grid_widget, ships_and_digits);
     emit setNullsShipsAndWidget();

@@ -35,3 +35,15 @@ void GridLabelWidget::setLabelsStyle(std::array<std::array<int, 10>, 10> field, 
         }
     }
 }
+
+void GridLabelWidget::setBombHit(const QPair<int, int> & coordinate) {
+    l_fields[coordinate.second][coordinate.first]->setStyleSheet("background-color : red;\
+                                                                  border : 2px solid white;\
+                                                                  border-radius : 5px;");
+}
+
+void GridLabelWidget::setBombMiss(const QPair<int, int> & coordinate) {
+    l_fields[coordinate.second][coordinate.first]->setStyleSheet("background-color : orange;\
+                                                                  border : 2px solid white;\
+                                                                  border-radius : 5px;");
+}

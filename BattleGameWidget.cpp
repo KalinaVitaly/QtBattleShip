@@ -13,7 +13,7 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     game_state = new QLabel("Your move");
     player_motions = new QLabel;
     enemy_motions = new QLabel;
-    game_logic = new GameLogic(pl);
+    game_logic = new GameLogicWithComputer(pl);
 
     pause->setStyleSheet("background-color : red;\
                           border : 2px solid black;\
@@ -58,6 +58,13 @@ void BattleGameWidget::connectButtonsWithGameLogic() {
                      enemy_field, SLOT(setMissOnField(const QPair<int, int> &)));
     QObject::connect(game_logic, SIGNAL(setBombHit(const QPair<int, int> &)),
                      enemy_field, SLOT(setHitOnField(const QPair<int, int> &)));
+
+    QObject::connect(game_logic, SIGNAL(setComputerBombMiss(const QPair<int, int> &)),
+                     player_ships, SLOT(setBombMiss(const QPair<int, int> &)));
+    QObject::connect(game_logic, SIGNAL(setComputerBombHit(const QPair<int, int> &)),
+                     player_ships, SLOT(setBombHit(const QPair<int, int> &)));
+
+    game_logic->shootFromComputer();
 }
 
 BattleGameWidget::~BattleGameWidget() {

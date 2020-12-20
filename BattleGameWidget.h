@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include <array>
 #include <QLabel>
-#include "GameLogic.h"
+#include "GameLogicWithComputer.h"
 #include "GridWidget.h"
 #include "GridLabelWidget.h"
 #include "Player.h"
@@ -27,7 +27,7 @@ private:
     QLabel *player_motions;
     QLabel *enemy_motions;
     Player *player;
-    GameLogic *game_logic;
+    GameLogicWithComputer *game_logic;
 
     void connectButtonsWithGameLogic();
 

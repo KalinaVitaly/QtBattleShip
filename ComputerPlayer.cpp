@@ -1,4 +1,5 @@
 #include "ComputerPlayer.h"
+#include <QDebug>
 
 ComputerPlayer::ComputerPlayer(QObject *parent) : QObject(parent),
                                                   status(Search)
@@ -13,9 +14,11 @@ QPair<int, int> ComputerPlayer::Shooting() {
 
     if (status == Search) {
         do {
-        field_coordinate.first = mersenne() % 10;
-        field_coordinate.second = mersenne() % 10;
-        } while (!coordinates_destroyeded_fields.contains(field_coordinate));
+//        field_coordinate.first = mersenne() % 10;
+//        field_coordinate.second = mersenne() % 10;
+            field_coordinate.first = 0;
+            field_coordinate.second = 0;
+        } while (coordinates_destroyeded_fields.contains(field_coordinate));
 
 
     }
@@ -27,5 +30,6 @@ QPair<int, int> ComputerPlayer::Shooting() {
     }
 
     coordinates_destroyeded_fields.push_back(field_coordinate);
+    qDebug() << "Normal";
     return field_coordinate;
 }
