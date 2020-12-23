@@ -9,7 +9,7 @@ bool Ship::getIsShipDestroyed() const { return is_ship_destroyed; }
 bool Ship::getOrientation() const { return  orientation; }
 QPair<int, int> Ship::getShipbegin() { return ship_coordinates_and_deck_condition[0].first; }
 
-QVector<QPair<int, int>> Ship::getShipCoordinates() const {
+QVector<QPair<int, int>> Ship::getShipCoordinates() {
     QVector<QPair<int, int>> coordinates(deck_count);
     for(int i = 0; i < deck_count; ++i) {
         coordinates[i] = ship_coordinates_and_deck_condition[i].first;

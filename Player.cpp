@@ -1,8 +1,7 @@
 #include "Player.h"
 #include <QDebug>
 
-Player::Player()
-{
+Player::Player() {
     ships.insert(1, QVector<Ship *>(max_ship1));
     ships.insert(2, QVector<Ship *>(max_ship2));
     ships.insert(3, QVector<Ship *>(max_ship3));
@@ -26,7 +25,31 @@ const int Player::max_ship2 {3};
 const int Player::max_ship3 {2};
 const int Player::max_ship4 {1};
 
-std::array<std::array<int, 10>, 10> Player::getField() { return field; }
+std::array<std::array<int, 10>, 10>& Player::getField() { return field; }
+
+bool Player::getShipOrientation(const QPair<int, int> & coordinate) {
+    Ship *ship = findShipByPosition(coordinate);
+
+    if (ship != nullptr) {
+        return ship->getOrientation();
+    }
+    //переделать
+    return false;
+}
+
+QVector<QPair<int, int>> Player::getShipCoordinate(const QPair<int, int> & coordinate) {
+    Ship *ship = findShipByPosition(coordinate);
+    return ship->getShipCoordinates();
+}
+
+bool Player::isShipDestroyed(const QPair<int, int> & coordinate) {
+    Ship *ship = findShipByPosition(coordinate);
+
+    if (ship != nullptr) {
+        return ship->isShipDeath();
+    }
+    return false;
+}
 
 int Player::getShipCount(int type) const {
     if (type < 1 || type > 4) {

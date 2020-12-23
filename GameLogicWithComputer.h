@@ -16,12 +16,15 @@ private:
     Player *player2;
     ComputerPlayer *computer;
     bool turn;
+    QPair<int, int> last_shoot;
+    QPair<int, int> possible_fields_with_ship[4];
 
 public:
     GameLogicWithComputer(Player *player, QObject *parent = nullptr);
     ~GameLogicWithComputer();
     void gameCycle();
     void shootFromComputer();
+    QVector<QPair<int, int>> fieldsCoordinatesAroundDestroyededShip(Player *,const QVector<QPair<int, int>> &, bool);
 
 public slots:
     void setShootFromGrid(const QPair<int, int> &);
@@ -30,6 +33,7 @@ signals:
     void setBombHit(const QPair<int, int> &);
     void setComputerBombHit(const QPair<int, int> &);
     void setComputerBombMiss(const QPair<int, int> &);
+    void setComputerDestroyedShip(const QVector<QPair<int, int>> &);
 };
 
 #endif // GAMELOGIC_H

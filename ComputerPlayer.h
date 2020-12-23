@@ -12,9 +12,9 @@ class ComputerPlayer : public QObject
 private:
     QVector<QPair<int, int>> coordinates_destroyeded_fields;
     enum PlayerStatus {
-        Search,
-        SearchNextField,
-        Finish
+        Search,              //1
+        SearchNextField,     //2
+        Finish               //3
     };
     PlayerStatus status;
 
@@ -23,6 +23,7 @@ public:
     explicit ComputerPlayer(QObject *parent = nullptr);
 
     QPair<int, int> Shooting();
+    void setPlayerStatus(int);
 
 signals:
 

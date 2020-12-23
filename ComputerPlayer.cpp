@@ -7,6 +7,15 @@ ComputerPlayer::ComputerPlayer(QObject *parent) : QObject(parent),
 
 }
 
+void ComputerPlayer::setPlayerStatus(int _status) {
+    if (_status == 1)
+        status = Search;
+    else if (_status == 2)
+        status = SearchNextField;
+    else if (_status == 3)
+        status = Finish;
+}
+
 QPair<int, int> ComputerPlayer::Shooting() {
     QPair<int, int> field_coordinate;
     std::random_device rd;
@@ -14,10 +23,10 @@ QPair<int, int> ComputerPlayer::Shooting() {
 
     if (status == Search) {
         do {
-//        field_coordinate.first = mersenne() % 10;
-//        field_coordinate.second = mersenne() % 10;
-            field_coordinate.first = 0;
-            field_coordinate.second = 0;
+//            field_coordinate.first = mersenne() % 10;
+//            field_coordinate.second = mersenne() % 10;
+            field_coordinate.first = 2;
+            field_coordinate.second = 2;
         } while (coordinates_destroyeded_fields.contains(field_coordinate));
 
 

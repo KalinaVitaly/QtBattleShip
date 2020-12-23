@@ -70,18 +70,18 @@ void GridWidget::setShipPositionInGrid(const QPair<int, int> &pos, bool orientat
         for(int i = 0; i < length; ++i) {
              buttons_sea_fieald[pos.first + 10 * pos.second + i]->setIcon(QPixmap());
              buttons_sea_fieald[pos.first + 10 * pos.second + i]->setStyleSheet("background-color: grey;\
-                                                                           border-style: outset;\
-                                                                           border-width: 2px;\
-                                                                           border-color: beige;");
+                                                                                 border-style: outset;\
+                                                                                 border-width: 2px;\
+                                                                                 border-color: beige;");
         }
     }
     else {
         for(int i = 0; i < length; ++i) {
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setIcon(QPixmap());
              buttons_sea_fieald[pos.first + 10 * pos.second + i * 10]->setStyleSheet("background-color: grey;\
-                                                                           border-style: outset;\
-                                                                           border-width: 2px;\
-                                                                           border-color: beige;");
+                                                                                      border-style: outset;\
+                                                                                      border-width: 2px;\
+                                                                                      border-color: beige;");
         }
     }
 }

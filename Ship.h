@@ -25,7 +25,7 @@ public:
     bool isShipPoint(const QPair<int, int> &point);
     bool getOrientation() const;
     QPair<int, int> getShipbegin();
-    QVector<QPair<int, int>> getShipCoordinates() const;
+    QVector<QPair<int, int>> getShipCoordinates();
 public slots:
 
 };

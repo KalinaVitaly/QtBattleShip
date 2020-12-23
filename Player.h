@@ -28,7 +28,8 @@ public:
     explicit Player();
     ~Player();
 
-    std::array<std::array<int, 10>, 10> getField();
+    std::array<std::array<int, 10>, 10>& getField();
+    bool isShipDestroyed(const QPair<int, int> &);
     int getShipCount(int type) const;
     bool checkingPointPresenceShip(const QPair<int, int> &point) const;
     bool hasShipOnPoint(const QPair<int, int> & point) const;
@@ -37,9 +38,11 @@ public:
     bool canSetShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, bool orientation);
     void setShipOnPosition(const QVector<QPair<int, int>> & ship_coordinates, int type, bool orientation);
     QVector<QPair<int, int>> convertPointAndOrientation2Coordinates(const QPair<int, int>& point, int type, bool orientation);
+    QVector<QPair<int, int>> getShipCoordinate(const QPair<int, int> &);
     void deleteShipFromPosition(const QPair<int, int>& point);
     void DebugPrintField();
     void deleteAllShips();
+    bool getShipOrientation(const QPair<int, int> &);
 signals:
     void deleteShipFromFields(const QVector<QPair<int, int>> & pos, bool orientation);
 public slots:
