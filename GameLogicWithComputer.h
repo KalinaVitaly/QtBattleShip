@@ -35,6 +35,7 @@ signals:
     void setComputerBombMiss(const QPair<int, int> &);
     void setComputerDestroyedShip(const QVector<QPair<int, int>> &);
     void setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &);
+    void setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &);
 
 };
 

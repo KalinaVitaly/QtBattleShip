@@ -11,6 +11,14 @@ GridLabelWidget::GridLabelWidget(std::array<std::array<int, 10>, 10> field, cons
     setLabel();
 }
 
+void GridLabelWidget::setFieldsAroundDestroyededShip(const QVector<QPair<int, int>> & coordinates) {
+    for (const auto& i : coordinates) {
+        l_fields[i.second][i.first]->setStyleSheet("background-color : grey;\
+                                                    border : 2px solid white;\
+                                                    border-radius : 5px;");
+    }
+}
+
 void GridLabelWidget::setLabel() {
     for (int i = 0; i < fields_count; ++i) {
         for (int j = 0; j < fields_count; ++j) {

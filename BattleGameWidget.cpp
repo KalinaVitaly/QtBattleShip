@@ -66,6 +66,9 @@ void BattleGameWidget::connectButtonsWithGameLogic() {
 
     QObject::connect(game_logic, SIGNAL(setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &)),
                      enemy_field, SLOT(setAroundShipFields(const QVector<QPair<int, int>> &)));
+
+    QObject::connect(game_logic, SIGNAL(setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &)),
+                     player_ships, SLOT(setFieldsAroundDestroyededShip(const QVector<QPair<int, int>> &)));
     game_logic->shootFromComputer();
 }
 

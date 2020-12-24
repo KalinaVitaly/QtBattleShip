@@ -18,11 +18,11 @@ GridWidget::GridWidget(QSize field_size, QWidget *parent) :
 }
 
 void GridWidget::setAroundShipFields(const QVector<QPair<int, int>> &coordinates) {
-    QImage("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg");
+    //QImage("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg");
     for(const auto& i : coordinates) {
         buttons_sea_fieald[i.first + i.second * 10]->setIcon(QPixmap());
+        //buttons_sea_fieald[i.first + i.second * 10]->setIcon(QPixmap("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg"));
         buttons_sea_fieald[i.first + i.second * 10]->setEnabled(false);
-        buttons_sea_fieald[i.first + i.second * 10]->setIcon(QPixmap("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg"));
     }
 }
 

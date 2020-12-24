@@ -23,6 +23,7 @@ public:
 public slots:
     void setBombHit(const QPair<int, int> &);
     void setBombMiss(const QPair<int, int> &);
+    void setFieldsAroundDestroyededShip(const QVector<QPair<int, int>> &);
 };
 
 #endif // GRIDLABELWIDGET_H
