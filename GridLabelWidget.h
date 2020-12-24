@@ -13,6 +13,7 @@ private:
     QGridLayout *grid;
     const int fields_count;
     QLabel *l_fields[10][10];
+    QSize size;
 
     void setLabelsStyle(std::array<std::array<int, 10>, 10> field, const QSize & size);
     void setLabel();

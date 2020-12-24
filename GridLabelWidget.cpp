@@ -2,7 +2,8 @@
 
 GridLabelWidget::GridLabelWidget(std::array<std::array<int, 10>, 10> field, const QSize & size, QWidget * parent) :
     QWidget(parent),
-    fields_count(10)
+    fields_count(10),
+    size(size)
 {
     this->setFixedSize(size.width() * 10, size.height() * 10);
     grid = new QGridLayout(this);

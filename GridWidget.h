@@ -18,6 +18,7 @@ private:
     QVector<QLabel *> digit_label;
     QPushButton *buttons_sea_fieald[100];
     const size_t field_count;
+    QSize size;
 
     void setSymbols(const QSize & size);
     void setDigits(const QSize & size);
@@ -41,6 +42,7 @@ public slots:
     void setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation);
     void setMissOnField(const QPair<int, int> &);
     void setHitOnField(const QPair<int, int> &);
+    void setAroundShipFields(const QVector<QPair<int, int>> &);
 };
 
 #endif // GRIDWIDGET_H

@@ -49,7 +49,7 @@ QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyed
 
             if (ship_coordinates[ship_coordinates.size() - 1].second - 1 >= 0 &&
                 player->getField()[ship_coordinates[ship_coordinates.size() - 1].second - 1][ship_coordinates[ship_coordinates.size() - 1].first + 1] == 0) {
-                fields_around_ship.push_back(QPair<int, int>(ship_coordinates[ship_coordinates.size() - 1].first + 1, ship_coordinates[ship_coordinates.size() - 1].second + 1));
+                fields_around_ship.push_back(QPair<int, int>(ship_coordinates[ship_coordinates.size() - 1].first + 1, ship_coordinates[ship_coordinates.size() - 1].second - 1));
                 player->getField()[ship_coordinates[ship_coordinates.size() - 1].second - 1][ship_coordinates[ship_coordinates.size() - 1].first + 1] = 4;
             }
 
@@ -62,7 +62,6 @@ QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyed
 
         //боковые поля
         for (int i = 0; i < ship_coordinates.size(); ++i) {
-            qDebug() << (ship_coordinates[i].first + 1 < 10) << " " << ship_coordinates[i].second << " " << ship_coordinates[i].first + 1;
             if (ship_coordinates[i].second + 1 < 10 && player->getField()[ship_coordinates[i].second + 1][ship_coordinates[i].first] == 0) {
                 fields_around_ship.push_back(QPair<int, int>(ship_coordinates[i].first, ship_coordinates[i].second + 1));
                 player->getField()[ship_coordinates[i].second + 1][ship_coordinates[i].first] = 4;
@@ -139,7 +138,6 @@ void GameLogicWithComputer::shootFromComputer() {
         player1->setBombHitOnPoint(coordinate);
 
         if (player1->isShipDestroyed(coordinate)) {
-            qDebug() << "Destroyed ship";
             fieldsCoordinatesAroundDestroyededShip(player1, player1->getShipCoordinate(coordinate), player1->getShipOrientation(coordinate));
             player1->DebugPrintField();
         }
@@ -157,6 +155,11 @@ void GameLogicWithComputer::shootFromComputer() {
 void GameLogicWithComputer::setShootFromGrid(const QPair<int, int> & coordinate) {
     if (player2->hasShipOnPoint(coordinate)) {
         player2->setBombHitOnPoint(coordinate);
+        if (player2->isShipDestroyed(coordinate)) {
+            QVector<QPair<int, int>> fields_around_ship = fieldsCoordinatesAroundDestroyededShip(player2,
+                player2->getShipCoordinate(coordinate), player2->getShipOrientation(coordinate));
+            setAroundDestroyededShipInactiveFields(fields_around_ship);
+        }
         emit setBombHit(coordinate);
     }
     else {
