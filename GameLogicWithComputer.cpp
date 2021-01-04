@@ -22,6 +22,13 @@ void GameLogicWithComputer::computerGameStep() {
     if (state == GAMESTATE::SECOND_PLAYER_STEP) {
         state = GAMESTATE::FIRST_PLAYER_STEP;
         shootFromComputer();
+
+        if (player1->isShipsDestroyeded()) {
+            state = GAMESTATE::GAME_END;
+            result_menu = new ResultMenu("LOSE!");
+            result_menu->show();
+            qDebug() << "Second player win";
+        }
     }
 }
 
@@ -31,6 +38,13 @@ void GameLogicWithComputer::signalProcessing() {
         state = GAMESTATE::SECOND_PLAYER_STEP;
         emit playerClickedField(field);
         emit beginComputerGameStep();
+
+        if (player2->isShipsDestroyeded()) {
+            state = GAMESTATE::GAME_END;
+            result_menu = new ResultMenu("WIN!");
+            result_menu->show();
+            qDebug() << "First player win";
+        }
     }
 }
 
@@ -38,18 +52,7 @@ bool GameLogicWithComputer::isGameEnd() const {
     return player1->isShipsDestroyeded() && player2->isShipsDestroyeded();
 }
 
-void GameLogicWithComputer::gameCycle() {
-//    while(!isGameEnd()) {
-//        if (state == GAMESTATE::FIRST_PLAYER_STEP) {
 
-//            state = GAMESTATE::SECOND_PLAYER_STEP;
-//        }
-//        else if (current_step_player == GAMESTATE::SECOND_PLAYER_STEP){
-//            shootFromComputer();
-//            current_step_player = GAMESTATE::FIRST_PLAYER_STEP;
-//        }
-//    }
-}
 
 QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyededShip(
         Player *player, const QVector<QPair<int, int>> & ship_coordinates, bool orientation) {
@@ -169,7 +172,6 @@ QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyed
 
 void GameLogicWithComputer::shootFromComputer() {
     QPair<int, int> coordinate = computer->Shooting();
-    last_shoot = coordinate;
 
     if (player1->hasShipOnPoint(coordinate)) {
         player1->setBombHitOnPoint(coordinate);

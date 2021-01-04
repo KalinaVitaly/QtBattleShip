@@ -29,7 +29,7 @@ std::array<std::array<int, 10>, 10>& Player::getField() { return field; }
 
 bool Player::isShipsDestroyeded() const {
     for (int i = 1; i <= 4; ++i) {
-        for (int j = 0; j < ships[i].size(); ++i) {
+        for (int j = 0; j < ships[i].size(); ++j) {
             if (!ships[i][j]->isShipDeath())
                 return false;
         }
@@ -303,7 +303,8 @@ void Player::setBombHitOnPoint(const QPair<int, int> &point) {
     Ship *ship = findShipByPosition(point);
     if (ship != nullptr) {
         field[point.second][point.first] = 3;
-        ship->isShipInjured(point);
+        if (ship->isShipInjured(point))
+            ship->isShipDeath();
     }
     else {
         field[point.second][point.first] = 2;

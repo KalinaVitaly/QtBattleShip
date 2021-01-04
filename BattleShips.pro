@@ -26,6 +26,7 @@ SOURCES += \
     Player.cpp \
     PreparationGameWidget.cpp \
     RadioButtonsAndPushButtons.cpp \
+    ResultMenu.cpp \
     Ship.cpp \
     ShipsGameStatus.cpp \
     ShipsWidget.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     Player.h \
     PreparationGameWidget.h \
     RadioButtonsAndPushButtons.h \
+    ResultMenu.h \
     Ship.h \
     ShipsGameStatus.h \
     ShipsWidget.h

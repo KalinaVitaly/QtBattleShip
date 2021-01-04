@@ -52,8 +52,9 @@ bool Ship::isShipInjured(const QPair<int, int> &point)
 bool Ship::isShipDeath()
 {
     for(int i = 0; i < deck_count; ++i)
-         if(ship_coordinates_and_deck_condition[i].second == true)
+         if(ship_coordinates_and_deck_condition[i].second)
              return false;
+
     is_ship_destroyed = true;
     return true;
 }
