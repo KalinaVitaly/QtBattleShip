@@ -8,7 +8,7 @@
 #include <array>
 #include <QLabel>
 #include "GameLogicWithComputer.h"
-#include "GridWidget.h"
+#include "GridButtonWidget.h"
 #include "GridLabelWidget.h"
 #include "Player.h"
 
@@ -20,8 +20,8 @@ private:
     QHBoxLayout *h_layout;
     QHBoxLayout *motions_layout;
     QVBoxLayout *v_layout;
-    GridWidget *enemy_field;
-    GridLabelWidget *player_ships;
+    GridWidget *grid_button_enemy_fields;
+    GridLabelWidget *grid_label_player_fields;
     QPushButton *pause;
     QLabel *game_state;
     QLabel *player_motions;
@@ -30,16 +30,18 @@ private:
     GameLogicWithComputer *game_logic;
 
     void connectButtonsWithGameLogic();
+    void connectButtonsGridWithGameLogic();
 
 public:
     BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 10> player_field, QWidget *parent = nullptr);
     ~BattleGameWidget();
 
 private slots:
-    void getButtonFieldClickedAndAddCoordinates();
-
+    void getCoordinatesButtonClicked(QPushButton *);
+    void disconnectButtonsGridWithGameLogic();
+    void connectButtons();
 signals:
-    void fieldClicked(const QPair<int, int> &);
+    void buttonFieldClicked(const QPair<int, int> &);
 };
 
 #endif // BATTLEGAMEWIDGET_H

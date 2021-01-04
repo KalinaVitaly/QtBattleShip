@@ -1,0 +1,11 @@
+1)
+SELECT *
+FROM Житель ж, доход д
+Where ж.nom = д.nom AND ж.sumd < MAX(д.moneys)
+2)
+Create table Person (
+Nom prinary key, 
+
+3)
+SELECT * from FLAT
+WHERE (TPHONE is null or TPHONE=’’)

@@ -2,18 +2,18 @@
 #include <QDebug>
 
 ComputerPlayer::ComputerPlayer(QObject *parent) : QObject(parent),
-                                                  status(Search)
+                                                  status(PlayerStatus::Search)
 {
 
 }
 
 void ComputerPlayer::setPlayerStatus(int _status) {
     if (_status == 1)
-        status = Search;
+        status = PlayerStatus::Search;
     else if (_status == 2)
-        status = SearchNextField;
+        status = PlayerStatus::SearchNextField;
     else if (_status == 3)
-        status = Finish;
+        status = PlayerStatus::Finish;
 }
 
 QPair<int, int> ComputerPlayer::Shooting() {
@@ -21,24 +21,22 @@ QPair<int, int> ComputerPlayer::Shooting() {
     std::random_device rd;
     std::mt19937 mersenne(rd());
 
-    if (status == Search) {
+    if (status == PlayerStatus::Search) {
         do {
-//            field_coordinate.first = mersenne() % 10;
-//            field_coordinate.second = mersenne() % 10;
-            field_coordinate.first = 2;
-            field_coordinate.second = 2;
-        } while (coordinates_destroyeded_fields.contains(field_coordinate));
-
+            field_coordinate.first = mersenne() % 10;
+            field_coordinate.second = mersenne() % 10;
+//            field_coordinate.first = 2;
+//            field_coordinate.second = 2;
+        } while (coordinates_shooting_fields.contains(field_coordinate));
+    }
+    else if (status == PlayerStatus::SearchNextField) {
 
     }
-    else if (status == SearchNextField) {
-
-    }
-    else if (status == Finish) {
+    else if (status == PlayerStatus::Finish) {
 
     }
 
-    coordinates_destroyeded_fields.push_back(field_coordinate);
+    coordinates_shooting_fields.push_back(field_coordinate);
     qDebug() << "Normal";
     return field_coordinate;
 }

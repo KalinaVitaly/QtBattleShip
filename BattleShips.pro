@@ -20,8 +20,8 @@ SOURCES += \
     BattleGameWidget.cpp \
     ComputerPlayer.cpp \
     GameLogicWithComputer.cpp \
+    GridButtonWidget.cpp \
     GridLabelWidget.cpp \
-    GridWidget.cpp \
     MainMenu.cpp \
     Player.cpp \
     PreparationGameWidget.cpp \
@@ -36,8 +36,8 @@ HEADERS += \
     BattleGameWidget.h \
     ComputerPlayer.h \
     GameLogicWithComputer.h \
+    GridButtonWidget.h \
     GridLabelWidget.h \
-    GridWidget.h \
     MainMenu.h \
     Player.h \
     PreparationGameWidget.h \

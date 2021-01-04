@@ -27,6 +27,16 @@ const int Player::max_ship4 {1};
 
 std::array<std::array<int, 10>, 10>& Player::getField() { return field; }
 
+bool Player::isShipsDestroyeded() const {
+    for (int i = 1; i <= 4; ++i) {
+        for (int j = 0; j < ships[i].size(); ++i) {
+            if (!ships[i][j]->isShipDeath())
+                return false;
+        }
+    }
+    return true;
+}
+
 bool Player::getShipOrientation(const QPair<int, int> & coordinate) {
     Ship *ship = findShipByPosition(coordinate);
 

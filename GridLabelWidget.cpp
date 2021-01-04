@@ -11,7 +11,7 @@ GridLabelWidget::GridLabelWidget(std::array<std::array<int, 10>, 10> field, cons
     setLabel();
 }
 
-void GridLabelWidget::setFieldsAroundDestroyededShip(const QVector<QPair<int, int>> & coordinates) {
+void GridLabelWidget::setFieldsAroundDestroyededShipInGridLabel(const QVector<QPair<int, int>> & coordinates) {
     for (const auto& i : coordinates) {
         l_fields[i.second][i.first]->setStyleSheet("background-color : grey;\
                                                     border : 2px solid white;\
@@ -45,13 +45,13 @@ void GridLabelWidget::setLabelsStyle(std::array<std::array<int, 10>, 10> field, 
     }
 }
 
-void GridLabelWidget::setBombHit(const QPair<int, int> & coordinate) {
+void GridLabelWidget::setBombHitOnLabelGrid(const QPair<int, int> & coordinate) {
     l_fields[coordinate.second][coordinate.first]->setStyleSheet("background-color : red;\
                                                                   border : 2px solid white;\
                                                                   border-radius : 5px;");
 }
 
-void GridLabelWidget::setBombMiss(const QPair<int, int> & coordinate) {
+void GridLabelWidget::setBombMissOnLabelGrid(const QPair<int, int> & coordinate) {
     l_fields[coordinate.second][coordinate.first]->setStyleSheet("background-color : orange;\
                                                                   border : 2px solid white;\
                                                                   border-radius : 5px;");

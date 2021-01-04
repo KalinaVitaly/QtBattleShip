@@ -1,21 +1,58 @@
 #include "GameLogicWithComputer.h"
 #include <QDebug>
 
-GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) : QObject(parent),
-                                        player1(player),
-                                        turn(rand() % 2)
+GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) :
+                                        QObject(parent),
+                                        player1(player)
 {
     computer = new ComputerPlayer;
     player2 = new Player;
 
+    state = rand() % 2 ?
+                GAMESTATE::FIRST_PLAYER_STEP :
+                GAMESTATE::SECOND_PLAYER_STEP;
+
     AutomaticShipsPlacement::setRandomPositionShips(player2);
+
+    QObject::connect(this, SIGNAL(beginComputerGameStep()),
+                     this, SLOT(computerGameStep()));
+}
+
+void GameLogicWithComputer::computerGameStep() {
+    if (state == GAMESTATE::SECOND_PLAYER_STEP) {
+        state = GAMESTATE::FIRST_PLAYER_STEP;
+        shootFromComputer();
+    }
+}
+
+void GameLogicWithComputer::signalProcessing() {
+    if (state == GAMESTATE::FIRST_PLAYER_STEP) {
+        QPushButton *field = (QPushButton*)sender();
+        state = GAMESTATE::SECOND_PLAYER_STEP;
+        emit playerClickedField(field);
+        emit beginComputerGameStep();
+    }
+}
+
+bool GameLogicWithComputer::isGameEnd() const {
+    return player1->isShipsDestroyeded() && player2->isShipsDestroyeded();
 }
 
 void GameLogicWithComputer::gameCycle() {
+//    while(!isGameEnd()) {
+//        if (state == GAMESTATE::FIRST_PLAYER_STEP) {
 
+//            state = GAMESTATE::SECOND_PLAYER_STEP;
+//        }
+//        else if (current_step_player == GAMESTATE::SECOND_PLAYER_STEP){
+//            shootFromComputer();
+//            current_step_player = GAMESTATE::FIRST_PLAYER_STEP;
+//        }
+//    }
 }
 
-QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyededShip(Player *player, const QVector<QPair<int, int>> & ship_coordinates, bool orientation) {
+QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyededShip(
+        Player *player, const QVector<QPair<int, int>> & ship_coordinates, bool orientation) {
     QVector<QPair<int, int>> fields_around_ship;
     //разбить на части
     if (orientation) {
@@ -143,14 +180,11 @@ void GameLogicWithComputer::shootFromComputer() {
             player1->DebugPrintField();
             emit setAroundDestroyededPlayerShipFields(fields_around_ship);
         }
-        else {
-
-        }
-        emit setComputerBombHit(coordinate);
+        emit setBombHitFromComputer(coordinate);
     }
     else {
         player1->setBombHitOnPoint(coordinate);
-        emit setComputerBombMiss(coordinate);
+        emit setBombMissFromComputer(coordinate);
     }
 }
 
@@ -162,11 +196,11 @@ void GameLogicWithComputer::setShootFromGrid(const QPair<int, int> & coordinate)
                 player2->getShipCoordinate(coordinate), player2->getShipOrientation(coordinate));
             setAroundDestroyededShipInactiveFields(fields_around_ship);
         }
-        emit setBombHit(coordinate);
+        emit setBombHit2LabelGrid(coordinate);
     }
     else {
         player2->setBombHitOnPoint(coordinate);
-        emit setBombMiss(coordinate);
+        emit setBombMiss2LabelGrid(coordinate);
     }
     qDebug() << "\n";
     player2->DebugPrintField();

@@ -1,4 +1,4 @@
-#include "GridWidget.h"
+#include "GridButtonWidget.h"
 #include <QDebug>
 
 GridWidget::GridWidget(QSize field_size, QWidget *parent) :

@@ -9,7 +9,7 @@
 #include <QLabel>
 #include "Ship.h"
 #include "Player.h"
-#include "GridWidget.h"
+#include "GridButtonWidget.h"
 #include "ShipsWidget.h"
 #include "RadioButtonsAndPushButtons.h"
 #include "BattleGameWidget.h"

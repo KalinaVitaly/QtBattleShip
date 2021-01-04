@@ -2,7 +2,7 @@
 #define AUTOMATICSHIPSPLACEMENT_H
 
 #include "Player.h"
-#include "GridWidget.h"
+#include "GridButtonWidget.h"
 #include "ShipsWidget.h"
 #include <ctime>
 #include <random>
