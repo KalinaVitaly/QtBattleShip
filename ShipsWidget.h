@@ -39,7 +39,7 @@ private:
     int have_ship4;
 
     int choose_ship_type;
-    void setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2);
+    void setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2, int i);
     void updateDigits();
 public:
     ShipsWidget(QWidget *parent = nullptr);

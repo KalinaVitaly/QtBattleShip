@@ -1,7 +1,7 @@
 #include "PreparationGameWidget.h"
 #include <QDebug>
 
-GameWidget::GameWidget(QWidget *parent) :
+PreparationGameWidget::PreparationGameWidget(QWidget *parent) :
     QWidget(parent),
     fields_count(100),
     orientation(true)
@@ -42,13 +42,13 @@ GameWidget::GameWidget(QWidget *parent) :
     //connect player with grid widget
     QObject::connect(player1, &Player::deleteShipFromFields,
                      grid_widget, &GridWidget::setFieldsOnShipPosition);
-    QObject::connect(this, &GameWidget::setNullsShipsAndWidget,
+    QObject::connect(this, &PreparationGameWidget::setNullsShipsAndWidget,
                      ships_and_digits, &ShipsWidget::setNulls);
-    QObject::connect(this, &GameWidget::setMaxShipsAndWidget,
+    QObject::connect(this, &PreparationGameWidget::setMaxShipsAndWidget,
                      ships_and_digits, &ShipsWidget::setMax);
 }
 
-void GameWidget::autoPlacementShipsClicked() {
+void PreparationGameWidget::autoPlacementShipsClicked() {
     if ((player1->getShipCount(1) + player1->getShipCount(2) + player1->getShipCount(3) + player1->getShipCount(4)) == 10) {
         player1->deleteAllShips();
         emit setMaxShipsAndWidget();
@@ -57,7 +57,7 @@ void GameWidget::autoPlacementShipsClicked() {
     emit setNullsShipsAndWidget();
 }
 
-void GameWidget::startGameClicked() {
+void PreparationGameWidget::startGameClicked() {
     QPushButton **button = grid_widget->getField();
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
         QObject::disconnect(button[i], SIGNAL(clicked()),
@@ -67,7 +67,7 @@ void GameWidget::startGameClicked() {
     this->hide();
 }
 
-void GameWidget::diactivateStartButton() {
+void PreparationGameWidget::diactivateStartButton() {
     rbapb->getStart()->setStyleSheet("QAbstractButton {\
                         background: rgba(255,255,255,100);\
                         border-style: outset;\
@@ -76,7 +76,7 @@ void GameWidget::diactivateStartButton() {
                  }");
 }
 
-void GameWidget::activateStartButton() {
+void PreparationGameWidget::activateStartButton() {
     rbapb->getStart()->setStyleSheet("QAbstractButton {\
                                      background: red;\
                                      border-style: outset;\
@@ -85,7 +85,7 @@ void GameWidget::activateStartButton() {
                               }");
 }
 
-void GameWidget::radioButtonClicked() {
+void PreparationGameWidget::radioButtonClicked() {
    if (rbapb->getVertical() == sender()) {
        orientation = false;
    }
@@ -94,14 +94,14 @@ void GameWidget::radioButtonClicked() {
    }
 }
 
-void GameWidget::connectFielButtondWithFieldClicked() {
+void PreparationGameWidget::connectFielButtondWithFieldClicked() {
     QPushButton **button = grid_widget->getField();
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
         QObject::connect(button[i], SIGNAL(clicked()),
                          this, SLOT(fieldClicked()));
 }
 
-void GameWidget::fieldClicked() {
+void PreparationGameWidget::fieldClicked() {
     int number = grid_widget->findFieldNumber((QPushButton*)sender());
     QPair<int, int> position;
     position.first = number % 10;

@@ -25,8 +25,7 @@ void GameLogicWithComputer::computerGameStep() {
 
         if (player1->isShipsDestroyeded()) {
             state = GAMESTATE::GAME_END;
-            result_menu = new ResultMenu("LOSE!");
-            result_menu->show();
+            emit signalEndGame(QString("Lose!"));
             qDebug() << "Second player win";
         }
     }
@@ -41,8 +40,7 @@ void GameLogicWithComputer::signalProcessing() {
 
         if (player2->isShipsDestroyeded()) {
             state = GAMESTATE::GAME_END;
-            result_menu = new ResultMenu("WIN!");
-            result_menu->show();
+            emit signalEndGame(QString("Win!"));
             qDebug() << "First player win";
         }
     }

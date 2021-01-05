@@ -7,10 +7,13 @@
 #include <QPushButton>
 #include <array>
 #include <QLabel>
+#include "PreparationGameWidget.h"
+#include "MainMenu.h"
 #include "GameLogicWithComputer.h"
 #include "GridButtonWidget.h"
 #include "GridLabelWidget.h"
 #include "Player.h"
+#include "ResultMenu.h"
 
 class BattleGameWidget : public QWidget
 {
@@ -28,6 +31,7 @@ private:
     QLabel *enemy_motions;
     Player *player;
     GameLogicWithComputer *game_logic;
+    ResultMenu *result_menu;
 
     void connectButtonsWithGameLogic();
     void connectButtonsGridWithGameLogic();
@@ -38,8 +42,10 @@ public:
 
 private slots:
     void getCoordinatesButtonClicked(QPushButton *);
-    void disconnectButtonsGridWithGameLogic();
-    void connectButtons();
+    void getSignalEndGame(const QString &);
+    void exitButtonClicked();
+    void retryButtonClicked();
+
 signals:
     void buttonFieldClicked(const QPair<int, int> &);
 };

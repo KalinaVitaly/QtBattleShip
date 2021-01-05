@@ -48,7 +48,7 @@ void MainWindow::setButtons(QPushButton *&button, const QFont &font, const QSize
 
 void MainWindow::startGameClicked()
 {
-    GameWidget *wgame = new GameWidget;
+    PreparationGameWidget *wgame = new PreparationGameWidget;
     wgame->show();
     this->hide();
 }

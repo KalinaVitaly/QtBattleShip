@@ -9,10 +9,10 @@ ShipsWidget::ShipsWidget(QWidget *parent) :
     have_ship4(1)
 {
     vertical_layout = new QVBoxLayout;
-    setButtonAndLabel(horiz_layout1, ship1, dig1, pix_ship1, pix_one);
-    setButtonAndLabel(horiz_layout2, ship2, dig2, pix_ship2, pix_two);
-    setButtonAndLabel(horiz_layout3, ship3, dig3, pix_ship3, pix_three);
-    setButtonAndLabel(horiz_layout4, ship4, dig4, pix_ship4, pix_four);
+    setButtonAndLabel(horiz_layout1, ship1, dig1, pix_ship1, pix_one, 1);
+    setButtonAndLabel(horiz_layout2, ship2, dig2, pix_ship2, pix_two, 2);
+    setButtonAndLabel(horiz_layout3, ship3, dig3, pix_ship3, pix_three, 3);
+    setButtonAndLabel(horiz_layout4, ship4, dig4, pix_ship4, pix_four, 4);
     this->setLayout(vertical_layout);
     this->setFixedSize(300, 880);
 }
@@ -43,9 +43,8 @@ void ShipsWidget::setMax() {
    updateDigits();
 }
 
-void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2)
+void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2, int i)
 {
-    static int i = 1;
     layout = new QHBoxLayout;
     //QImage("/home/vitaly/QtProject/BattleShips/images/ships/" + QString::number(i) + ".png").scaled(220, 120).save("/home/vitaly/QtProject/BattleShips/images/ships/" + QString::number(i) + ".png");
     //QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(120, 80).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
@@ -60,7 +59,6 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
     layout->addWidget(button, 0, Qt::AlignLeft);
     layout->addWidget(label, 0, Qt::AlignRight);
     vertical_layout->addLayout(layout);
-    ++i;
 
     QObject::connect(button, SIGNAL(clicked()),
                      this, SLOT(shipClicked()));

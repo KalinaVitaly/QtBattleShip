@@ -16,16 +16,15 @@ private:
     QPushButton *button_retry_game;
     QVBoxLayout *vertical_layout;
 
-    void connectButtons();
-
 public:
     explicit ResultMenu(const QString & result_information, QWidget *parent = nullptr);
+
+    QPushButton*& getButtonExit();
+    QPushButton*& getButtonRetryGame();
 
 signals:
 
 private slots:
-    void exitButtonClicked();
-    void retryButtonClicked();
 
 };
 

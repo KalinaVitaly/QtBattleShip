@@ -12,10 +12,10 @@
 #include "GridButtonWidget.h"
 #include "ShipsWidget.h"
 #include "RadioButtonsAndPushButtons.h"
-#include "BattleGameWidget.h"
 #include "AutomaticShipsPlacement.h"
+#include "BattleGameWidget.h"
 
-class GameWidget : public QWidget
+class PreparationGameWidget : public QWidget
 {
     Q_OBJECT
 
@@ -39,7 +39,7 @@ private:
 
 
 public:
-    explicit GameWidget(QWidget *parent = nullptr);
+    explicit PreparationGameWidget(QWidget *parent = nullptr);
 
 private slots:
     void fieldClicked();

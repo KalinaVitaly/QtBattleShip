@@ -14,22 +14,10 @@ ResultMenu::ResultMenu(const QString & result_information, QWidget *parent) : QW
 
     setLayout(vertical_layout);
     setFixedSize(200, 100);
-
-    connectButtons();
 }
 
-void ResultMenu::connectButtons() {
-    QObject::connect(button_exit, SIGNAL(clicked()),
-                     this, SLOT(exitButtonClicked()));
-    QObject::connect(button_retry_game, SIGNAL(clicked()),
-                     this, SLOT(retryButtonClicked()));
-}
 
-void ResultMenu::exitButtonClicked() {
-    qDebug() << "Exit Button Clicked";
-    //Add hide
-}
+QPushButton*& ResultMenu::getButtonExit() { return button_exit; }
+QPushButton*& ResultMenu::getButtonRetryGame() { return button_retry_game; }
 
-void ResultMenu::retryButtonClicked() {
-    qDebug() << "Retry Button Clicked";
-}
+

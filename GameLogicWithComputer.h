@@ -7,7 +7,6 @@
 #include "AutomaticShipsPlacement.h"
 #include "ComputerPlayer.h"
 #include "Player.h"
-#include "ResultMenu.h"
 
 class GameLogicWithComputer : public QObject
 {
@@ -16,7 +15,6 @@ private:
     Player *player1;
     Player *player2;
     ComputerPlayer *computer;
-    ResultMenu *result_menu;
 
     enum class GAMESTATE {
         FIRST_PLAYER_STEP,
@@ -29,7 +27,7 @@ private:
     bool isGameEnd() const;
 
 public:
-    GameLogicWithComputer(Player *player, QObject *parent = nullptr);
+    explicit GameLogicWithComputer(Player *player, QObject *parent = nullptr);
     ~GameLogicWithComputer();
 
     void shootFromComputer();
@@ -48,9 +46,10 @@ signals:
     void setComputerDestroyedShip(const QVector<QPair<int, int>> &);
     void setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &);
     void setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &);
-
     void playerClickedField(QPushButton *);
     void beginComputerGameStep();
+
+    void signalEndGame(const QString &);
 
 };
 

@@ -66,10 +66,38 @@ void BattleGameWidget::connectButtonsWithGameLogic() {
     QObject::connect(game_logic, SIGNAL(setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &)),
                      grid_label_player_fields, SLOT(setFieldsAroundDestroyededShipInGridLabel(const QVector<QPair<int, int>> &)));
 
+    QObject::connect(game_logic, SIGNAL(signalEndGame(const QString &)),
+                     this, SLOT(getSignalEndGame(const QString &)));
 }
-void BattleGameWidget::connectButtons() {
-    connectButtonsGridWithGameLogic();
+
+void BattleGameWidget::getSignalEndGame(const QString & information) {
+    result_menu = new ResultMenu(information);
+
+    QObject::connect(result_menu->getButtonExit(), SIGNAL(clicked()),
+                     this, SLOT(exitButtonClicked()));
+
+    QObject::connect(result_menu->getButtonRetryGame(), SIGNAL(clicked()),
+                     this, SLOT(retryButtonClicked()));
+
+    result_menu->show();
 }
+
+void BattleGameWidget::exitButtonClicked() {
+    //add main menu
+    MainWindow *main_window = new MainWindow;
+    main_window->show();
+    hide();
+    result_menu->hide();
+}
+
+void BattleGameWidget::retryButtonClicked() {
+    //add new game
+    PreparationGameWidget *game_widget = new PreparationGameWidget;
+    game_widget->show();
+    hide();
+    result_menu->hide();
+}
+
 
 void BattleGameWidget::connectButtonsGridWithGameLogic() {
     for (size_t i = 0; i < grid_button_enemy_fields->getFieldCount(); ++i) {
@@ -82,12 +110,7 @@ void BattleGameWidget::connectButtonsGridWithGameLogic() {
     }
 }
 
-void BattleGameWidget::disconnectButtonsGridWithGameLogic() {
-    for (size_t i = 0; i < grid_button_enemy_fields->getFieldCount(); ++i) {
-        disconnect(grid_button_enemy_fields->getField()[i], SIGNAL(clicked()),
-                this, SLOT(getCoordinatesButtonClicked()));
-    }
-}
+
 
 BattleGameWidget::~BattleGameWidget() {
     delete game_logic;
