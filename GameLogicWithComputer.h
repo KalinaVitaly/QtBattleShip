@@ -24,7 +24,7 @@ private:
 
     GAMESTATE state;
 
-    bool isGameEnd() const;
+    void gameEnd(const QString & information);
 
 public:
     explicit GameLogicWithComputer(Player *player, QObject *parent = nullptr);

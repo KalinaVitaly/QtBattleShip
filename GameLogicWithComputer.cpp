@@ -24,8 +24,7 @@ void GameLogicWithComputer::computerGameStep() {
         shootFromComputer();
 
         if (player1->isShipsDestroyeded()) {
-            state = GAMESTATE::GAME_END;
-            emit signalEndGame(QString("Lose!"));
+            gameEnd(QString("Lose!"));
             qDebug() << "Second player win";
         }
     }
@@ -39,15 +38,15 @@ void GameLogicWithComputer::signalProcessing() {
         emit beginComputerGameStep();
 
         if (player2->isShipsDestroyeded()) {
-            state = GAMESTATE::GAME_END;
-            emit signalEndGame(QString("Win!"));
+            gameEnd(QString("Win!"));
             qDebug() << "First player win";
         }
     }
 }
 
-bool GameLogicWithComputer::isGameEnd() const {
-    return player1->isShipsDestroyeded() && player2->isShipsDestroyeded();
+void GameLogicWithComputer::gameEnd(const QString & information) {
+    state = GAMESTATE::GAME_END;
+    emit signalEndGame(information);
 }
 
 
@@ -173,11 +172,13 @@ void GameLogicWithComputer::shootFromComputer() {
 
     if (player1->hasShipOnPoint(coordinate)) {
         player1->setBombHitOnPoint(coordinate);
+        computer->setPlayerStatus(2);
 
         if (player1->isShipDestroyed(coordinate)) {
             QVector<QPair<int, int>> fields_around_ship = fieldsCoordinatesAroundDestroyededShip(player1,
                 player1->getShipCoordinate(coordinate), player1->getShipOrientation(coordinate));
             player1->DebugPrintField();
+            computer->setPlayerStatus(3);
             emit setAroundDestroyededPlayerShipFields(fields_around_ship);
         }
         emit setBombHitFromComputer(coordinate);

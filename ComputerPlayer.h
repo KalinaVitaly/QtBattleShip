@@ -10,7 +10,7 @@ class ComputerPlayer : public QObject
     Q_OBJECT
 
 private:
-    QVector<QPair<int, int>> coordinates_shooting_fields;
+    QVector<QPair<int, int>> coordinates_destroyeded_fields;
     QVector<QPair<int, int>> possible_fields_with_ships_part;
     int index_check_field;
     enum class PlayerStatus {
@@ -20,6 +20,7 @@ private:
     };
     PlayerStatus status;
 
+    void  findPossibleFieldsWithShipsParts();
 
 public:
     explicit ComputerPlayer(QObject *parent = nullptr);
