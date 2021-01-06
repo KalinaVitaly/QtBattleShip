@@ -14,6 +14,9 @@ int ComputerPlayer::getPlayerStatus() const {
     else if (status == PlayerStatus::Finish) {
         return 3;
     }
+    else if (status == PlayerStatus::FinishAnotherPart) {
+        return 4;
+    }
     return -1;
 }
 
@@ -73,6 +76,7 @@ void ComputerPlayer::setPlayerStatus(int _status) {
         status = PlayerStatus::Finish;
         qDebug() << "PlayerStatus::Finish";
     }
+    else if ()
 }
 
 QPair<int, int> ComputerPlayer::Shooting() {

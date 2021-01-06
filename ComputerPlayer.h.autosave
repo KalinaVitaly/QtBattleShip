@@ -18,7 +18,8 @@ private:
     enum class PlayerStatus {
         Search,              //1
         SearchNextField,     //2
-        Finish               //3
+        Finish,              //3
+        FinishAnotherPart    //4
     };
     PlayerStatus status;
 

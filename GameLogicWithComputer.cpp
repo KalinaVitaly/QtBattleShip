@@ -172,13 +172,17 @@ void GameLogicWithComputer::shootFromComputer() {
 
     if (player1->hasShipOnPoint(coordinate)) {
         player1->setBombHitOnPoint(coordinate);
-        computer->setPlayerStatus(2);
+
+        if (computer->getPlayerStatus() == 2)
+            computer->setPlayerStatus(3);
+        else if (computer->getPlayerStatus() == 1)
+            computer->setPlayerStatus(2);
 
         if (player1->isShipDestroyed(coordinate)) {
             QVector<QPair<int, int>> fields_around_ship = fieldsCoordinatesAroundDestroyededShip(player1,
                 player1->getShipCoordinate(coordinate), player1->getShipOrientation(coordinate));
-            player1->DebugPrintField();
-            computer->setPlayerStatus(3);
+            //player1->DebugPrintField();
+            computer->setPlayerStatus(1);
             emit setAroundDestroyededPlayerShipFields(fields_around_ship);
         }
         emit setBombHitFromComputer(coordinate);
@@ -203,8 +207,8 @@ void GameLogicWithComputer::setShootFromGrid(const QPair<int, int> & coordinate)
         player2->setBombHitOnPoint(coordinate);
         emit setBombMiss2LabelGrid(coordinate);
     }
-    qDebug() << "\n";
-    player2->DebugPrintField();
+    //qDebug() << "\n";
+    //player2->DebugPrintField();
 }
 
 GameLogicWithComputer::~GameLogicWithComputer() {
