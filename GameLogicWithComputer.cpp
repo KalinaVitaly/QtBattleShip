@@ -188,6 +188,9 @@ void GameLogicWithComputer::shootFromComputer() {
         emit setBombHitFromComputer(coordinate);
     }
     else {
+        if (computer->getPlayerStatus() == 3)
+            computer->setPlayerStatus(4);
+
         player1->setBombHitOnPoint(coordinate);
         emit setBombMissFromComputer(coordinate);
     }

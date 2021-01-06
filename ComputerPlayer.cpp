@@ -14,6 +14,9 @@ int ComputerPlayer::getPlayerStatus() const {
     else if (status == PlayerStatus::Finish) {
         return 3;
     }
+    else if (status == PlayerStatus::FinishAnotherPart) {
+        return 4;
+    }
     return -1;
 }
 
@@ -73,6 +76,12 @@ void ComputerPlayer::setPlayerStatus(int _status) {
         status = PlayerStatus::Finish;
         qDebug() << "PlayerStatus::Finish";
     }
+    else if (_status == 4) {
+        status = PlayerStatus::FinishAnotherPart;
+        dx = -dx;
+        dy = -dy;
+        qDebug() << "PlayerStatus::FinishAnotherPart";
+    }
 }
 
 QPair<int, int> ComputerPlayer::Shooting() {
@@ -111,7 +120,6 @@ QPair<int, int> ComputerPlayer::Shooting() {
             qDebug() << "dX = " << dx << " dY = " << dy;
         }
 
-        //добавить проверку
         if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx >= 0 &&
                 coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx < 10 &&
                 coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy >= 0 &&
@@ -120,6 +128,18 @@ QPair<int, int> ComputerPlayer::Shooting() {
             field_coordinate.second = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy;
         }
 
+    }
+    else if (status == PlayerStatus::FinishAnotherPart) {
+        if (coordinates_injured_ship_fields[0].first + dx >= 0 &&
+                coordinates_injured_ship_fields[0].first + dx < 10 &&
+                coordinates_injured_ship_fields[0].second + dy >= 0 &&
+                coordinates_injured_ship_fields[0].second + dy < 10) {
+            field_coordinate.first = coordinates_injured_ship_fields[0].first + dx;
+            field_coordinate.second = coordinates_injured_ship_fields[0].second + dy;
+
+            coordinates_injured_ship_fields[0].first = coordinates_injured_ship_fields[0].first + dx;
+            coordinates_injured_ship_fields[0].second = coordinates_injured_ship_fields[0].second + dy;
+        }
     }
 
     coordinates_destroyeded_fields.push_back(field_coordinate);
