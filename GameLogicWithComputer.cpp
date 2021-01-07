@@ -183,6 +183,7 @@ void GameLogicWithComputer::shootFromComputer() {
                 player1->getShipCoordinate(coordinate), player1->getShipOrientation(coordinate));
             //player1->DebugPrintField();
             computer->setPlayerStatus(1);
+            computer->addDestroyededFields(fields_around_ship);
             emit setAroundDestroyededPlayerShipFields(fields_around_ship);
         }
         emit setBombHitFromComputer(coordinate);

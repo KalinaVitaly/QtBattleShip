@@ -2,17 +2,18 @@
 #include <QDebug>
 
 ShipsWidget::ShipsWidget(QWidget *parent) :
-    QWidget(parent),
-    have_ship1(4),
-    have_ship2(3),
-    have_ship3(2),
-    have_ship4(1)
-{
+    QWidget(parent) {
+    have_ships.insert(1, 4);
+    have_ships.insert(2, 3);
+    have_ships.insert(3, 2);
+    have_ships.insert(4, 1);
     vertical_layout = new QVBoxLayout;
-    setButtonAndLabel(horiz_layout1, ship1, dig1, pix_ship1, pix_one, 1);
-    setButtonAndLabel(horiz_layout2, ship2, dig2, pix_ship2, pix_two, 2);
-    setButtonAndLabel(horiz_layout3, ship3, dig3, pix_ship3, pix_three, 3);
-    setButtonAndLabel(horiz_layout4, ship4, dig4, pix_ship4, pix_four, 4);
+    //old -----------------------------------------------------------------
+    setButtonAndLabel(horiz_layout1, button_ships[1], label_digits[1], pix_ship[1], pix_digit[1], 1);
+    setButtonAndLabel(horiz_layout2, button_ships[2], label_digits[2], pix_ship[2], pix_digit[2], 2);
+    setButtonAndLabel(horiz_layout3, button_ships[3], label_digits[3], pix_ship[3], pix_digit[3], 3);
+    setButtonAndLabel(horiz_layout4, button_ships[4], label_digits[4], pix_ship[4], pix_digit[4], 4);
+    //old -----------------------------------------------------------------
     this->setLayout(vertical_layout);
     this->setFixedSize(300, 880);
 }
@@ -24,22 +25,29 @@ int ShipsWidget::getClickedShipType() const { return choose_ship_type; }
 void ShipsWidget::setChooseShip(int type) { choose_ship_type = type; }
 
 void ShipsWidget::updateDigits() {
-    dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
-    dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
-    dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
-    dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
+    //new ------------------------------------------------------------------------------------------------------------------------
+    for (int i = 1; i <= 4; ++i) {
+        label_digits[i]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ships[i]) + ".png");
+    }
+    //new ------------------------------------------------------------------------------------------------------------------------
 }
 
 void ShipsWidget::setNulls() {
-     have_ship1 = have_ship2 = have_ship3 = have_ship4 = 0;
-     updateDigits();
+   //new -------------------------------------------------
+   have_ships[1] = 0;
+   have_ships[2] = 0;
+   have_ships[3] = 0;
+   have_ships[4] = 0;
+   //new -------------------------------------------------
+   updateDigits();
 }
 
 void ShipsWidget::setMax() {
-   have_ship1 = 4;
-   have_ship2 = 3;
-   have_ship3 = 2;
-   have_ship4 = 1;
+   have_ships[1] = 4;
+   have_ships[2] = 3;
+   have_ships[3] = 2;
+   have_ships[4] = 1;
+
    updateDigits();
 }
 
@@ -66,70 +74,55 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
 
 void ShipsWidget::changeDigitPixMap()
 {
-    if (choose_ship_type == 1) {
-        --have_ship1;
-        dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
-    }
-    else if (choose_ship_type == 2) {
-        --have_ship2;
-        dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
-    }
-    else if (choose_ship_type == 3) {
-        --have_ship3;
-        dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
-    }
-    else if (choose_ship_type == 4) {
-        --have_ship4;
-        dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
-    }
+    //new ---------------------------------------------------------------------------------------------
+    --have_ships[choose_ship_type];
+    label_digits[choose_ship_type]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
+                                              QString::number(have_ships[choose_ship_type]) + ".png");
+    //new ---------------------------------------------------------------------------------------------
+
     checkingBeforeGameStarting();
 }
 
 void ShipsWidget::returnChangedDigitPixMap()
 {
-    if (choose_ship_type == 1) {
-        ++have_ship1;
-        dig1->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship1) + ".png");
-    }
-    else if (choose_ship_type == 2) {
-        ++have_ship2;
-        dig2->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship2) + ".png");
-    }
-    else if (choose_ship_type == 3) {
-        ++have_ship3;
-        dig3->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship3) + ".png");
-    }
-    else if (choose_ship_type == 4) {
-        ++have_ship4;
-        dig4->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(have_ship4) + ".png");
-    }
+    //new --------------------------------------------------------------------------------------------
+    ++have_ships[choose_ship_type];
+    label_digits[choose_ship_type]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
+                                              QString::number(have_ships[choose_ship_type]) + ".png");
+    //new --------------------------------------------------------------------------------------------
+
     checkingBeforeGameStarting();
 }
 
 void ShipsWidget::shipClicked()
 {
-    if ((QPushButton*)sender() == ship1)
+    if ((QPushButton*)sender() == button_ships[1])
         choose_ship_type = 1;
-    else if ((QPushButton*)sender() == ship2)
+    else if ((QPushButton*)sender() == button_ships[2])
         choose_ship_type = 2;
-    else if ((QPushButton*)sender() == ship3)
+    else if ((QPushButton*)sender() == button_ships[3])
         choose_ship_type = 3;
-    else if ((QPushButton*)sender() == ship4)
+    else if ((QPushButton*)sender() == button_ships[4])
         choose_ship_type = 4;
 
-    if((choose_ship_type == 1 && have_ship1 > 0) ||
-            (choose_ship_type == 2 && have_ship2 > 0) ||
-            (choose_ship_type == 3 && have_ship3 > 0) ||
-            (choose_ship_type == 4 && have_ship4 > 0))
+    //qDebug() << "Choose ship type: " << choose_ship_type;
+    if((choose_ship_type == 1 && have_ships[1] > 0) ||
+       (choose_ship_type == 2 && have_ships[2] > 0) ||
+       (choose_ship_type == 3 && have_ships[3] > 0) ||
+       (choose_ship_type == 4 && have_ships[4] > 0)) {
+        //qDebug() << "Set cursor: ClosedHandCursor";
         QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+    }
 }
 
 void ShipsWidget::checkingBeforeGameStarting()
 {
-    if (have_ship1 | have_ship2 | have_ship3 | have_ship4) {
+    //new -----------------------------------------------------------------
+    if (have_ships[1] | have_ships[2] | have_ships[3] | have_ships[4]) {
         emit hideStartGame();
     }
     else {
         emit showStartGame();
     }
+    //new -----------------------------------------------------------------
 }

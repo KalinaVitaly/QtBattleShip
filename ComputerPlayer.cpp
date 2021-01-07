@@ -14,7 +14,7 @@ int ComputerPlayer::getPlayerStatus() const {
     else if (status == PlayerStatus::Finish) {
         return 3;
     }
-    else if (status == PlayerStatus::FinishAnotherPart) {
+    else if (status == PlayerStatus::FinishRemainingShipPart) {
         return 4;
     }
     return -1;
@@ -77,69 +77,87 @@ void ComputerPlayer::setPlayerStatus(int _status) {
         qDebug() << "PlayerStatus::Finish";
     }
     else if (_status == 4) {
-        status = PlayerStatus::FinishAnotherPart;
+        status = PlayerStatus::FinishRemainingShipPart;
         dx = -dx;
         dy = -dy;
         qDebug() << "PlayerStatus::FinishAnotherPart";
     }
 }
 
-QPair<int, int> ComputerPlayer::Shooting() {
-    QPair<int, int> field_coordinate;
+void ComputerPlayer::addDestroyededFields(const QVector<QPair<int, int>> & coordinates) {
+    coordinates_destroyeded_fields.append(coordinates);
+}
+
+void ComputerPlayer::searchShip(QPair<int, int> & field_coordinate) {
+    coordinates_injured_ship_fields.clear();
     std::random_device rd;
     std::mt19937 mersenne(rd());
+    do {
+        field_coordinate.first = mersenne() % 10;
+        field_coordinate.second = mersenne() % 10;
+    } while (coordinates_destroyeded_fields.contains(field_coordinate));
+}
+
+void ComputerPlayer::searchNextField(QPair<int, int> & field_coordinate) {
+    if (!coordinates_injured_ship_fields.size())
+        coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
+
+    if (possible_fields_with_ships_part.size() - 1 >= 0) {
+        //проверка ограждает от проблемы если корабль был ранен в середину
+        field_coordinate.first = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].first;
+        field_coordinate.second = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].second;
+        possible_fields_with_ships_part.remove(possible_fields_with_ships_part.size() - 1);
+    }
+}
+
+void ComputerPlayer::finishShip(QPair<int, int> & field_coordinate) {
+    if (coordinates_injured_ship_fields.size() == 1) {
+        coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
+
+        dx = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].first -
+                coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].first;
+        dy = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].second -
+                coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].second;
+
+        qDebug() << "dX = " << dx << " dY = " << dy;
+    }
+
+    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx >= 0 &&
+            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx < 10 &&
+            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy >= 0 &&
+            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy < 10) {
+        field_coordinate.first = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx;
+        field_coordinate.second = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy;
+    }
+}
+
+void ComputerPlayer::finishRemainingShipPart(QPair<int, int> & field_coordinate) {
+    if (coordinates_injured_ship_fields[0].first + dx >= 0 &&
+            coordinates_injured_ship_fields[0].first + dx < 10 &&
+            coordinates_injured_ship_fields[0].second + dy >= 0 &&
+            coordinates_injured_ship_fields[0].second + dy < 10) {
+        field_coordinate.first = coordinates_injured_ship_fields[0].first + dx;
+        field_coordinate.second = coordinates_injured_ship_fields[0].second + dy;
+
+        coordinates_injured_ship_fields[0].first = coordinates_injured_ship_fields[0].first + dx;
+        coordinates_injured_ship_fields[0].second = coordinates_injured_ship_fields[0].second + dy;
+    }
+}
+
+QPair<int, int> ComputerPlayer::Shooting() {
+    QPair<int, int> field_coordinate;
 
     if (status == PlayerStatus::Search) {
-        coordinates_injured_ship_fields.clear();
-        do {
-            field_coordinate.first = mersenne() % 10;
-            field_coordinate.second = mersenne() % 10;
-        } while (coordinates_destroyeded_fields.contains(field_coordinate));
+        searchShip(field_coordinate);
     }
     else if (status == PlayerStatus::SearchNextField) {
-        if (!coordinates_injured_ship_fields.size())
-            coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
-
-        if (possible_fields_with_ships_part.size() - 1 >= 0) {
-            //проверка ограждает от проблемы если корабль был ранен в середину
-            field_coordinate.first = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].first;
-            field_coordinate.second = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].second;
-            possible_fields_with_ships_part.remove(possible_fields_with_ships_part.size() - 1);
-        }
-
+        searchNextField(field_coordinate);
     }
     else if (status == PlayerStatus::Finish) {
-        if (coordinates_injured_ship_fields.size() == 1) {
-            coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
-
-            dx = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].first -
-                    coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].first;
-            dy = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].second -
-                    coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].second;
-
-            qDebug() << "dX = " << dx << " dY = " << dy;
-        }
-
-        if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx >= 0 &&
-                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx < 10 &&
-                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy >= 0 &&
-                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy < 10) {
-            field_coordinate.first = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx;
-            field_coordinate.second = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy;
-        }
-
+        finishShip(field_coordinate);
     }
-    else if (status == PlayerStatus::FinishAnotherPart) {
-        if (coordinates_injured_ship_fields[0].first + dx >= 0 &&
-                coordinates_injured_ship_fields[0].first + dx < 10 &&
-                coordinates_injured_ship_fields[0].second + dy >= 0 &&
-                coordinates_injured_ship_fields[0].second + dy < 10) {
-            field_coordinate.first = coordinates_injured_ship_fields[0].first + dx;
-            field_coordinate.second = coordinates_injured_ship_fields[0].second + dy;
-
-            coordinates_injured_ship_fields[0].first = coordinates_injured_ship_fields[0].first + dx;
-            coordinates_injured_ship_fields[0].second = coordinates_injured_ship_fields[0].second + dy;
-        }
+    else if (status == PlayerStatus::FinishRemainingShipPart) {
+        finishRemainingShipPart(field_coordinate);
     }
 
     coordinates_destroyeded_fields.push_back(field_coordinate);
