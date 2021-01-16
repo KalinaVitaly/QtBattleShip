@@ -59,9 +59,11 @@ void PreparationGameWidget::autoPlacementShipsClicked() {
 
 void PreparationGameWidget::startGameClicked() {
     QPushButton **button = grid_widget->getField();
+
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
         QObject::disconnect(button[i], SIGNAL(clicked()),
                          this, SLOT(fieldClicked()));
+
     BattleGameWidget *bgw = new BattleGameWidget(player1, player1->getField());
     bgw->show();
     this->hide();
