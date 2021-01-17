@@ -40,6 +40,7 @@ private:
 
 public:
     explicit PreparationGameWidget(QWidget *parent = nullptr);
+    ~PreparationGameWidget();
 
 private slots:
     void fieldClicked();

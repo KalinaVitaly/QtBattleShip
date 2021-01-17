@@ -63,6 +63,14 @@ void MainWindow::settingsClicked()
     //add settings=)
 }
 
+MainWindow::~MainWindow() {
+    delete layout;
+    delete game_name;
+    delete start_game;
+    delete settings;
+    delete exit;
+}
+
 
 
 

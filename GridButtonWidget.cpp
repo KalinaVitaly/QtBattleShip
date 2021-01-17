@@ -149,8 +149,8 @@ void GridWidget::setSymbols(const QSize & size)
     for (int i = 1; i <= 10; ++i)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
-        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
-        symbols.push_back(pix);
+        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
+        symbols.push_back(&pix);
         symbol_label[i - 1] = new QLabel;
         symbol_label[i - 1]->setPixmap(*(symbols[i - 1]));
         symbol_label[i - 1]->setFixedSize(size);
@@ -163,11 +163,20 @@ void GridWidget::setDigits(const QSize & size)
     for (int i = 1; i <= 10; ++i)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(80, 80).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
-        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
+        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
         digit_label[i - 1] = new QLabel;
-        digit.push_back(pix);
+        digit.push_back(&pix);
         digit_label[i - 1]->setPixmap(*(digit[i - 1]));
         digit_label[i - 1]->setFixedSize(size);
         grid->addWidget(digit_label[i - 1], i, 0, Qt::AlignCenter);
     }
+}
+
+
+GridWidget::~GridWidget() {
+    delete grid;
+    delete field;
+
+    for (size_t i = 0; i < field_count; ++i)
+        delete buttons_sea_fieald[i];
 }

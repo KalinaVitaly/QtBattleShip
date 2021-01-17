@@ -136,3 +136,11 @@ void PreparationGameWidget::fieldClicked() {
         }
     }
 }
+
+PreparationGameWidget::~PreparationGameWidget() {
+    delete horizantal_layout;
+    delete vertical_layout;
+    delete grid_widget;
+    delete ships_and_digits;
+    delete rbapb;
+}

@@ -22,6 +22,10 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
                                border : 2px solid black;\
                                border-radius : 5px;");
 
+//    this->setStyleSheet("background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\
+//                        stop: 0 rgb(8, 38, 103), stop: 1 rgba(16,71,19)));");
+    //this->setStyleSheet("background: qlinear-gradient(rgb(8, 38, 103), rgba(16,71,19))");
+
     game_state->setFixedSize(QSize(640, 40));
 
     motions_layout->addWidget(player_motions);
@@ -45,7 +49,7 @@ void BattleGameWidget::getCoordinatesButtonClicked(QPushButton * field) {
 }
 
 void BattleGameWidget::connectButtonsWithGameLogic() {
-
+    qDebug() << "connectButtonsWithGameLogic";
     connectButtonsGridWithGameLogic();
 
     QObject::connect(this, SIGNAL(buttonFieldClicked(const QPair<int, int> &)),
@@ -113,6 +117,14 @@ void BattleGameWidget::connectButtonsGridWithGameLogic() {
 
 
 BattleGameWidget::~BattleGameWidget() {
+    delete h_layout;
+    delete motions_layout;
+    delete grid_button_enemy_fields;
+    delete v_layout;
+    delete pause;
+    delete game_state;
+    delete player_motions;
+    delete enemy_motions;
     delete game_logic;
     delete grid_label_player_fields;
 }

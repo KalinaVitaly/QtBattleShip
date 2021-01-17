@@ -19,6 +19,7 @@ private:
     
 public:
     RadioButtonsAndPushButtons(QWidget * parent = nullptr);
+    ~RadioButtonsAndPushButtons();
 
     QPushButton*& getStart();
     QPushButton*& getAutoPlacementShips();

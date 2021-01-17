@@ -12,18 +12,12 @@ GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) :
 //                GAMESTATE::FIRST_PLAYER_STEP :
 //                GAMESTATE::SECOND_PLAYER_STEP;
 
-    state = GAMESTATE::SECOND_PLAYER_STEP; //return rand
+    state = GAMESTATE::FIRST_PLAYER_STEP; //return rand
 
     AutomaticShipsPlacement::setRandomPositionShips(player2);
 
     QObject::connect(this, SIGNAL(beginComputerGameStep()),
                      this, SLOT(computerGameStep()));
-
-
-    if (state == GAMESTATE::SECOND_PLAYER_STEP) {
-        emit beginComputerGameStep();
-        qDebug() << "beginComputerGameStep emited!";
-    }
 }
 
 void GameLogicWithComputer::computerGameStep() {

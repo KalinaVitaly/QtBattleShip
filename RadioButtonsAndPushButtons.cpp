@@ -35,3 +35,11 @@ QPushButton*& RadioButtonsAndPushButtons::getStart() { return start; }
 QRadioButton*& RadioButtonsAndPushButtons::getHorizantal() { return horizontal; }
 QRadioButton*& RadioButtonsAndPushButtons::getVertical() { return vertical; }
 QPushButton*& RadioButtonsAndPushButtons::getAutoPlacementShips() { return automatic_placement_ships; }
+
+RadioButtonsAndPushButtons::~RadioButtonsAndPushButtons() {
+    delete vertical_layout;
+    delete start;
+    delete horizontal;
+    delete vertical;
+    delete automatic_placement_ships;
+}

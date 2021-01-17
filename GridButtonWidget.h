@@ -25,6 +25,7 @@ private:
     void setFields(const QSize & size);
 public:
     GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
+    ~GridWidget();
 
     QPushButton** getField();
     size_t getFieldCount();
