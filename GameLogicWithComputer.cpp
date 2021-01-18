@@ -52,8 +52,6 @@ void GameLogicWithComputer::gameEnd(const QString & information) {
     emit signalEndGame(information);
 }
 
-
-
 QVector<QPair<int, int>> GameLogicWithComputer::fieldsCoordinatesAroundDestroyededShip(
         Player *player, const QVector<QPair<int, int>> & ship_coordinates, bool orientation) {
     QVector<QPair<int, int>> fields_around_ship;

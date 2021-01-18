@@ -56,8 +56,8 @@ void GridWidget::setNewFieldSize(const QSize & size) {
 void GridWidget::setNewSymbolsSize(const QSize & size){
     for (int i = 1; i <= 10; ++i)
     {
-        QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
-        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
+        QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
+        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
         symbols[i - 1] = pix;
         symbol_label[i - 1]->setPixmap(*(symbols[i - 1]));
         symbol_label[i - 1]->setFixedSize(size);
@@ -165,12 +165,13 @@ void GridWidget::setSymbols(const QSize & size)
 {
     for (int i = 1; i <= 10; ++i)
     {
-        QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
-        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".jpg");
+        QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
+        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
         symbols.push_back(&pix);
         symbol_label[i - 1] = new QLabel;
         symbol_label[i - 1]->setPixmap(*(symbols[i - 1]));
         symbol_label[i - 1]->setFixedSize(size);
+        symbol_label[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
         grid->addWidget(symbol_label[i - 1], 0, i, Qt::AlignCenter);
     }
 }
@@ -185,6 +186,7 @@ void GridWidget::setDigits(const QSize & size)
         digit.push_back(&pix);
         digit_label[i - 1]->setPixmap(*(digit[i - 1]));
         digit_label[i - 1]->setFixedSize(size);
+        digit_label[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
         grid->addWidget(digit_label[i - 1], i, 0, Qt::AlignCenter);
     }
 }

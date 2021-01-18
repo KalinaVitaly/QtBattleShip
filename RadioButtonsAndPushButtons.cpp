@@ -12,18 +12,16 @@ RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) : QWidg
 
     QFont font("times", 15);
     start->setFont(font);
-    start->setStyleSheet("QAbstractButton {\
-                        background: rgba(255,255,255,100);\
-                        border-style: outset;\
-                        border-width: 2px;\
-                        border-color: beige;\
-                 }");
+    start->setStyleSheet("background: rgba(255,255,255,100);\
+                          border-style: outset;\
+                          border-width: 2px;\
+                          border-color: beige;");
     start->setFlat(true);
-    horizontal->setFont(font);
-    vertical->setFont(font);
     horizontal->setChecked(true);
-
-    qDebug() << start->geometry();
+    horizontal->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
+    vertical->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
+    automatic_placement_ships->setStyleSheet("background-color : rgba(135, 206, 235, 50);");
+    start->setToolTip("To start the game you need to place all the ships.");
 
     vertical_layout->addWidget(horizontal, Qt::AlignCenter);
     vertical_layout->addWidget(vertical, Qt::AlignCenter);

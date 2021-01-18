@@ -64,6 +64,8 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
     label = new QLabel;
     label->setPixmap(*pix2);
     label->setFixedSize(120, 80);
+    label->setAttribute(Qt::WA_TranslucentBackground);
+    button->setAttribute(Qt::WA_TranslucentBackground);
     layout->addWidget(button, 0, Qt::AlignLeft);
     layout->addWidget(label, 0, Qt::AlignRight);
     vertical_layout->addLayout(layout);

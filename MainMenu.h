@@ -22,7 +22,7 @@ private:
     QLabel *game_name;
     QVBoxLayout *layout;
 
-    void setButtons(QPushButton *&button, const QFont &font, const QSize &size, const QString &str);
+    void setButtons(QPushButton *&button, const QSize &size, const QString &str);
 
 public:
     MainWindow(QWidget *parent = nullptr);

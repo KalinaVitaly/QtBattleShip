@@ -13,14 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
     game_name = new QLabel("BattleShips", this);
     game_name->setFont(font);
     palette.setBrush(this->backgroundRole(), *background_ships);
-    font = {"times", 30};
-
-
 
     layout->addWidget(game_name, 0, Qt::AlignCenter);
-    setButtons(start_game, font, size, "Start game");
-    setButtons(settings, font, size, "Settings");
-    setButtons(exit, font, size, "Exit");
+    setButtons(start_game, size, "Start game");
+    setButtons(settings, size, "Settings");
+    setButtons(exit, size, "Exit");
 
     QObject::connect(start_game, SIGNAL(clicked()),
                      this, SLOT(startGameClicked()));
@@ -35,14 +32,21 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setLayout(layout);
 }
 
-void MainWindow::setButtons(QPushButton *&button, const QFont &font, const QSize &size, const QString &str)
+void MainWindow::setButtons(QPushButton *&button, const QSize &size, const QString &str)
 {
     button = new QPushButton(str, this);
-    QPalette pal = button->palette();
-    pal.setBrush(QPalette::Button, Qt::blue);
-    button->setFont(font);
+    button->setStyleSheet("QPushButton {\
+                           color : black;\
+                           background-color : rgba(0, 250, 250, 200);\
+                           font-family: New Century Schoolbook;\
+                           font-size : 25px;\
+                           border-radius: 10px;\
+                           }\
+                           QPushButton:pressed {\
+                           background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                           stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
+                           }");
     button->setFixedSize(size);
-    button->setPalette(pal);
     layout->addWidget(button, 0, Qt::AlignCenter);
 }
 

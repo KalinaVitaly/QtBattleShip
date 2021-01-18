@@ -21,6 +21,8 @@ PreparationGameWidget::PreparationGameWidget(QWidget *parent) :
     horizantal_layout->addWidget(rbapb);
 
     this->setLayout(horizantal_layout);
+    this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                         stop : 0 #3EADCF, stop: 1 #ABE9CD);");
 
     connectFielButtondWithFieldClicked();
 
@@ -34,8 +36,6 @@ PreparationGameWidget::PreparationGameWidget(QWidget *parent) :
                      this, SLOT(activateStartButton()));
     QObject::connect(ships_and_digits, SIGNAL(hideStartGame()),
                      this, SLOT(diactivateStartButton()));
-    QObject::connect(rbapb->getStart(), SIGNAL(clicked()),
-                     this, SLOT(startGameClicked()));
     QObject::connect(rbapb->getAutoPlacementShips(), SIGNAL(clicked()),
                      this, SLOT(autoPlacementShipsClicked()));
 
@@ -76,6 +76,9 @@ void PreparationGameWidget::diactivateStartButton() {
                         border-width: 2px;\
                         border-color: beige;\
                  }");
+    rbapb->getStart()->setToolTip("To start the game you need to place all the ships.");
+    QObject::disconnect(rbapb->getStart(), SIGNAL(clicked()),
+                     this, SLOT(startGameClicked()));
 }
 
 void PreparationGameWidget::activateStartButton() {
@@ -85,6 +88,9 @@ void PreparationGameWidget::activateStartButton() {
                                      border-width: 2px;\
                                      border-color: beige;\
                               }");
+    rbapb->getStart()->setToolTip("");
+    QObject::connect(rbapb->getStart(), SIGNAL(clicked()),
+                     this, SLOT(startGameClicked()));
 }
 
 void PreparationGameWidget::radioButtonClicked() {
