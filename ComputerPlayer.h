@@ -17,9 +17,9 @@ private:
     int dy;
 
     enum class PlayerStatus {
-        Search,              //1
-        SearchNextField,     //2
-        Finish,              //3
+        Search,                    //1
+        SearchNextField,           //2
+        Finish,                    //3
         FinishRemainingShipPart    //4
     };
     PlayerStatus status;

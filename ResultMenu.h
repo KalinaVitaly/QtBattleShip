@@ -18,7 +18,7 @@ private:
 
 public:
     explicit ResultMenu(const QString & result_information, QWidget *parent = nullptr);
-
+    ~ResultMenu();
     QPushButton*& getButtonExit();
     QPushButton*& getButtonRetryGame();
 

@@ -59,3 +59,12 @@ void GridLabelWidget::setBombMissOnLabelGrid(const QPair<int, int> & coordinate)
                                                                   border : 2px solid white;\
                                                                   border-radius : 5px;");
 }
+
+GridLabelWidget::~GridLabelWidget() {
+    delete grid;
+    for (int i = 0; i < fields_count; ++i) {
+        for (int j = 0; j < fields_count; ++j) {
+            delete l_fields[i][j];
+        }
+    }
+}

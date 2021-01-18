@@ -19,7 +19,7 @@ private:
     void setLabel();
 public:
     GridLabelWidget(std::array<std::array<int, 10>, 10> field, const QSize & size, QWidget * parent = nullptr);
-
+    ~GridLabelWidget();
 public slots:
     void setBombHitOnLabelGrid(const QPair<int, int> &);
     void setBombMissOnLabelGrid(const QPair<int, int> &);

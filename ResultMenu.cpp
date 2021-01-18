@@ -20,4 +20,9 @@ ResultMenu::ResultMenu(const QString & result_information, QWidget *parent) : QW
 QPushButton*& ResultMenu::getButtonExit() { return button_exit; }
 QPushButton*& ResultMenu::getButtonRetryGame() { return button_retry_game; }
 
-
+ResultMenu::~ResultMenu() {
+    delete label_result;
+    delete button_exit;
+    delete button_retry_game;
+    delete vertical_layout;
+}
