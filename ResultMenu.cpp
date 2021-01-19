@@ -13,7 +13,7 @@ ResultMenu::ResultMenu(const QString & result_information, QWidget *parent) : QW
     button_retry_game->setAttribute(Qt::WA_TranslucentBackground);
 
 //    button_exit->setFlat(true);
-//    button_retry_game->setFlat(true);
+//    button_retry_game->setFlat(true)
 
     vertical_layout->addWidget(label_result, 0, Qt::AlignCenter);
     vertical_layout->addWidget(button_retry_game);
@@ -29,25 +29,73 @@ QPushButton*& ResultMenu::getButtonExit() { return button_exit; }
 QPushButton*& ResultMenu::getButtonRetryGame() { return button_retry_game; }
 
 void ResultMenu::setResultMenuStyle(const QString & result_information) {
+    label_result->setStyleSheet("color : black;"
+                                "background: transparent;"
+                                "font-family: New Century Schoolbook;"
+                                "font-size : 20px;");
     if (result_information == "Lose!") {
-        button_exit->setStyleSheet("QPushButton:hover {\
-                                    background-color : rgb(255, 0, 0));\
-                                    }");
-        button_retry_game->setStyleSheet("QPushButton:hover {\
-                                         background-color : rgb(255, 0, 0));\
+        button_exit->setStyleSheet("QPushButton {\
+                                   color : black;\
+                                   background: transparent;\
+                                   font-family: New Century Schoolbook;\
+                                   font-size : 20px;\
+                                   border-radius: 1px;\
+                                   }\
+                                   QPushButton:hover {\
+                                   background-color : #808080;\
+                                   }\
+                                   QPushButton:pressed {\
+                                   background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                                   stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
+                                   }");
+        button_retry_game->setStyleSheet("QPushButton {\
+                                         color : black;\
+                                         background: transparent;\
+                                         font-family: New Century Schoolbook;\
+                                         font-size : 20px;\
+                                         border-radius: 1px;\
+                                         }\
+                                         QPushButton:hover {\
+                                         background-color :   #808080;\
+                                         }\
+                                         QPushButton:pressed {\
+                                         background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                                         stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
                                          }");
-//        this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
-//                             stop : 0 #E65758, stop: 1 #771D32);");
+        this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                             stop : 0 #E65758, stop: 1 #771D32);");
     }
     else {
-        button_exit->setStyleSheet("QPushButton:hover {\
-                                    background-color : rgb(0, 128, 0);\
-                                    }");
-        button_retry_game->setStyleSheet("QPushButton:hover {\
-                                          background-color : rgb(0, 128, 0));\
-                                          }");
-//        this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
-//                             stop : 0 #50D5B7, stop: 1 #067D68);");
+        button_exit->setStyleSheet("QPushButton {\
+                                   color : black;\
+                                   background: transparent;\
+                                   font-family: New Century Schoolbook;\
+                                   font-size : 20px;\
+                                   border-radius: 1px;\
+                                   }\
+                                   QPushButton:hover {\
+                                   background-color :  rgba(16, 71, 19, 50);\
+                                   }\
+                                   QPushButton:pressed {\
+                                   background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                                   stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
+                                   }");
+        button_retry_game->setStyleSheet("QPushButton {\
+                                         color : black;\
+                                         background: transparent;\
+                                         font-family: New Century Schoolbook;\
+                                         font-size : 20px;\
+                                         border-radius: 1px;\
+                                         }\
+                                         QPushButton:hover {\
+                                         background-color :  rgba(16, 71, 19, 50);\
+                                         }\
+                                         QPushButton:pressed {\
+                                         background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                                         stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
+                                         }");
+        this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                             stop : 0 #50D5B7, stop: 1 #067D68);");
     }
 }
 
