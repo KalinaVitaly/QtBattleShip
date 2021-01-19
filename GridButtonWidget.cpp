@@ -154,7 +154,7 @@ void GridWidget::setGameFields()
     for (size_t i = 0; i < field_count; ++i)
     {
         buttons_sea_fieald[i] = new QPushButton(*field, "", this);
-        buttons_sea_fieald[i]->setIconSize(QSize(80, 80));
+        //buttons_sea_fieald[i]->setIconSize(QSize(80, 80));
         buttons_sea_fieald[i]->setFlat(false);
         buttons_sea_fieald[i]->setFixedSize(QSize(80, 80));
         grid->addWidget(buttons_sea_fieald[i], 1 + i / 10, 1 + i % 10, Qt::AlignCenter);

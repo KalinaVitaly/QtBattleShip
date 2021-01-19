@@ -42,6 +42,9 @@ void MainWindow::setButtons(QPushButton *&button, const QSize &size, const QStri
                            font-size : 25px;\
                            border-radius: 10px;\
                            }\
+                           QPushButton:hover {\
+                           background-color :   rgb(224, 255, 50);\
+                           }\
                            QPushButton:pressed {\
                            background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
                            stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\

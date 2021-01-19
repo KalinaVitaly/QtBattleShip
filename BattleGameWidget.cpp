@@ -21,19 +21,21 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     game_state->setStyleSheet("background-color : white;\
                                border : 2px solid black;\
                                border-radius : 5px;");
+    this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                         stop : 0 #3EADCF, stop: 1 #ABE9CD);");
 
-//    this->setStyleSheet("background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\
-//                        stop: 0 rgb(8, 38, 103), stop: 1 rgba(16,71,19)));");
-    //this->setStyleSheet("background: qlinear-gradient(rgb(8, 38, 103), rgba(16,71,19))");
-
+    game_state->setAttribute(Qt::WA_TranslucentBackground);
     game_state->setFixedSize(QSize(640, 40));
+    pause->setAttribute(Qt::WA_TranslucentBackground);
 
     motions_layout->addWidget(player_motions);
     motions_layout->addWidget(enemy_motions);
     h_layout->addWidget(grid_button_enemy_fields);
     v_layout->addWidget(pause);
+    //v_layout->addStretch(0);
     v_layout->addWidget(game_state);
-    v_layout->addLayout(motions_layout);
+    //v_layout->addStretch(0);
+    //v_layout->addLayout(motions_layout);
     v_layout->addWidget(grid_label_player_fields);
     h_layout->addLayout(v_layout);
 
