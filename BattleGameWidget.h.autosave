@@ -26,8 +26,6 @@ private:
     GridWidget *grid_button_enemy_fields;
     GridLabelWidget *grid_label_player_fields;
     QPushButton *pause;
-    QLabel *player_motions;
-    QLabel *enemy_motions;
     Player *player;
     GameLogicWithComputer *game_logic;
     ResultMenu *result_menu;

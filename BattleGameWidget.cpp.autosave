@@ -10,8 +10,6 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     grid_label_player_fields = new GridLabelWidget(player_field, QSize(40, 40));
     v_layout = new QVBoxLayout;
     pause = new QPushButton("Pause");
-    player_motions = new QLabel;
-    enemy_motions = new QLabel;
     game_logic = new GameLogicWithComputer(pl);
 
     pause->setStyleSheet("background-color : red;\
@@ -22,8 +20,6 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
                          stop : 0 #3EADCF, stop: 1 #ABE9CD);");
 
     pause->setAttribute(Qt::WA_TranslucentBackground);
-//    motions_layout->addWidget(player_motions);
-//    motions_layout->addWidget(enemy_motions);
     h_layout->addWidget(grid_button_enemy_fields);
     v_layout->addWidget(pause);
     v_layout->addWidget(grid_label_player_fields);
@@ -114,8 +110,6 @@ BattleGameWidget::~BattleGameWidget() {
     delete grid_button_enemy_fields;
     delete v_layout;
     delete pause;
-    delete player_motions;
-    delete enemy_motions;
     delete game_logic;
     delete grid_label_player_fields;
 }
