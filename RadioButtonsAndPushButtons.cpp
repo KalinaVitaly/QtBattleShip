@@ -11,16 +11,35 @@ RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) : QWidg
     automatic_placement_ships = new QPushButton("Ships automatic placement");
 
     QFont font("times", 15);
-    start->setFont(font);
-    start->setStyleSheet("background: rgba(255,255,255,100);\
-                          border-style: outset;\
-                          border-width: 2px;\
-                          border-color: beige;");
     start->setFlat(true);
     horizontal->setChecked(true);
     horizontal->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
     vertical->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
-    automatic_placement_ships->setStyleSheet("background-color : rgba(135, 206, 235, 50);");
+
+    start->setStyleSheet("QPushButton {\
+                         color : black;\
+                         background-color : rgba(135, 206, 235, 50);\
+                         font-family: New Century Schoolbook;\
+                         border-width: 2px;\
+                         border-style: outset;\
+                         border-color: beige;\
+                         font-size : 20px;\
+                         border-radius: 10px;\
+                         }");
+    automatic_placement_ships->setStyleSheet("QPushButton {\
+                                              color : black;\
+                                              background-color : rgba(135, 206, 235, 50);\
+                                              font-family: New Century Schoolbook;\
+                                              border-width: 2px;\
+                                              border-style: outset;\
+                                              border-color: beige;\
+                                              font-size : 20px;\
+                                              border-radius: 10px;\
+                                              }\
+                                              QPushButton:pressed {\
+                                              background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                                              stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
+                                              }");
     start->setToolTip("To start the game you need to place all the ships.");
 
     vertical_layout->addWidget(horizontal, Qt::AlignCenter);

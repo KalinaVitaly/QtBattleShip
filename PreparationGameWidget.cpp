@@ -70,12 +70,16 @@ void PreparationGameWidget::startGameClicked() {
 }
 
 void PreparationGameWidget::diactivateStartButton() {
-    rbapb->getStart()->setStyleSheet("QAbstractButton {\
-                        background: rgba(255,255,255,100);\
-                        border-style: outset;\
-                        border-width: 2px;\
-                        border-color: beige;\
-                 }");
+    rbapb->getStart()->setStyleSheet("QPushButton {\
+                                      color : black;\
+                                      background: rgba(255,255,255,100);\
+                                      font-family: New Century Schoolbook;\
+                                      border-style: outset;\
+                                      border-width: 2px;\
+                                      border-color: beige;\
+                                      font-size : 20px;\
+                                      border-radius: 10px;\
+                                      }");
     rbapb->getStart()->setToolTip("To start the game you need to place all the ships.");
     QObject::disconnect(rbapb->getStart(), SIGNAL(clicked()),
                      this, SLOT(startGameClicked()));
@@ -83,10 +87,14 @@ void PreparationGameWidget::diactivateStartButton() {
 
 void PreparationGameWidget::activateStartButton() {
     rbapb->getStart()->setStyleSheet("QAbstractButton {\
+                                     color : black;\
                                      background: red;\
+                                     font-family: New Century Schoolbook;\
+                                     font-size : 20px;\
                                      border-style: outset;\
                                      border-width: 2px;\
                                      border-color: beige;\
+                                     border-radius: 10px;\
                               }");
     rbapb->getStart()->setToolTip("");
     QObject::connect(rbapb->getStart(), SIGNAL(clicked()),
