@@ -12,6 +12,18 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     pause = new QPushButton("Pause");
     game_logic = new GameLogicWithComputer(pl);
 
+    setStyleSheets();
+
+    pause->setAttribute(Qt::WA_TranslucentBackground);
+    h_layout->addWidget(grid_button_enemy_fields);
+    v_layout->addWidget(pause);
+    v_layout->addWidget(grid_label_player_fields);
+    h_layout->addLayout(v_layout);
+
+    connectButtonsWithGameLogic();
+}
+
+void BattleGameWidget::setStyleSheets() {
     pause->setStyleSheet("QPushButton {\
                          color : black;\
                          background: rgba(255,255,255,100);\
@@ -21,18 +33,17 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
                          border-color: beige;\
                          font-size : 20px;\
                          border-radius: 10px;\
+                         }\
+                         QPushButton:hover {\
+                         background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
+                         stop : 0 #F8F8FF, stop: 1 #E9E9F0);\
+                         }\
+                         QPushButton:pressed {\
+                         background-color : #B2BEB5\
                          }");
 
     this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
                          stop : 0 #3EADCF, stop: 1 #ABE9CD);");
-
-    pause->setAttribute(Qt::WA_TranslucentBackground);
-    h_layout->addWidget(grid_button_enemy_fields);
-    v_layout->addWidget(pause);
-    v_layout->addWidget(grid_label_player_fields);
-    h_layout->addLayout(v_layout);
-
-    connectButtonsWithGameLogic();
 }
 
 void BattleGameWidget::getCoordinatesButtonClicked(QPushButton * field) {

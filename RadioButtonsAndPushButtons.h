@@ -16,6 +16,8 @@ private:
     QRadioButton *horizontal;
     QRadioButton *vertical;
     QVBoxLayout *vertical_layout;
+
+    void setStyleSheets();
     
 public:
     RadioButtonsAndPushButtons(QWidget * parent = nullptr);

@@ -32,6 +32,7 @@ private:
 
     void connectButtonsWithGameLogic();
     void connectButtonsGridWithGameLogic();
+    void setStyleSheets();
 
 public:
     BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 10> player_field, QWidget *parent = nullptr);
