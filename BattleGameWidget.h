@@ -13,7 +13,7 @@
 #include "GridButtonWidget.h"
 #include "GridLabelWidget.h"
 #include "Player.h"
-#include "ResultMenu.h"
+#include "GameMenu.h"
 
 class BattleGameWidget : public QWidget
 {
@@ -26,11 +26,9 @@ private:
     GridWidget *grid_button_enemy_fields;
     GridLabelWidget *grid_label_player_fields;
     QPushButton *pause;
-    QLabel *player_motions;
-    QLabel *enemy_motions;
     Player *player;
     GameLogicWithComputer *game_logic;
-    ResultMenu *result_menu;
+    GameMenu *result_menu;
 
     void connectButtonsWithGameLogic();
     void connectButtonsGridWithGameLogic();
@@ -41,7 +39,7 @@ public:
 
 private slots:
     void getCoordinatesButtonClicked(QPushButton *);
-    void getSignalEndGame(const QString &);
+    void getSignalEndGame(const QString & information = "Game Pause");
     void exitButtonClicked();
     void retryButtonClicked();
 

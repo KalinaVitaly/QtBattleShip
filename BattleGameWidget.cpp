@@ -10,20 +10,23 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     grid_label_player_fields = new GridLabelWidget(player_field, QSize(40, 40));
     v_layout = new QVBoxLayout;
     pause = new QPushButton("Pause");
-    player_motions = new QLabel;
-    enemy_motions = new QLabel;
     game_logic = new GameLogicWithComputer(pl);
 
-    pause->setStyleSheet("background-color : red;\
-                          border : 2px solid black;\
-                          border-radius : 5px;");
+    pause->setStyleSheet("QPushButton {\
+                         color : black;\
+                         background: rgba(255,255,255,100);\
+                         font-family: New Century Schoolbook;\
+                         border-style: outset;\
+                         border-width: 2px;\
+                         border-color: beige;\
+                         font-size : 20px;\
+                         border-radius: 10px;\
+                         }");
 
     this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
                          stop : 0 #3EADCF, stop: 1 #ABE9CD);");
 
     pause->setAttribute(Qt::WA_TranslucentBackground);
-//    motions_layout->addWidget(player_motions);
-//    motions_layout->addWidget(enemy_motions);
     h_layout->addWidget(grid_button_enemy_fields);
     v_layout->addWidget(pause);
     v_layout->addWidget(grid_label_player_fields);
@@ -64,10 +67,13 @@ void BattleGameWidget::connectButtonsWithGameLogic() {
 
     QObject::connect(game_logic, SIGNAL(signalEndGame(const QString &)),
                      this, SLOT(getSignalEndGame(const QString &)));
+
+    QObject::connect(pause, SIGNAL(clicked()),
+                     this, SLOT(getSignalEndGame()));
 }
 
 void BattleGameWidget::getSignalEndGame(const QString & information) {
-    result_menu = new ResultMenu(information);
+    result_menu = new GameMenu(information);
 
     QObject::connect(result_menu->getButtonExit(), SIGNAL(clicked()),
                      this, SLOT(exitButtonClicked()));
@@ -114,8 +120,6 @@ BattleGameWidget::~BattleGameWidget() {
     delete grid_button_enemy_fields;
     delete v_layout;
     delete pause;
-    delete player_motions;
-    delete enemy_motions;
     delete game_logic;
     delete grid_label_player_fields;
 }

@@ -20,13 +20,13 @@ SOURCES += \
     BattleGameWidget.cpp \
     ComputerPlayer.cpp \
     GameLogicWithComputer.cpp \
+    GameMenu.cpp \
     GridButtonWidget.cpp \
     GridLabelWidget.cpp \
     MainMenu.cpp \
     Player.cpp \
     PreparationGameWidget.cpp \
     RadioButtonsAndPushButtons.cpp \
-    ResultMenu.cpp \
     Ship.cpp \
     ShipsGameStatus.cpp \
     ShipsWidget.cpp \
@@ -37,13 +37,13 @@ HEADERS += \
     BattleGameWidget.h \
     ComputerPlayer.h \
     GameLogicWithComputer.h \
+    GameMenu.h \
     GridButtonWidget.h \
     GridLabelWidget.h \
     MainMenu.h \
     Player.h \
     PreparationGameWidget.h \
     RadioButtonsAndPushButtons.h \
-    ResultMenu.h \
     Ship.h \
     ShipsGameStatus.h \
     ShipsWidget.h

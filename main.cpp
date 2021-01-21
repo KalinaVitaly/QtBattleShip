@@ -8,7 +8,7 @@
 #include "Player.h"
 #include <QSpinBox>
 #include "GridLabelWidget.h"
-#include "ResultMenu.h"
+#include "GameMenu.h"
 
 int main(int argc, char *argv[])
 {
