@@ -30,7 +30,7 @@ public:
 signals:
 
 private slots:
-
+    void continueClicked();
 };
 
 #endif // RESULTMENU_H

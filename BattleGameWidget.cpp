@@ -1,16 +1,18 @@
 #include "BattleGameWidget.h"
 #include <QDebug>
 
-BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 10> player_field, QWidget *parent) : QWidget(parent)
+BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 10> player_field, QWidget *parent) :
+    QWidget(parent),
+    h_layout(new QHBoxLayout(this)),
+    motions_layout(new QHBoxLayout()),
+    v_layout(new QVBoxLayout()),
+    grid_button_enemy_fields(new GridWidget(QSize(80, 80), this)),
+    grid_label_player_fields(new GridLabelWidget(player_field, QSize(40, 40), this)),
+    pause(new QPushButton("Pause", this)),
+    game_logic(new GameLogicWithComputer(pl, this))
+
 {
     //this->setFixedSize(1800, 1000);
-    h_layout = new QHBoxLayout(this);
-    motions_layout = new QHBoxLayout;
-    grid_button_enemy_fields = new GridWidget(QSize(80, 80));
-    grid_label_player_fields = new GridLabelWidget(player_field, QSize(40, 40));
-    v_layout = new QVBoxLayout;
-    pause = new QPushButton("Pause");
-    game_logic = new GameLogicWithComputer(pl);
 
     setStyleSheets();
 
@@ -99,16 +101,29 @@ void BattleGameWidget::exitButtonClicked() {
     //add main menu
     MainWindow *main_window = new MainWindow;
     main_window->show();
-    hide();
-    result_menu->hide();
+
+    this->close();
+    result_menu->close();
+//    hide();
+//    result_menu->hide();
+
+//    this->deleteLater();
+//    result_menu->deleteLater();
 }
 
 void BattleGameWidget::retryButtonClicked() {
     //add new game
     PreparationGameWidget *game_widget = new PreparationGameWidget;
     game_widget->show();
-    hide();
-    result_menu->hide();
+
+    this->close();
+    result_menu->close();
+
+//    hide();
+//    result_menu->hide();
+
+//    this->deleteLater();
+//    result_menu->deleteLater();
 }
 
 
@@ -126,11 +141,11 @@ void BattleGameWidget::connectButtonsGridWithGameLogic() {
 
 
 BattleGameWidget::~BattleGameWidget() {
-    delete h_layout;
-    delete motions_layout;
-    delete grid_button_enemy_fields;
-    delete v_layout;
-    delete pause;
+//    delete h_layout;
+//    delete motions_layout;
+//    delete grid_button_enemy_fields;
+//    delete v_layout;
+//    delete pause;
     delete game_logic;
-    delete grid_label_player_fields;
+//    delete grid_label_player_fields;
 }

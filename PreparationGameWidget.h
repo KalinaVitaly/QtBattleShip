@@ -22,7 +22,7 @@ class PreparationGameWidget : public QWidget
 private:
     QGridLayout *grid;
     QHBoxLayout *horizantal_layout;
-    QVBoxLayout *vertical_layout;
+    //QVBoxLayout *vertical_layout;
     QRadioButton *prad_vertical;
     QRadioButton *prad_horizantal;
     QPushButton *buttons_sea_fieald[100];

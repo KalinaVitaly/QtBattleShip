@@ -1,14 +1,14 @@
 #include "GameMenu.h"
 #include <QDebug>
 
-GameMenu::GameMenu(const QString & result_information, QWidget *parent) : QWidget(parent)
+GameMenu::GameMenu(const QString & result_information, QWidget *parent) :
+    QWidget(parent),
+    label_result(new QLabel(result_information, this)),
+    button_exit(new QPushButton("Exit to main menu", this)),
+    button_retry_game(new QPushButton("Retry", this)),
+    continue_game(new QPushButton("Continue")),
+    vertical_layout(new QVBoxLayout(this))
 {
-    label_result = new QLabel(result_information);
-    button_exit = new QPushButton("Exit to main menu");
-    button_retry_game = new QPushButton("Retry");
-    vertical_layout = new QVBoxLayout;
-    continue_game = new QPushButton("Continue");
-
     label_result->setAttribute(Qt::WA_TranslucentBackground);
     button_exit->setAttribute(Qt::WA_TranslucentBackground);
     button_retry_game->setAttribute(Qt::WA_TranslucentBackground);
@@ -19,17 +19,24 @@ GameMenu::GameMenu(const QString & result_information, QWidget *parent) : QWidge
     vertical_layout->addWidget(label_result, 0, Qt::AlignCenter);
     vertical_layout->addWidget(button_retry_game);
     vertical_layout->addWidget(button_exit);
-    if (result_information == "Game Pause")
+    if (result_information == "Game Pause") {
+        continue_game->setParent(this);
         vertical_layout->addWidget(continue_game);
+    }
 
     setLayout(vertical_layout);
     //setFixedSize(200, 100);
     setResultMenuStyle(result_information);
+    setWindowFlag(Qt::WindowStaysOnTopHint);
+
+    QObject::connect(continue_game, SIGNAL(clicked()),
+                     this, SLOT(continueClicked()));
 }
 
 
 QPushButton*& GameMenu::getButtonExit() { return button_exit; }
 QPushButton*& GameMenu::getButtonRetryGame() { return button_retry_game; }
+void GameMenu::continueClicked() { hide();}
 
 void GameMenu::setResultMenuStyle(const QString & result_information) {
     QString qss_code;
@@ -99,10 +106,7 @@ void GameMenu::setResultMenuStyle(const QString & result_information) {
     button_retry_game->setStyleSheet(qss_code);
 }
 
-GameMenu::~GameMenu() {
-    delete label_result;
-    delete button_exit;
-    delete button_retry_game;
-    delete vertical_layout;
-    delete continue_game;
+GameMenu::~GameMenu()
+{
+
 }

@@ -2,15 +2,17 @@
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    background_ships(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/BattleShips.jpg")),
+    game_name(new QLabel("BattleShips", this)),
+    layout(new QVBoxLayout(this))
 {
     QPalette palette;
     QFont font("times", 60);
     QSize size(300, 60);
-    layout = new QVBoxLayout;
+
     //QImage("/home/vitaly/QtProject/WorkWithPictures/BattleShips.jpg").scaled(1800, 900).save("/home/vitaly/QtProject/WorkWithPictures/BattleShips.jpg");
-    background_ships = new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/BattleShips.jpg");
-    game_name = new QLabel("BattleShips", this);
+
     game_name->setFont(font);
     palette.setBrush(this->backgroundRole(), *background_ships);
 
@@ -57,12 +59,22 @@ void MainWindow::startGameClicked()
 {
     PreparationGameWidget *wgame = new PreparationGameWidget;
     wgame->show();
-    this->hide();
+
+    this->close();
+
+    //this->hide();
+    //this->destroy();
+    //delete this;
+    //this->deleteLater();
 }
 
 void MainWindow::exitClicked()
 {
-    this->hide();
+    //this->hide();
+
+    this->close();
+    //delete this;
+    //this->deleteLater();
 }
 
 void MainWindow::settingsClicked()
@@ -70,12 +82,9 @@ void MainWindow::settingsClicked()
     //add settings=)
 }
 
-MainWindow::~MainWindow() {
-    delete layout;
-    delete game_name;
-    delete start_game;
-    delete settings;
-    delete exit;
+MainWindow::~MainWindow()
+{
+    delete background_ships;
 }
 
 

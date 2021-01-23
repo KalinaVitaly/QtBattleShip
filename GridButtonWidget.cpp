@@ -3,14 +3,14 @@
 
 GridWidget::GridWidget(QSize field_size, QWidget *parent) :
     QWidget(parent),
+    grid(new QGridLayout(this)),
+    field(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/field.jpg")),
     symbol_label(10),
     digit_label(10),
     field_count(100),
     size(field_size)
 {
     this->setFixedSize(field_size.width() * 11, field_size.height() * 11);
-    grid = new QGridLayout(this);
-    field = new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/field.jpg");
     setSymbols(field_size);
     setDigits(field_size);
     setFields(field_size);
@@ -20,8 +20,6 @@ GridWidget::GridWidget(QSize field_size, QWidget *parent) :
 void GridWidget::setAroundShipFields(const QVector<QPair<int, int>> &coordinates) {
     //QImage("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg");
     for(const auto& i : coordinates) {
-        //buttons_sea_fieald[i.first + i.second * 10]->setIcon(QPixmap());
-        //buttons_sea_fieald[i.first + i.second * 10]->setIcon(QPixmap("/home/vitaly/QtProject/BattleShips/images/field/around_field.jpg"));
         buttons_sea_fieald[i.first + i.second * 10]->setEnabled(false);
         buttons_sea_fieald[i.first + i.second * 10]->setStyleSheet("background-color: grey;\
                                                                     border-style: outset;\
@@ -57,9 +55,9 @@ void GridWidget::setNewSymbolsSize(const QSize & size){
     for (int i = 1; i <= 10; ++i)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
-        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
+        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
         symbols[i - 1] = pix;
-        symbol_label[i - 1]->setPixmap(*(symbols[i - 1]));
+        symbol_label[i - 1]->setPixmap(symbols[i - 1]);
         symbol_label[i - 1]->setFixedSize(size);
     }
 }
@@ -67,9 +65,9 @@ void GridWidget::setNewDigitsSize(const QSize & size){
     for (int i = 1; i <= 10; ++i)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
-        QPixmap *pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
+        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
         digit[i - 1] = pix;
-        digit_label[i - 1]->setPixmap(*(digit[i - 1]));
+        digit_label[i - 1]->setPixmap(digit[i - 1]);
         digit_label[i - 1]->setFixedSize(size);
         grid->addWidget(digit_label[i - 1], i, 0, Qt::AlignCenter);
     }
@@ -137,7 +135,7 @@ void GridWidget::setFields(const QSize & size)
     for (size_t i = 0; i < field_count; ++i)
     {
 //        buttons_sea_fieald[i] = new QPushButton(*field, "", this);
-        buttons_sea_fieald[i] = new QPushButton;
+        buttons_sea_fieald[i] = new QPushButton(this);
         buttons_sea_fieald[i]->setStyleSheet("background-color: blue;\
                                              border-style: outset;\
                                              border-width: 2px;\
@@ -167,9 +165,9 @@ void GridWidget::setSymbols(const QSize & size)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
         QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
-        symbols.push_back(&pix);
-        symbol_label[i - 1] = new QLabel;
-        symbol_label[i - 1]->setPixmap(*(symbols[i - 1]));
+        symbols.push_back(pix);
+        symbol_label[i - 1] = new QLabel(this);
+        symbol_label[i - 1]->setPixmap(symbols[i - 1]);
         symbol_label[i - 1]->setFixedSize(size);
         symbol_label[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
         grid->addWidget(symbol_label[i - 1], 0, i, Qt::AlignCenter);
@@ -182,9 +180,9 @@ void GridWidget::setDigits(const QSize & size)
     {
         QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(80, 80).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
         QPixmap pix("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
-        digit_label[i - 1] = new QLabel;
-        digit.push_back(&pix);
-        digit_label[i - 1]->setPixmap(*(digit[i - 1]));
+        digit_label[i - 1] = new QLabel(this);
+        digit.push_back(pix);
+        digit_label[i - 1]->setPixmap(digit[i - 1]);
         digit_label[i - 1]->setFixedSize(size);
         digit_label[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
         grid->addWidget(digit_label[i - 1], i, 0, Qt::AlignCenter);

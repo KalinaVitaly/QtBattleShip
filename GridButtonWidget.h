@@ -12,8 +12,8 @@ class GridWidget : public QWidget
 private:
     QGridLayout *grid;
     QPixmap *field;
-    QVector<QPixmap *> symbols;
-    QVector<QPixmap *> digit;
+    QVector<QPixmap> symbols;
+    QVector<QPixmap> digit;
     QVector<QLabel *> symbol_label;
     QVector<QLabel *> digit_label;
     QPushButton *buttons_sea_fieald[100];
@@ -24,7 +24,7 @@ private:
     void setDigits(const QSize & size);
     void setFields(const QSize & size);
 public:
-    GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
+    explicit GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
     ~GridWidget();
 
     QPushButton** getField();

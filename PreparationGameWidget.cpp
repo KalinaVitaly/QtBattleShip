@@ -3,18 +3,17 @@
 
 PreparationGameWidget::PreparationGameWidget(QWidget *parent) :
     QWidget(parent),
+    horizantal_layout(new QHBoxLayout(this)),
+    //vertical_layout(new QVBoxLayout(this)),
+    grid_widget(new GridWidget(QSize(80, 80), this)),
+    ships_and_digits(new ShipsWidget(this)),
+    rbapb(new RadioButtonsAndPushButtons(this)),
+    player1(new Player),
     fields_count(100),
     orientation(true)
 {
     //grid widget 880*880
     //this->setFixedSize(1800, 1000);
-    horizantal_layout = new QHBoxLayout;
-    vertical_layout = new QVBoxLayout;
-
-    grid_widget = new GridWidget;
-    ships_and_digits = new ShipsWidget;
-    rbapb = new RadioButtonsAndPushButtons;
-    player1 = new Player;
 
     horizantal_layout->addWidget(grid_widget);
     horizantal_layout->addWidget(ships_and_digits);
@@ -66,7 +65,11 @@ void PreparationGameWidget::startGameClicked() {
 
     BattleGameWidget *bgw = new BattleGameWidget(player1, player1->getField());
     bgw->show();
-    this->hide();
+
+    this->close();
+//    this->hide();
+
+//    this->deleteLater();
 }
 
 void PreparationGameWidget::diactivateStartButton() {
@@ -95,7 +98,10 @@ void PreparationGameWidget::activateStartButton() {
                                      border-width: 2px;\
                                      border-color: beige;\
                                      border-radius: 10px;\
-                              }");
+                                     }\
+                                     QPushButton:pressed {\
+                                     background-color : #B2BEB5\
+                                     }");
     rbapb->getStart()->setToolTip("");
     QObject::connect(rbapb->getStart(), SIGNAL(clicked()),
                      this, SLOT(startGameClicked()));
@@ -151,10 +157,7 @@ void PreparationGameWidget::fieldClicked() {
     }
 }
 
-PreparationGameWidget::~PreparationGameWidget() {
-    delete horizantal_layout;
-    delete vertical_layout;
-    delete grid_widget;
-    delete ships_and_digits;
-    delete rbapb;
+PreparationGameWidget::~PreparationGameWidget()
+{
+
 }

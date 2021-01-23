@@ -1,14 +1,15 @@
 #include "RadioButtonsAndPushButtons.h"
 #include <QDebug>
 
-RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) : QWidget(parent)
+RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) :
+    QWidget(parent),
+    start(new QPushButton("Start", this)),
+    automatic_placement_ships(new QPushButton("Ships automatic placement", this)),
+    horizontal(new QRadioButton("Horizantal", this)),
+    vertical(new QRadioButton("Vertival", this)),
+    vertical_layout(new QVBoxLayout(this))
 {
     this->setFixedSize(480, 880);
-    vertical_layout = new QVBoxLayout(this);
-    start = new QPushButton("Start");
-    horizontal = new QRadioButton("Horizantal");
-    vertical = new QRadioButton("Vertival");
-    automatic_placement_ships = new QPushButton("Ships automatic placement");
 
     setStyleSheets();
 
@@ -61,10 +62,7 @@ void RadioButtonsAndPushButtons::setStyleSheets() {
     start->setToolTip("To start the game you need to place all the ships.");
 }
 
-RadioButtonsAndPushButtons::~RadioButtonsAndPushButtons() {
-    delete vertical_layout;
-    delete start;
-    delete horizontal;
-    delete vertical;
-    delete automatic_placement_ships;
+RadioButtonsAndPushButtons::~RadioButtonsAndPushButtons()
+{
+
 }
