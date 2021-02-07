@@ -26,6 +26,7 @@ private:
     GridWidget *grid_button_enemy_fields;
     GridLabelWidget *grid_label_player_fields;
     QPushButton *pause;
+    QPushButton *start_game;
     Player *player;
     GameLogicWithComputer *game_logic;
     GameMenu *result_menu;
@@ -43,6 +44,7 @@ private slots:
     void getSignalEndGame(const QString & information = "Game Pause");
     void exitButtonClicked();
     void retryButtonClicked();
+    void startGameClicked();
 
 signals:
     void buttonFieldClicked(const QPair<int, int> &);
