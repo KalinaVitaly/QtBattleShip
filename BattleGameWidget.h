@@ -14,6 +14,7 @@
 #include "GridLabelWidget.h"
 #include "Player.h"
 #include "GameMenu.h"
+#include "Button.h"
 
 class BattleGameWidget : public QWidget
 {
@@ -40,7 +41,7 @@ public:
     ~BattleGameWidget();
 
 private slots:
-    void getCoordinatesButtonClicked(QPushButton *);
+    void getCoordinatesButtonClicked(Button *);
     void getSignalEndGame(const QString & information = "Game Pause");
     void exitButtonClicked();
     void retryButtonClicked();
@@ -48,6 +49,7 @@ private slots:
 
 signals:
     void buttonFieldClicked(const QPair<int, int> &);
+    void signalStartGame();
 };
 
 #endif // BATTLEGAMEWIDGET_H

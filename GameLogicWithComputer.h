@@ -46,7 +46,7 @@ signals:
     void setComputerDestroyedShip(const QVector<QPair<int, int>> &);
     void setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &);
     void setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &);
-    void playerClickedField(QPushButton *);
+    void playerClickedField(Button *);
     void beginComputerGameStep();
 
     void signalEndGame(const QString &);

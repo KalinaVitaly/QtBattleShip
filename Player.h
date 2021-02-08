@@ -4,6 +4,7 @@
 #include <QMap>
 #include "Ship.h"
 #include <array>
+#include <memory>
 
 class Player : public QObject
 {
@@ -14,6 +15,7 @@ private:
     static const int max_ship2;
     static const int max_ship3;
     static const int max_ship4;
+
     QMap<int, QVector<Ship *>> ships;
     QMap<int, int> ships_count;
     std::array<std::array<int, 10>, 10> field;

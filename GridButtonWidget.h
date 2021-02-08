@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <Button.h>
 #include <QGridLayout>
 #include <QLabel>
 
@@ -16,7 +17,7 @@ private:
     QVector<QPixmap> digit;
     QVector<QLabel *> symbol_label;
     QVector<QLabel *> digit_label;
-    QPushButton *buttons_sea_fieald[100];
+    Button *buttons_sea_fieald[100];
     const size_t field_count;
     QSize size;
 
@@ -27,9 +28,9 @@ public:
     explicit GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
     ~GridWidget();
 
-    QPushButton** getField();
+    Button** getField();
     size_t getFieldCount();
-    size_t findFieldNumber(QPushButton *button);
+    size_t findFieldNumber(Button *button);
     void setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length);
     void setGameFields();
     void setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation);

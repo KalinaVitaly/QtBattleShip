@@ -35,7 +35,7 @@ void GameLogicWithComputer::computerGameStep() {
 
 void GameLogicWithComputer::signalProcessing() {
     if (state == GAMESTATE::FIRST_PLAYER_STEP) {
-        QPushButton *field = (QPushButton*)sender();
+        Button *field = (Button*)sender();
         state = GAMESTATE::SECOND_PLAYER_STEP;
         emit playerClickedField(field);
         emit beginComputerGameStep();

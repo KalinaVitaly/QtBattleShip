@@ -1,14 +1,6 @@
 #include "MainMenu.h"
-#include "GridButtonWidget.h"
-#include "ShipsWidget.h"
-#include "RadioButtonsAndPushButtons.h"
-#include "BattleGameWidget.h"
 #include <QApplication>
-#include "AutomaticShipsPlacement.h"
-#include "Player.h"
-#include <QSpinBox>
-#include "GridLabelWidget.h"
-#include "GameMenu.h"
+
 
 int main(int argc, char *argv[])
 {

@@ -23,7 +23,6 @@ private:
     QVBoxLayout *layout;
 
     void setButtons(QPushButton *&button, const QSize &size, const QString &str);
-
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

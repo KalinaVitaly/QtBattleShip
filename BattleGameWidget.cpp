@@ -32,6 +32,15 @@ void BattleGameWidget::startGameClicked() {
     connectButtonsWithGameLogic();
     start_game->hide();
     start_game->deleteLater();
+
+//    bool first_player_begin_game = rand() % 2;
+
+//    if (first_player_begin_game) {
+//        connect(this, SIGNAL(signalStartGame()),
+//                player1, )
+//    }
+
+//    emit signalStartGame();
 }
 
 void BattleGameWidget::setStyleSheets() {
@@ -75,7 +84,7 @@ void BattleGameWidget::setStyleSheets() {
                          stop : 0 #3EADCF, stop: 1 #ABE9CD);");
 }
 
-void BattleGameWidget::getCoordinatesButtonClicked(QPushButton * field) {
+void BattleGameWidget::getCoordinatesButtonClicked(Button * field) {
     int number = grid_button_enemy_fields->findFieldNumber(field);
     QPair<int, int> position;
     position.first = number % 10;
@@ -158,10 +167,10 @@ void BattleGameWidget::connectButtonsGridWithGameLogic() {
     for (size_t i = 0; i < grid_button_enemy_fields->getFieldCount(); ++i) {
 //        QObject::connect(grid_button_enemy_fields->getField()[i], SIGNAL(clicked()),
 //                this, SLOT(getCoordinatesButtonClicked()));
-        QObject::connect(grid_button_enemy_fields->getField()[i], SIGNAL(clicked()),
+        QObject::connect(grid_button_enemy_fields->getField()[i], SIGNAL(signalClicked()),
                 game_logic, SLOT(signalProcessing()));
-        QObject::connect(game_logic, SIGNAL(playerClickedField(QPushButton *)),
-                this, SLOT(getCoordinatesButtonClicked(QPushButton *)));
+        QObject::connect(game_logic, SIGNAL(playerClickedField(Button *)),
+                this, SLOT(getCoordinatesButtonClicked(Button *)));
     }
 }
 

@@ -57,10 +57,10 @@ void PreparationGameWidget::autoPlacementShipsClicked() {
 }
 
 void PreparationGameWidget::startGameClicked() {
-    QPushButton **button = grid_widget->getField();
+    Button **button = grid_widget->getField();
 
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
-        QObject::disconnect(button[i], SIGNAL(clicked()),
+        QObject::disconnect(button[i], SIGNAL(signalClicked()),
                          this, SLOT(fieldClicked()));
 
     BattleGameWidget *bgw = new BattleGameWidget(player1, player1->getField());
@@ -117,14 +117,14 @@ void PreparationGameWidget::radioButtonClicked() {
 }
 
 void PreparationGameWidget::connectFielButtondWithFieldClicked() {
-    QPushButton **button = grid_widget->getField();
+    Button **button = grid_widget->getField();
     for(size_t i = 0; i < grid_widget->getFieldCount(); ++i)
-        QObject::connect(button[i], SIGNAL(clicked()),
+        QObject::connect(button[i], SIGNAL(signalClicked()),
                          this, SLOT(fieldClicked()));
 }
 
 void PreparationGameWidget::fieldClicked() {
-    int number = grid_widget->findFieldNumber((QPushButton*)sender());
+    int number = grid_widget->findFieldNumber((Button*)sender());
     QPair<int, int> position;
     position.first = number % 10;
     position.second = number / 10;

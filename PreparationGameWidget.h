@@ -14,6 +14,7 @@
 #include "RadioButtonsAndPushButtons.h"
 #include "AutomaticShipsPlacement.h"
 #include "BattleGameWidget.h"
+#include "Button.h"
 
 class PreparationGameWidget : public QWidget
 {
