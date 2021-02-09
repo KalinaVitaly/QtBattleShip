@@ -28,7 +28,7 @@ private:
     bool checkingPossiblePutInBackOfTheHorizantalShip(const QPair<int, int> &center) const;
 public:
     explicit Player();
-    ~Player();
+    ~Player() override;
 
     int getMaxShip1() const;
     int getMaxShip2() const;

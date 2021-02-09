@@ -11,11 +11,11 @@ class GameMenu : public QWidget
     Q_OBJECT
 
 private:
-    QLabel *label_result;
-    QPushButton *button_exit;
-    QPushButton *button_retry_game;
-    QPushButton *continue_game;
-    QVBoxLayout *vertical_layout;
+    QLabel *resultLabel;
+    QPushButton *exitButton;
+    QPushButton *retryGameButton;
+    QPushButton *continueGameButton;
+    QVBoxLayout *mainLayout;
 
 public:
     explicit GameMenu(const QString & result_information, QWidget *parent = nullptr);
@@ -27,10 +27,8 @@ public:
 
     void setResultMenuStyle(const QString &);
 
-signals:
-
 private slots:
-    void continueClicked();
+    void slotContinueClicked();
 };
 
 #endif // RESULTMENU_H

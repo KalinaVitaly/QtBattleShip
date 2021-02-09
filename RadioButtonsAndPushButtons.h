@@ -21,7 +21,7 @@ private:
     
 public:
     RadioButtonsAndPushButtons(QWidget * parent = nullptr);
-    ~RadioButtonsAndPushButtons();
+    ~RadioButtonsAndPushButtons() override;
 
     QPushButton*& getStart();
     QPushButton*& getAutoPlacementShips();

@@ -1,62 +1,60 @@
-#include "ComputerPlayer.h"
+﻿#include "ComputerPlayer.h"
 #include <QDebug>
 
-ComputerPlayer::ComputerPlayer(QObject *parent) : QObject(parent),
-                                                  status(PlayerStatus::Search) {}
+ComputerPlayer::ComputerPlayer(QObject *parent)
+    : QObject(parent),
+      status(PlayerStatus::Search) {}
 
 int ComputerPlayer::getPlayerStatus() const {
     if (status == PlayerStatus::Search) {
         return 1;
-    }
-    else if (status == PlayerStatus::SearchNextField) {
+    } else if (status == PlayerStatus::SearchNextField) {
         return 2;
-    }
-    else if (status == PlayerStatus::Finish) {
+    } else if (status == PlayerStatus::Finish) {
         return 3;
-    }
-    else if (status == PlayerStatus::FinishRemainingShipPart) {
+    } else if (status == PlayerStatus::FinishRemainingShipPart) {
         return 4;
     }
     return -1;
 }
 
 void  ComputerPlayer::findPossibleFieldsWithShipsParts() {
-    possible_fields_with_ships_part.clear();
+    possibleFieldsWithShipsPart.clear();
 
-    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first - 1 >= 0 &&
-            !coordinates_destroyeded_fields.contains(
-                QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first - 1,
-                                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second))) {
+    if (coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first - 1 >= 0 &&
+            !coordinatesDestroyededFields.contains(
+                QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first - 1,
+                                coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second))) {
 
-        possible_fields_with_ships_part.push_back(QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first - 1,
-                                                  coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second));
+        possibleFieldsWithShipsPart.push_back(QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first - 1,
+                                                  coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second));
     }
 
-    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second - 1 >= 0 &&
-            !coordinates_destroyeded_fields.contains(
-                QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first,
-                                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second - 1))) {
+    if (coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second - 1 >= 0 &&
+            !coordinatesDestroyededFields.contains(
+                QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first,
+                                coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second - 1))) {
 
-        possible_fields_with_ships_part.push_back(QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first,
-                                                  coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second - 1));
+        possibleFieldsWithShipsPart.push_back(QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first,
+                                                  coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second - 1));
     }
 
-    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + 1 <= 9 &&
-            !coordinates_destroyeded_fields.contains(
-                QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + 1,
-                                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second))) {
+    if (coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + 1 <= 9 &&
+            !coordinatesDestroyededFields.contains(
+                QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + 1,
+                                coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second))) {
 
-        possible_fields_with_ships_part.push_back(QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + 1,
-                                                  coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second));
+        possibleFieldsWithShipsPart.push_back(QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + 1,
+                                                  coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second));
     }
 
-    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + 1 <= 9 &&
-            !coordinates_destroyeded_fields.contains(
-                QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first,
-                                coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + 1))) {
+    if (coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + 1 <= 9 &&
+            !coordinatesDestroyededFields.contains(
+                QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first,
+                                coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + 1))) {
 
-        possible_fields_with_ships_part.push_back(QPair<int, int>(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first,
-                                                  coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + 1));
+        possibleFieldsWithShipsPart.push_back(QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first,
+                                                  coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + 1));
     }
 //    for (auto i : possible_fields_with_ships_part)
 //        qDebug() << "Coordinates possible fields: " << i.first << " " << i.second;
@@ -65,82 +63,74 @@ void  ComputerPlayer::findPossibleFieldsWithShipsParts() {
 void ComputerPlayer::setPlayerStatus(int _status) {
     if (_status == 1) {
         status = PlayerStatus::Search;
-        qDebug() << "PlayerStatus::Search";
-    }
-    else if (_status == 2) {
+    } else if (_status == 2) {
         status = PlayerStatus::SearchNextField;
         findPossibleFieldsWithShipsParts();
-        qDebug() << "PlayerStatus::SearchNextField";
-    }
-    else if (_status == 3) {
+    } else if (_status == 3) {
         status = PlayerStatus::Finish;
-        qDebug() << "PlayerStatus::Finish";
-    }
-    else if (_status == 4) {
+    } else if (_status == 4) {
         status = PlayerStatus::FinishRemainingShipPart;
         dx = -dx;
         dy = -dy;
-        qDebug() << "PlayerStatus::FinishAnotherPart";
     }
 }
 
 void ComputerPlayer::addDestroyededFields(const QVector<QPair<int, int>> & coordinates) {
-    coordinates_destroyeded_fields.append(coordinates);
+    coordinatesDestroyededFields.append(coordinates);
 }
 
 void ComputerPlayer::searchShip(QPair<int, int> & field_coordinate) {
-    coordinates_injured_ship_fields.clear();
+    coordinatesDestroyededFields.clear();
     std::random_device rd;
     std::mt19937 mersenne(rd());
     do {
         field_coordinate.first = mersenne() % 10;
         field_coordinate.second = mersenne() % 10;
-    } while (coordinates_destroyeded_fields.contains(field_coordinate));
+    } while (coordinatesDestroyededFields.contains(field_coordinate));
 }
 
 void ComputerPlayer::searchNextField(QPair<int, int> & field_coordinate) {
-    if (!coordinates_injured_ship_fields.size())
-        coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
+    if (!coordinatesDestroyededFields.size())
+        coordinatesDestroyededFields.push_back(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1]);
 
-    if (possible_fields_with_ships_part.size() - 1 >= 0) {
+    if (possibleFieldsWithShipsPart.size() - 1 >= 0) {
         //проверка ограждает от проблемы если корабль был ранен в середину
-        field_coordinate.first = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].first;
-        field_coordinate.second = possible_fields_with_ships_part[possible_fields_with_ships_part.size() - 1].second;
-        possible_fields_with_ships_part.remove(possible_fields_with_ships_part.size() - 1);
+        field_coordinate.first = possibleFieldsWithShipsPart[possibleFieldsWithShipsPart.size() - 1].first;
+        field_coordinate.second = possibleFieldsWithShipsPart[possibleFieldsWithShipsPart.size() - 1].second;
+        possibleFieldsWithShipsPart.remove(possibleFieldsWithShipsPart.size() - 1);
     }
 }
 
 void ComputerPlayer::finishShip(QPair<int, int> & field_coordinate) {
-    if (coordinates_injured_ship_fields.size() == 1) {
-        coordinates_injured_ship_fields.push_back(coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1]);
+    if (coordinatesInjuredShipFields.size() == 1) {
+        coordinatesInjuredShipFields.push_back(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1]);
 
-        dx = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].first -
-                coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].first;
-        dy = coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 1].second -
-                coordinates_injured_ship_fields[coordinates_injured_ship_fields.size() - 2].second;
+        dx = coordinatesInjuredShipFields[coordinatesInjuredShipFields.size() - 1].first -
+                coordinatesInjuredShipFields[coordinatesInjuredShipFields.size() - 2].first;
+        dy = coordinatesInjuredShipFields[coordinatesInjuredShipFields.size() - 1].second -
+                coordinatesInjuredShipFields[coordinatesInjuredShipFields.size() - 2].second;
 
-        qDebug() << "dX = " << dx << " dY = " << dy;
     }
 
-    if (coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx >= 0 &&
-            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx < 10 &&
-            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy >= 0 &&
-            coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy < 10) {
-        field_coordinate.first = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].first + dx;
-        field_coordinate.second = coordinates_destroyeded_fields[coordinates_destroyeded_fields.size() - 1].second + dy;
+    if (coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + dx >= 0 &&
+            coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + dx < 10 &&
+            coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + dy >= 0 &&
+            coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + dy < 10) {
+        field_coordinate.first  = coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first + dx;
+        field_coordinate.second = coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + dy;
     }
 }
 
 void ComputerPlayer::finishRemainingShipPart(QPair<int, int> & field_coordinate) {
-    if (coordinates_injured_ship_fields[0].first + dx >= 0 &&
-            coordinates_injured_ship_fields[0].first + dx < 10 &&
-            coordinates_injured_ship_fields[0].second + dy >= 0 &&
-            coordinates_injured_ship_fields[0].second + dy < 10) {
-        field_coordinate.first = coordinates_injured_ship_fields[0].first + dx;
-        field_coordinate.second = coordinates_injured_ship_fields[0].second + dy;
+    if (coordinatesInjuredShipFields[0].first + dx >= 0 &&
+            coordinatesInjuredShipFields[0].first + dx < 10 &&
+            coordinatesInjuredShipFields[0].second + dy >= 0 &&
+            coordinatesInjuredShipFields[0].second + dy < 10) {
+        field_coordinate.first  = coordinatesInjuredShipFields[0].first + dx;
+        field_coordinate.second = coordinatesInjuredShipFields[0].second + dy;
 
-        coordinates_injured_ship_fields[0].first = coordinates_injured_ship_fields[0].first + dx;
-        coordinates_injured_ship_fields[0].second = coordinates_injured_ship_fields[0].second + dy;
+        coordinatesInjuredShipFields[0].first  = coordinatesInjuredShipFields[0].first + dx;
+        coordinatesInjuredShipFields[0].second = coordinatesInjuredShipFields[0].second + dy;
     }
 }
 
@@ -160,6 +150,6 @@ QPair<int, int> ComputerPlayer::Shooting() {
         finishRemainingShipPart(field_coordinate);
     }
 
-    coordinates_destroyeded_fields.push_back(field_coordinate);
+    coordinatesDestroyededFields.push_back(field_coordinate);
     return field_coordinate;
 }

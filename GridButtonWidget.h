@@ -26,7 +26,7 @@ private:
     void setFields(const QSize & size);
 public:
     explicit GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
-    ~GridWidget();
+    ~GridWidget() override;
 
     Button** getField();
     size_t getFieldCount();

@@ -25,6 +25,9 @@ private:
         DESTROYEDED_FIELD
     };
 
+    //
+    // Состояние кнопки
+    //
     buttonState state;
 
 
@@ -33,9 +36,13 @@ private:
 protected:
     void enterEvent(QEvent* _event) override;
     void leaveEvent(QEvent* _event) override;
+    //
     //Собственная отрисовка
+    //
     void paintEvent(QPaintEvent* _event) override;
+    //
     //Нажатие на клавишу
+    //
     void mousePressEvent(QMouseEvent* _event) override;
 
 signals:

@@ -55,9 +55,6 @@ public:
     void setPlayerStatus(int);
     int getPlayerStatus() const;
     void addDestroyededFields(const QVector<QPair<int, int>> &);
-
-signals:
-
 };
 
 #endif // COMPUTERPLAYER_H

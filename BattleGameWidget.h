@@ -41,14 +41,14 @@ public:
     ~BattleGameWidget() override;
 
 private slots:
-    void getCoordinatesButtonClicked(Button *);
-    void getSignalEndGame(const QString & information = "Game Pause");
-    void exitButtonClicked();
-    void retryButtonClicked();
-    void startGameClicked();
+    void slotGetCoordinatesButtonClicked(Button *);
+    void slotGetSignalEndGame(const QString & information = "Game Pause");
+    void slotExitButtonClicked();
+    void slotRetryButtonClicked();
+    void slotStartGameClicked();
 
 signals:
-    void buttonFieldClicked(const QPair<int, int> &);
+    void signalButtonFieldClicked(const QPair<int, int> &);
     void signalStartGame();
 };
 
