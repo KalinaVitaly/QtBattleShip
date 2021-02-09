@@ -12,19 +12,27 @@ class ShipsWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QVBoxLayout *vertical_layout;
+    QVBoxLayout *mainLayout;
     QHBoxLayout *horiz_layout1;
     QHBoxLayout *horiz_layout2;
     QHBoxLayout *horiz_layout3;
     QHBoxLayout *horiz_layout4;
-    QMap<int, int> have_ships;
-    QMap<int, QLabel *> *label_digits;
-    QMap<int, QPushButton *> *button_ships;
-    QMap<int, QPixmap *> *pix_digit;
-    QMap<int, QPixmap *> *pix_ship;
+    QMap<int, int> haveShips;
+    QMap<int, QLabel *> *digitsLabel;
+    QMap<int, QPushButton *> *shipsButton;
+    QMap<int, QPixmap *> *digitPixmap;
+    QMap<int, QPixmap *> *shipPixmap;
 
     int choose_ship_type;
+
+    //
+    // Устанавливаем корабли и их кол-во
+    //
     void setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2, int i);
+
+    //
+    // Обновляем кол-во кораблей
+    //
     void updateDigits();
 public:
     ShipsWidget(QWidget *parent = nullptr);
@@ -38,15 +46,15 @@ public:
     void setChooseShipType(int type);
 
 private slots:
-    void shipClicked();
+    void slotShipClicked();
 
 public slots:
     void setMax();
     void setNulls();
     
 signals:
-    void showStartGame();
-    void hideStartGame();
+    void signalShowStartGame();
+    void signalHideStartGame();
 };
 
 #endif // SHIPSWIDGET_H

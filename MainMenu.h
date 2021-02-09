@@ -15,17 +15,20 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 private:
-    QPixmap *background_ships;
-    QPushButton *start_game;
-    QPushButton *settings;
-    QPushButton *exit;
-    QLabel *game_name;
-    QVBoxLayout *layout;
+    QPixmap *backgroundShipPixmap;
+    QPushButton *startGameButton;
+    QPushButton *settingsButton;
+    QPushButton *exitButton;
+    QLabel *gameNameLabel;
+    QVBoxLayout *mainLayout;
 
+    //
+    // Установка параметров кнопок
+    //
     void setButtons(QPushButton *&button, const QSize &size, const QString &str);
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
 private slots:
     void startGameClicked();
     void settingsClicked();

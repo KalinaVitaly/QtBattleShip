@@ -9,7 +9,7 @@
 #include <QLabel>
 #include "PreparationGameWidget.h"
 #include "MainMenu.h"
-#include "GameLogicWithComputer.h"
+#include "GameLogic.h"
 #include "GridButtonWidget.h"
 #include "GridLabelWidget.h"
 #include "Player.h"
@@ -21,16 +21,16 @@ class BattleGameWidget : public QWidget
     Q_OBJECT
 
 private:
-    QHBoxLayout *h_layout;
+    QHBoxLayout *mainLayout;
     QHBoxLayout *motions_layout;
     QVBoxLayout *v_layout;
-    GridWidget *grid_button_enemy_fields;
-    GridLabelWidget *grid_label_player_fields;
-    QPushButton *pause;
-    QPushButton *start_game;
+    GridWidget *gridButtonsEnemyFields;
+    GridLabelWidget *gridLabelPlayerFields;
+    QPushButton *pauseButton;
+    QPushButton *startGameButton;
     Player *player;
-    GameLogicWithComputer *game_logic;
-    GameMenu *result_menu;
+    GameLogicWithComputer *gameLogic;
+    GameMenu *resultMenuWidget;
 
     void connectButtonsWithGameLogic();
     void connectButtonsGridWithGameLogic();
@@ -38,7 +38,7 @@ private:
 
 public:
     BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 10> player_field, QWidget *parent = nullptr);
-    ~BattleGameWidget();
+    ~BattleGameWidget() override;
 
 private slots:
     void getCoordinatesButtonClicked(Button *);

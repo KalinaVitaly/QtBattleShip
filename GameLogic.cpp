@@ -1,4 +1,4 @@
-#include "GameLogicWithComputer.h"
+ #include "GameLogic.h"
 #include <QDebug>
 
 GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) :

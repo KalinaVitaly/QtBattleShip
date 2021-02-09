@@ -3,36 +3,36 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
-    background_ships(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/BattleShips.jpg")),
-    game_name(new QLabel("BattleShips", this)),
-    layout(new QVBoxLayout(this))
+    backgroundShipPixmap(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/BattleShips.jpg")),
+    gameNameLabel(new QLabel("BattleShips", this)),
+    mainLayout(new QVBoxLayout(this))
 {
     QPalette palette;
     QFont font("times", 60);
     QSize size(300, 60);
 
-    //QImage("/home/vitaly/QtProject/WorkWithPictures/BattleShips.jpg").scaled(1800, 900).save("/home/vitaly/QtProject/WorkWithPictures/BattleShips.jpg");
+    gameNameLabel->setFont(font);
+    palette.setBrush(this->backgroundRole(), *backgroundShipPixmap);
 
-    game_name->setFont(font);
-    palette.setBrush(this->backgroundRole(), *background_ships);
+    mainLayout->addWidget(gameNameLabel, 0, Qt::AlignCenter);
+    setButtons(startGameButton, size, "Start game");
+    setButtons(settingsButton, size, "Settings");
+    setButtons(exitButton, size, "Exit");
 
-    layout->addWidget(game_name, 0, Qt::AlignCenter);
-    setButtons(start_game, size, "Start game");
-    setButtons(settings, size, "Settings");
-    setButtons(exit, size, "Exit");
-
-    QObject::connect(start_game, SIGNAL(clicked()),
+    QObject::connect(startGameButton, SIGNAL(clicked()),
                      this, SLOT(startGameClicked()));
-    QObject::connect(settings, SIGNAL(clicked()),
+    QObject::connect(settingsButton, SIGNAL(clicked()),
                      this, SLOT(settingsClicked()));
-    QObject::connect(exit, SIGNAL(clicked()),
+    QObject::connect(exitButton, SIGNAL(clicked()),
                      this, SLOT(exitClicked()));
-
 
     this->setFixedSize(1800, 900);
     this->setPalette(palette);
-    this->setLayout(layout);
+    this->setLayout(mainLayout);
 }
+
+//QPixmap *backgroundShipPixmap;
+
 
 void MainWindow::setButtons(QPushButton *&button, const QSize &size, const QString &str)
 {
@@ -52,29 +52,20 @@ void MainWindow::setButtons(QPushButton *&button, const QSize &size, const QStri
                            stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
                            }");
     button->setFixedSize(size);
-    layout->addWidget(button, 0, Qt::AlignCenter);
+    mainLayout->addWidget(button, 0, Qt::AlignCenter);
 }
 
 void MainWindow::startGameClicked()
 {
-    PreparationGameWidget *wgame = new PreparationGameWidget;
-    wgame->show();
+    PreparationGameWidget *preparationGameWidget = new PreparationGameWidget;
+    preparationGameWidget->show();
 
-    this->close();
-
-    //this->hide();
-    //this->destroy();
-    //delete this;
-    //this->deleteLater();
+    close();
 }
 
 void MainWindow::exitClicked()
 {
-    //this->hide();
-
-    this->close();
-    //delete this;
-    //this->deleteLater();
+    close();
 }
 
 void MainWindow::settingsClicked()
@@ -84,7 +75,7 @@ void MainWindow::settingsClicked()
 
 MainWindow::~MainWindow()
 {
-    delete background_ships;
+    delete backgroundShipPixmap;
 }
 
 

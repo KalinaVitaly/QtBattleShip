@@ -21,39 +21,41 @@ class PreparationGameWidget : public QWidget
     Q_OBJECT
 
 private:
-    QGridLayout *grid;
-    QHBoxLayout *horizantal_layout;
-    //QVBoxLayout *vertical_layout;
-    QRadioButton *prad_vertical;
-    QRadioButton *prad_horizantal;
+    QHBoxLayout *mainLayout;
     QPushButton *buttons_sea_fieald[100];
-    QPixmap *field;
-    GridWidget *grid_widget;
-    ShipsWidget *ships_and_digits;
+    GridWidget *gridWidget;
+    ShipsWidget *shipsWidget;
     RadioButtonsAndPushButtons *rbapb;
 
-    Player *player1;             //current player
-    const size_t fields_count;
+    Player *player1;
+    const size_t fieldsCount;
     bool orientation;
 
-    void connectFielButtondWithFieldClicked();
+    //
+    // Соединяем игровые поля
+    //
+    void connectFieldButtons();
 
+    //
+    // Соединяем кнопки интерфейса приложения
+    //
+    void connectButtons();
 
 public:
     explicit PreparationGameWidget(QWidget *parent = nullptr);
-    ~PreparationGameWidget();
+    ~PreparationGameWidget() override;
 
 private slots:
-    void fieldClicked();
-    void radioButtonClicked();
-    void activateStartButton();
-    void diactivateStartButton();
-    void startGameClicked();
-    void autoPlacementShipsClicked();
+    void slotFieldClicked();
+    void slotRadioButtonClicked();
+    void slotActivateStartButton();
+    void slotDiactivateStartButton();
+    void slotStartGameClicked();
+    void slotAutoPlacementShipsClicked();
 
 signals:
-    void setNullsShipsAndWidget();
-    void setMaxShipsAndWidget();
+    void signalSetNullsShipsAndWidget();
+    void signalSetMaxShipsAndWidget();
 };
 
 

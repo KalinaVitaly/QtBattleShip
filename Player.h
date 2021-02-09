@@ -30,6 +30,11 @@ public:
     explicit Player();
     ~Player();
 
+    int getMaxShip1() const;
+    int getMaxShip2() const;
+    int getMaxShip3() const;
+    int getMaxShip4() const;
+
     std::array<std::array<int, 10>, 10>& getField();
     bool isShipDestroyed(const QPair<int, int> &);
     int getShipCount(int type) const;

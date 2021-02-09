@@ -26,6 +26,10 @@ const int Player::max_ship3 {2};
 const int Player::max_ship4 {1};
 
 std::array<std::array<int, 10>, 10>& Player::getField() { return field; }
+int Player::getMaxShip1() const { return max_ship1; }
+int Player::getMaxShip2() const { return max_ship2; }
+int Player::getMaxShip3() const { return max_ship3; }
+int Player::getMaxShip4() const { return max_ship4; }
 
 bool Player::isShipsDestroyeded() const {
     for (int i = 1; i <= 4; ++i) {
