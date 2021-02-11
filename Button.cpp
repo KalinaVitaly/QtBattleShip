@@ -81,13 +81,12 @@ void Button::paintEvent(QPaintEvent* _event) {
         QPen pen(Qt::gray, width() / 10, Qt::SolidLine);
         painter.setPen(pen);
         painter.drawEllipse(QPointF(width() / 2, height() / 2), width() / 4, height() / 4);
-        //painter.drawPoint(QPointF(width() / 2, height() / 2));
     }
 
     //
     // Рисуем рамку
     //
-    QPen pen(Qt::white, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    QPen pen(Qt::white, 4, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
     painter.setPen(pen);
     painter.setBrush(Qt::NoBrush);
     QRectF rectangle(0, 0, width(), height());
@@ -99,6 +98,10 @@ void Button::mousePressEvent(QMouseEvent* _event) {
     Q_UNUSED(_event);
 
     emit signalClicked();
+}
+
+int Button::getButtonState() {
+    return state;
 }
 
 Button::~Button() {}

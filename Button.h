@@ -15,6 +15,7 @@ public:
 
     void setButtonState(const QString &);
     QSize sizeHint() const override;
+    int getButtonState();
 
 private:
     enum buttonState {
@@ -29,7 +30,6 @@ private:
     // Состояние кнопки
     //
     buttonState state;
-
 
     void setButtonStyleSheet();
 
