@@ -14,20 +14,20 @@ ShipsWidget::ShipsWidget(QWidget *parent) :
         haveShips.insert(i, 5 - i);
     }
 
-    setButtonAndLabel(horiz_layout1, (*shipsButton)[1], (*digitsLabel)[1], (*shipPixmap)[1], (*digitPixmap)[1], 1);
-    setButtonAndLabel(horiz_layout2, (*shipsButton)[2], (*digitsLabel)[2], (*shipPixmap)[2], (*digitPixmap)[2], 2);
-    setButtonAndLabel(horiz_layout3, (*shipsButton)[3], (*digitsLabel)[3], (*shipPixmap)[3], (*digitPixmap)[3], 3);
-    setButtonAndLabel(horiz_layout4, (*shipsButton)[4], (*digitsLabel)[4], (*shipPixmap)[4], (*digitPixmap)[4], 4);
+    setButtonAndLabel(horizLayout1, (*shipsButton)[1], (*digitsLabel)[1], (*shipPixmap)[1], (*digitPixmap)[1], 1);
+    setButtonAndLabel(horizLayout2, (*shipsButton)[2], (*digitsLabel)[2], (*shipPixmap)[2], (*digitPixmap)[2], 2);
+    setButtonAndLabel(horizLayout3, (*shipsButton)[3], (*digitsLabel)[3], (*shipPixmap)[3], (*digitPixmap)[3], 3);
+    setButtonAndLabel(horizLayout4, (*shipsButton)[4], (*digitsLabel)[4], (*shipPixmap)[4], (*digitPixmap)[4], 4);
 
     setLayout(mainLayout);
     setFixedSize(300, 880);
 }
 
-void ShipsWidget::setChooseShipType(int type) { choose_ship_type = type; }
+void ShipsWidget::setChooseShipType(int type) { chooseShipType = type; }
 
-int ShipsWidget::getClickedShipType() const { return choose_ship_type; }
+int ShipsWidget::getClickedShipType() const { return chooseShipType; }
 
-void ShipsWidget::setChooseShip(int type) { choose_ship_type = type; }
+void ShipsWidget::setChooseShip(int type) { chooseShipType = type; }
 
 void ShipsWidget::updateDigits() {
     for (int i = 1; i <= 4; ++i) {
@@ -35,7 +35,7 @@ void ShipsWidget::updateDigits() {
     }
 }
 
-void ShipsWidget::setNulls() {
+void ShipsWidget::slotSetNulls() {
     for (int i = 1; i < 5; ++i) {
         haveShips[i] = 0;
     }
@@ -43,7 +43,7 @@ void ShipsWidget::setNulls() {
     updateDigits();
 }
 
-void ShipsWidget::setMax() {
+void ShipsWidget::slotSetMax() {
     for (int i = 1; i < 5; ++i) {
         haveShips[i] = 5 - i;
     }
@@ -76,36 +76,36 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
 }
 
 void ShipsWidget::changeDigitPixMap() {
-    --haveShips[choose_ship_type];
-    (*digitsLabel)[choose_ship_type]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
-                                                 QString::number(haveShips[choose_ship_type]) + ".png");
+    --haveShips[chooseShipType];
+    (*digitsLabel)[chooseShipType]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
+                                                 QString::number(haveShips[chooseShipType]) + ".png");
 
     checkingBeforeGameStarting();
 }
 
 void ShipsWidget::returnChangedDigitPixMap() {
-    ++haveShips[choose_ship_type];
-    (*digitsLabel)[choose_ship_type]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
-                                                 QString::number(haveShips[choose_ship_type]) + ".png");
+    ++haveShips[chooseShipType];
+    (*digitsLabel)[chooseShipType]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
+                                                 QString::number(haveShips[chooseShipType]) + ".png");
 
     checkingBeforeGameStarting();
 }
 
 void ShipsWidget::slotShipClicked() {
     if ((QPushButton*)sender() == (*shipsButton)[1]) {
-        choose_ship_type = 1;
+        chooseShipType = 1;
     } else if ((QPushButton*)sender() == (*shipsButton)[2]) {
-        choose_ship_type = 2;
+        chooseShipType = 2;
     } else if ((QPushButton*)sender() == (*shipsButton)[3]) {
-        choose_ship_type = 3;
+        chooseShipType = 3;
     } else if ((QPushButton*)sender() == (*shipsButton)[4]) {
-        choose_ship_type = 4;
+        chooseShipType = 4;
     }
 
-    if((choose_ship_type == 1 && haveShips[1] > 0) ||
-            (choose_ship_type == 2 && haveShips[2] > 0) ||
-            (choose_ship_type == 3 && haveShips[3] > 0) ||
-            (choose_ship_type == 4 && haveShips[4] > 0)) {
+    if((chooseShipType == 1 && haveShips[1] > 0) ||
+            (chooseShipType == 2 && haveShips[2] > 0) ||
+            (chooseShipType == 3 && haveShips[3] > 0) ||
+            (chooseShipType == 4 && haveShips[4] > 0)) {
         QApplication::setOverrideCursor(Qt::ClosedHandCursor);
     }
 }

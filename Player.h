@@ -52,7 +52,7 @@ public:
     bool getShipOrientation(const QPair<int, int> &);
     bool isShipsDestroyeded() const;
 signals:
-    void deleteShipFromFields(const QVector<QPair<int, int>> & pos, bool orientation);
+    void signalDeleteShipFromFields(const QVector<QPair<int, int>> & pos, bool orientation);
 public slots:
 };
 

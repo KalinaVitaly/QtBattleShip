@@ -8,15 +8,15 @@ Button::Button(QWidget *parent)
 
 void Button::enterEvent(QEvent* _event) {
     Q_UNUSED(_event);
-    repaint();
+    update();
 }
 
 void Button::leaveEvent(QEvent* _event) {
     Q_UNUSED(_event);
-    repaint();
+    update();
 }
 
-QSize Button::sizeHint() const {}
+QSize Button::sizeHint() const { return QSize(width(), height()); }
 
 void Button::setButtonState(const QString & _state) {
     if (_state == "EMPTY_FIELD") {
@@ -26,12 +26,14 @@ void Button::setButtonState(const QString & _state) {
     } else if (_state == "UNKNOWN_FIELD") {
         state = UNKNOWN_FIELD;
     } else if (_state == "MISS_FIELD") {
+        qDebug() << "Miss Field!";
         state = MISS_FIELD;
     } else if (_state == "DESTROYEDED_FIELD") {
+        qDebug() << "DESTROYEDED Field!";
         state = DESTROYEDED_FIELD;
     }
 
-    repaint();
+    update();
 }
 
 void Button::setButtonStyleSheet() {
@@ -84,11 +86,13 @@ void Button::paintEvent(QPaintEvent* _event) {
 
     //
     // Рисуем рамку
-    QPen pen(Qt::white, 5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    //
+    QPen pen(Qt::white, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
     painter.setPen(pen);
-    //painter.setBrush(Qt::white);
+    painter.setBrush(Qt::NoBrush);
     QRectF rectangle(0, 0, width(), height());
     painter.drawRect(rectangle);
+
 }
 
 void Button::mousePressEvent(QMouseEvent* _event) {

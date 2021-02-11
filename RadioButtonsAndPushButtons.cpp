@@ -4,10 +4,10 @@
 RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) :
     QWidget(parent),
     start(new QPushButton("Start", this)),
-    automatic_placement_ships(new QPushButton("Ships automatic placement", this)),
-    horizontal(new QRadioButton("Horizantal", this)),
-    vertical(new QRadioButton("Vertival", this)),
-    vertical_layout(new QVBoxLayout(this))
+    automaticPlacementShips(new QPushButton("Ships automatic placement", this)),
+    horizontalRadioButton(new QRadioButton("Horizantal", this)),
+    verticalRadioButton(new QRadioButton("Vertival", this)),
+    verticalLayout(new QVBoxLayout(this))
 {
     this->setFixedSize(480, 880);
 
@@ -15,22 +15,22 @@ RadioButtonsAndPushButtons::RadioButtonsAndPushButtons(QWidget * parent) :
 
     QFont font("times", 15);
     start->setFlat(true);
-    horizontal->setChecked(true);
+    horizontalRadioButton->setChecked(true);
 
-    vertical_layout->addWidget(horizontal, Qt::AlignCenter);
-    vertical_layout->addWidget(vertical, Qt::AlignCenter);
-    vertical_layout->addWidget(automatic_placement_ships, Qt::AlignCenter);
-    vertical_layout->addWidget(start, Qt::AlignCenter);
+    verticalLayout->addWidget(horizontalRadioButton, Qt::AlignCenter);
+    verticalLayout->addWidget(verticalRadioButton, Qt::AlignCenter);
+    verticalLayout->addWidget(automaticPlacementShips, Qt::AlignCenter);
+    verticalLayout->addWidget(start, Qt::AlignCenter);
 }
 
 QPushButton*& RadioButtonsAndPushButtons::getStart() { return start; }
-QRadioButton*& RadioButtonsAndPushButtons::getHorizantal() { return horizontal; }
-QRadioButton*& RadioButtonsAndPushButtons::getVertical() { return vertical; }
-QPushButton*& RadioButtonsAndPushButtons::getAutoPlacementShips() { return automatic_placement_ships; }
+QRadioButton*& RadioButtonsAndPushButtons::getHorizantal() { return horizontalRadioButton; }
+QRadioButton*& RadioButtonsAndPushButtons::getVertical() { return verticalRadioButton; }
+QPushButton*& RadioButtonsAndPushButtons::getAutoPlacementShips() { return automaticPlacementShips; }
 
 void RadioButtonsAndPushButtons::setStyleSheets() {
-    horizontal->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
-    vertical->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
+    horizontalRadioButton->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
+    verticalRadioButton->setStyleSheet("background-color : rgba(135, 206, 235, 100);");
 
     start->setStyleSheet("QPushButton {\
                           color : black;\
@@ -42,7 +42,7 @@ void RadioButtonsAndPushButtons::setStyleSheets() {
                           font-size : 20px;\
                           border-radius: 10px;\
                           }");
-    automatic_placement_ships->setStyleSheet("QPushButton {\
+    automaticPlacementShips->setStyleSheet("QPushButton {\
                                               color : black;\
                                               background-color : rgba(135, 206, 235, 50);\
                                               font-family: New Century Schoolbook;\

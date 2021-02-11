@@ -20,11 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     setButtons(exitButton, size, "Exit");
 
     QObject::connect(startGameButton, SIGNAL(clicked()),
-                     this, SLOT(startGameClicked()));
+                     this, SLOT(slotStartGameClicked()));
     QObject::connect(settingsButton, SIGNAL(clicked()),
-                     this, SLOT(settingsClicked()));
+                     this, SLOT(slotSettingsClicked()));
     QObject::connect(exitButton, SIGNAL(clicked()),
-                     this, SLOT(exitClicked()));
+                     this, SLOT(slotExitClicked()));
 
     this->setFixedSize(1800, 900);
     this->setPalette(palette);
@@ -55,7 +55,7 @@ void MainWindow::setButtons(QPushButton *&button, const QSize &size, const QStri
     mainLayout->addWidget(button, 0, Qt::AlignCenter);
 }
 
-void MainWindow::startGameClicked()
+void MainWindow::slotStartGameClicked()
 {
     PreparationGameWidget *preparationGameWidget = new PreparationGameWidget;
     preparationGameWidget->show();
@@ -63,12 +63,12 @@ void MainWindow::startGameClicked()
     close();
 }
 
-void MainWindow::exitClicked()
+void MainWindow::slotExitClicked()
 {
     close();
 }
 
-void MainWindow::settingsClicked()
+void MainWindow::slotSettingsClicked()
 {
     //add settings=)
 }

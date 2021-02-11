@@ -3,44 +3,42 @@
 
 GameMenu::GameMenu(const QString & result_information, QWidget *parent) :
     QWidget(parent),
-    label_result(new QLabel(result_information, this)),
-    button_exit(new QPushButton("Exit to main menu", this)),
-    button_retry_game(new QPushButton("Retry", this)),
-    continue_game(new QPushButton("Continue")),
-    vertical_layout(new QVBoxLayout(this))
+    resultLabel(new QLabel(result_information, this)),
+    exitButton(new QPushButton("Exit to main menu", this)),
+    retryGameButton(new QPushButton("Retry", this)),
+    continueGameButton(new QPushButton("Continue")),
+    mainLayout(new QVBoxLayout(this))
 {
-    label_result->setAttribute(Qt::WA_TranslucentBackground);
-    button_exit->setAttribute(Qt::WA_TranslucentBackground);
-    button_retry_game->setAttribute(Qt::WA_TranslucentBackground);
+    resultLabel->setAttribute(Qt::WA_TranslucentBackground);
+    exitButton->setAttribute(Qt::WA_TranslucentBackground);
+    retryGameButton->setAttribute(Qt::WA_TranslucentBackground);
 
-//    button_exit->setFlat(true);
-//    button_retry_game->setFlat(true)
-
-    vertical_layout->addWidget(label_result, 0, Qt::AlignCenter);
-    vertical_layout->addWidget(button_retry_game);
-    vertical_layout->addWidget(button_exit);
+    mainLayout->addWidget(resultLabel, 0, Qt::AlignCenter);
+    mainLayout->addWidget(retryGameButton);
+    mainLayout->addWidget(exitButton);
     if (result_information == "Game Pause") {
-        continue_game->setParent(this);
-        vertical_layout->addWidget(continue_game);
+        continueGameButton->setParent(this);
+        mainLayout->addWidget(continueGameButton);
     }
 
-    setLayout(vertical_layout);
-    //setFixedSize(200, 100);
+    setLayout(mainLayout);
     setResultMenuStyle(result_information);
     setWindowFlag(Qt::WindowStaysOnTopHint);
 
-    QObject::connect(continue_game, SIGNAL(clicked()),
-                     this, SLOT(continueClicked()));
+    QObject::connect(continueGameButton, SIGNAL(clicked()),
+                     this, SLOT(slotContinueClicked()));
 }
 
 
-QPushButton*& GameMenu::getButtonExit() { return button_exit; }
-QPushButton*& GameMenu::getButtonRetryGame() { return button_retry_game; }
-void GameMenu::continueClicked() { hide();}
+QPushButton*& GameMenu::getButtonExit() { return exitButton; }
+
+QPushButton*& GameMenu::getButtonRetryGame() { return retryGameButton; }
+
+void GameMenu::slotContinueClicked() { hide();}
 
 void GameMenu::setResultMenuStyle(const QString & result_information) {
     QString qss_code;
-    label_result->setStyleSheet("color : black;"
+    resultLabel->setStyleSheet("color : black;"
                                 "background: transparent;"
                                 "font-family: New Century Schoolbook;"
                                 "font-size : 20px;");
@@ -98,12 +96,12 @@ void GameMenu::setResultMenuStyle(const QString & result_information) {
                          stop : 0 rgba(8, 38, 103, 200), stop: 1 rgba(16, 71, 19, 200));\
                          }";
 
-        continue_game->setStyleSheet(qss_code);
+        continueGameButton->setStyleSheet(qss_code);
         this->setStyleSheet("background-color : qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1,\
             stop : 0 #72A0C1	, stop: 1 #6391B2);");
     }
-    button_exit->setStyleSheet(qss_code);
-    button_retry_game->setStyleSheet(qss_code);
+    exitButton->setStyleSheet(qss_code);
+    retryGameButton->setStyleSheet(qss_code);
 }
 
 GameMenu::~GameMenu()

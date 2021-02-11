@@ -9,24 +9,22 @@ class Ship : public QObject
 
 private:
     QVector<QPair<QPair<int, int>, bool>> ship_coordinates_and_deck_condition;
-    int ship_type;
-    int deck_count;
-    bool is_ship_destroyed;
-    bool orientation;
+    int typeOfShip;
+    int deckCount;
+    bool isShipDestroyeded;
+    bool orientationOfShip;
 public:
     Ship();
 
-    bool getIsShipDestroyed() const;
-    int getShipType() const;
+    bool getIsShipDestroyeded() const;
+    int getTypeOfShip() const;
     int getShipDeckCount() const;
     void setShipPosition(const QVector<QPair<int, int>> &position, int _ship_type, bool _orientation);
     bool isShipInjured(const QPair<int, int> &point);
     bool isShipDeath();
     bool isShipPoint(const QPair<int, int> &point);
-    bool getOrientation() const;
-    QPair<int, int> getShipbegin();
+    bool getOrientationOfShip() const;
+    QPair<int, int> getShipBegin();
     QVector<QPair<int, int>> getShipCoordinates();
-public slots:
-
 };
 #endif // SHIP_H

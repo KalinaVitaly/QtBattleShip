@@ -30,8 +30,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 private slots:
-    void startGameClicked();
-    void settingsClicked();
-    void exitClicked();
+    void slotStartGameClicked();
+    void slotSettingsClicked();
+    void slotExitClicked();
 };
 #endif // MAINMENU_H

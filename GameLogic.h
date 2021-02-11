@@ -34,20 +34,20 @@ public:
     QVector<QPair<int, int>> fieldsCoordinatesAroundDestroyededShip(Player *,const QVector<QPair<int, int>> &, bool);
 
 public slots:
-    void setShootFromGrid(const QPair<int, int> &);
-    void signalProcessing();
-    void computerGameStep();
+    void slotSetShootFromGrid(const QPair<int, int> &);
+    void slotProcessing();
+    void slotComputerGameStep();
 
 signals:
-    void setBombMiss2LabelGrid(const QPair<int, int> &);
-    void setBombHit2LabelGrid(const QPair<int, int> &);
-    void setBombHitFromComputer(const QPair<int, int> &);
-    void setBombMissFromComputer(const QPair<int, int> &);
-    void setComputerDestroyedShip(const QVector<QPair<int, int>> &);
-    void setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &);
-    void setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &);
-    void playerClickedField(Button *);
-    void beginComputerGameStep();
+    void signalSetBombMiss2LabelGrid(const QPair<int, int> &);
+    void signalSetBombHit2LabelGrid(const QPair<int, int> &);
+    void signalSetBombHitFromComputer(const QPair<int, int> &);
+    void signalSetBombMissFromComputer(const QPair<int, int> &);
+    void signalSetComputerDestroyedShip(const QVector<QPair<int, int>> &);
+    void signalSetAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &);
+    void signalSetAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &);
+    void signalPlayerClickedField(Button *);
+    void signalBeginComputerGameStep();
 
     void signalEndGame(const QString &);
 

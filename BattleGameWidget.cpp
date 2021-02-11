@@ -23,7 +23,7 @@ BattleGameWidget::BattleGameWidget(Player *pl, std::array<std::array<int, 10>, 1
     mainLayout->addLayout(v_layout);
 
     connect(startGameButton, SIGNAL(clicked()),
-            this, SLOT(startGameClicked()));
+            this, SLOT(slotStartGameClicked()));
 }
 
 void BattleGameWidget::slotStartGameClicked() {
@@ -82,42 +82,40 @@ void BattleGameWidget::slotGetCoordinatesButtonClicked(Button * field) {
 }
 
 void BattleGameWidget::connectButtonsWithGameLogic() {
-    qDebug() << "connectButtonsWithGameLogic";
     connectButtonsGridWithGameLogic();
 
-    QObject::connect(this, SIGNAL(signalButtonFieldClicked(const QPair<int, int> &)),
-                     gameLogic, SLOT(setShootFromGrid(const QPair<int, int> &)));
+    connect(this, SIGNAL(signalButtonFieldClicked(const QPair<int, int> &)),
+                     gameLogic, SLOT(slotSetShootFromGrid(const QPair<int, int> &)));
 
-    QObject::connect(gameLogic, SIGNAL(setBombMiss2LabelGrid(const QPair<int, int> &)),
-                     gridButtonsEnemyFields, SLOT(setMissOnField(const QPair<int, int> &)));
-    QObject::connect(gameLogic, SIGNAL(setBombHit2LabelGrid(const QPair<int, int> &)),
-                     gridButtonsEnemyFields, SLOT(setHitOnField(const QPair<int, int> &)));
+    connect(gameLogic, SIGNAL(signalSetBombMiss2LabelGrid(const QPair<int, int> &)),
+                     gridButtonsEnemyFields, SLOT(slotSetMissOnField(const QPair<int, int> &)));
+    connect(gameLogic, SIGNAL(signalSetBombHit2LabelGrid(const QPair<int, int> &)),
+                     gridButtonsEnemyFields, SLOT(slotSetHitOnField(const QPair<int, int> &)));
 
-    QObject::connect(gameLogic, SIGNAL(setBombMissFromComputer(const QPair<int, int> &)),
-                     gridLabelPlayerFields, SLOT(setBombMissOnLabelGrid(const QPair<int, int> &)));
-    QObject::connect(gameLogic, SIGNAL(setBombHitFromComputer(const QPair<int, int> &)),
-                     gridLabelPlayerFields, SLOT(setBombHitOnLabelGrid(const QPair<int, int> &)));
+    connect(gameLogic, SIGNAL(signalSetBombMissFromComputer(const QPair<int, int> &)),
+                     gridLabelPlayerFields, SLOT(slotSetBombMissOnLabelGrid(const QPair<int, int> &)));
+    connect(gameLogic, SIGNAL(signalSetBombHitFromComputer(const QPair<int, int> &)),
+                     gridLabelPlayerFields, SLOT(slotSetBombHitOnLabelGrid(const QPair<int, int> &)));
 
-    QObject::connect(gameLogic, SIGNAL(setAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &)),
-                     gridButtonsEnemyFields, SLOT(setAroundShipFields(const QVector<QPair<int, int>> &)));
-    QObject::connect(gameLogic, SIGNAL(setAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &)),
-                     gridLabelPlayerFields, SLOT(setFieldsAroundDestroyededShipInGridLabel(const QVector<QPair<int, int>> &)));
+    connect(gameLogic, SIGNAL(signalSetAroundDestroyededShipInactiveFields(const QVector<QPair<int, int>> &)),
+                     gridButtonsEnemyFields, SLOT(slotSetAroundShipFields(const QVector<QPair<int, int>> &)));
+    connect(gameLogic, SIGNAL(signalSetAroundDestroyededPlayerShipFields(const QVector<QPair<int, int>> &)),
+                     gridLabelPlayerFields, SLOT(slotSetFieldsAroundDestroyededShipInGridLabel(const QVector<QPair<int, int>> &)));
 
-    QObject::connect(gameLogic, SIGNAL(signalEndGame(const QString &)),
+    connect(gameLogic, SIGNAL(signalEndGame(const QString &)),
                      this, SLOT(slotGetSignalEndGame(const QString &)));
 
-    QObject::connect(pauseButton, SIGNAL(clicked()),
-                     this, SLOT(slotGetSignalEndGame()));
+    connect(pauseButton, SIGNAL(clicked()), this, SLOT(slotGetSignalEndGame()));
 }
 
 void BattleGameWidget::slotGetSignalEndGame(const QString & information) {
     resultMenuWidget = new GameMenu(information);
 
     QObject::connect(resultMenuWidget->getButtonExit(), SIGNAL(clicked()),
-                     this, SLOT(exitButtonClicked()));
+                     this, SLOT(slotExitButtonClicked()));
 
     QObject::connect(resultMenuWidget->getButtonRetryGame(), SIGNAL(clicked()),
-                     this, SLOT(retryButtonClicked()));
+                     this, SLOT(slotRetryButtonClicked()));
 
     resultMenuWidget->show();
 }
@@ -143,12 +141,10 @@ void BattleGameWidget::slotRetryButtonClicked() {
 
 void BattleGameWidget::connectButtonsGridWithGameLogic() {
     for (size_t i = 0; i < gridButtonsEnemyFields->getFieldCount(); ++i) {
-//        QObject::connect(grid_button_enemy_fields->getField()[i], SIGNAL(clicked()),
-//                this, SLOT(getCoordinatesButtonClicked()));
-        QObject::connect(gridButtonsEnemyFields->getField()[i], SIGNAL(signalClicked()),
-                gameLogic, SLOT(signalProcessing()));
-        QObject::connect(gameLogic, SIGNAL(playerClickedField(Button *)),
-                this, SLOT(getCoordinatesButtonClicked(Button *)));
+        connect(gridButtonsEnemyFields->getField()[i], SIGNAL(signalClicked()),
+                gameLogic, SLOT(slotProcessing()));
+        connect(gameLogic, SIGNAL(signalPlayerClickedField(Button *)),
+                this, SLOT(slotGetCoordinatesButtonClicked(Button *)));
     }
 }
 

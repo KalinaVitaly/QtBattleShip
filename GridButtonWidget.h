@@ -11,19 +11,19 @@ class GridWidget : public QWidget
 {
     Q_OBJECT
 private:
-    QGridLayout *grid;
-    QPixmap *field;
-    QVector<QPixmap> symbols;
-    QVector<QPixmap> digit;
-    QVector<QLabel *> symbol_label;
-    QVector<QLabel *> digit_label;
-    Button *buttons_sea_fieald[100];
-    const size_t field_count;
+    QGridLayout *gridLayout;
+    QPixmap *fieldPixmap;
+    QVector<QPixmap> symbolsPixmap;
+    QVector<QPixmap> digitPixmap;
+    QVector<QLabel *> symbolLabel;
+    QVector<QLabel *> digitLabel;
+    Button *buttonsSeaFiealds[100];
+    const size_t fieldsCount;
     QSize size;
 
-    void setSymbols(const QSize & size);
-    void setDigits(const QSize & size);
-    void setFields(const QSize & size);
+    void setupSymbols(const QSize & size);
+    void setupDigits(const QSize & size);
+    void setupFields(const QSize & size);
 public:
     explicit GridWidget(QSize field_size = QSize(80, 80), QWidget *parent = nullptr);
     ~GridWidget() override;
@@ -33,18 +33,12 @@ public:
     size_t findFieldNumber(Button *button);
     void setShipPositionInGrid(const QPair<int, int> &pos, bool orientation, int length);
     void setGameFields();
-    void setFieldPixOnShipPositionInGrid(const QVector<QPair<int, int>> &pos, bool orientation);
-
-    void setNewFieldSize(const QSize & size);
-    void setNewSymbolsSize(const QSize & size);
-    void setNewDigitsSize(const QSize & size);
-    void setNewWidgetSize(const QSize & size);
 
 public slots:
-    void setFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation);
-    void setMissOnField(const QPair<int, int> &);
-    void setHitOnField(const QPair<int, int> &);
-    void setAroundShipFields(const QVector<QPair<int, int>> &);
+    void slotSetFieldsOnShipPosition(const QVector<QPair<int, int>> &pos, bool orientation);
+    void slotSetMissOnField(const QPair<int, int> &);
+    void slotSetHitOnField(const QPair<int, int> &);
+    void slotSetAroundShipFields(const QVector<QPair<int, int>> &);
 };
 
 #endif // GRIDWIDGET_H

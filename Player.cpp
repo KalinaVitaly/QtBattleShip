@@ -45,7 +45,7 @@ bool Player::getShipOrientation(const QPair<int, int> & coordinate) {
     Ship *ship = findShipByPosition(coordinate);
 
     if (ship != nullptr) {
-        return ship->getOrientation();
+        return ship->getOrientationOfShip();
     }
     //переделать
     return false;
@@ -80,7 +80,7 @@ void Player::deleteAllShips() {
             for (int k = 0; k < ships[i][j]->getShipDeckCount(); ++k) {
                 field[coordinates[k].second][coordinates[k].first] = 0;
             }
-            emit deleteShipFromFields(ships[i][j]->getShipCoordinates(), ships[i][j]->getOrientation());
+            emit signalDeleteShipFromFields(ships[i][j]->getShipCoordinates(), ships[i][j]->getOrientationOfShip());
             findAndDeleteShip(ships[i][j]);
         }
     }
@@ -98,12 +98,12 @@ void Player::DebugPrintField() {
 }
 
 void Player::findAndDeleteShip(Ship * ship) {
-    int type = ship->getShipType();
+    int type = ship->getTypeOfShip();
     int ship_index = ships[type].indexOf(ship);
     if (ship_index >= 0) {
-        ships[type].swapItemsAt(ship_index, ships_count[ship->getShipType()] - 1);
+        ships[type].swapItemsAt(ship_index, ships_count[ship->getTypeOfShip()] - 1);
         delete ship;
-        --ships_count[ship->getShipType()];
+        --ships_count[ship->getTypeOfShip()];
     }
 }
 

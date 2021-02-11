@@ -13,17 +13,17 @@ class ShipsWidget : public QWidget
     Q_OBJECT
 private:
     QVBoxLayout *mainLayout;
-    QHBoxLayout *horiz_layout1;
-    QHBoxLayout *horiz_layout2;
-    QHBoxLayout *horiz_layout3;
-    QHBoxLayout *horiz_layout4;
+    QHBoxLayout *horizLayout1;
+    QHBoxLayout *horizLayout2;
+    QHBoxLayout *horizLayout3;
+    QHBoxLayout *horizLayout4;
     QMap<int, int> haveShips;
     QMap<int, QLabel *> *digitsLabel;
     QMap<int, QPushButton *> *shipsButton;
     QMap<int, QPixmap *> *digitPixmap;
     QMap<int, QPixmap *> *shipPixmap;
 
-    int choose_ship_type;
+    int chooseShipType;
 
     //
     // Устанавливаем корабли и их кол-во
@@ -49,8 +49,8 @@ private slots:
     void slotShipClicked();
 
 public slots:
-    void setMax();
-    void setNulls();
+    void slotSetMax();
+    void slotSetNulls();
     
 signals:
     void signalShowStartGame();

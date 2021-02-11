@@ -56,8 +56,6 @@ void  ComputerPlayer::findPossibleFieldsWithShipsParts() {
         possibleFieldsWithShipsPart.push_back(QPair<int, int>(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].first,
                                                   coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1].second + 1));
     }
-//    for (auto i : possible_fields_with_ships_part)
-//        qDebug() << "Coordinates possible fields: " << i.first << " " << i.second;
 }
 
 void ComputerPlayer::setPlayerStatus(int _status) {
@@ -80,7 +78,7 @@ void ComputerPlayer::addDestroyededFields(const QVector<QPair<int, int>> & coord
 }
 
 void ComputerPlayer::searchShip(QPair<int, int> & field_coordinate) {
-    coordinatesDestroyededFields.clear();
+    coordinatesInjuredShipFields.clear();
     std::random_device rd;
     std::mt19937 mersenne(rd());
     do {
@@ -90,8 +88,8 @@ void ComputerPlayer::searchShip(QPair<int, int> & field_coordinate) {
 }
 
 void ComputerPlayer::searchNextField(QPair<int, int> & field_coordinate) {
-    if (!coordinatesDestroyededFields.size())
-        coordinatesDestroyededFields.push_back(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1]);
+    if (!coordinatesInjuredShipFields.size())
+        coordinatesInjuredShipFields.push_back(coordinatesDestroyededFields[coordinatesDestroyededFields.size() - 1]);
 
     if (possibleFieldsWithShipsPart.size() - 1 >= 0) {
         //проверка ограждает от проблемы если корабль был ранен в середину

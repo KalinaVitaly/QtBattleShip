@@ -16,33 +16,30 @@ GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) :
 
     AutomaticShipsPlacement::setRandomPositionShips(player2);
 
-    QObject::connect(this, SIGNAL(beginComputerGameStep()),
-                     this, SLOT(computerGameStep()));
+    connect(this, SIGNAL(signalBeginComputerGameStep()),
+                     this, SLOT(slotComputerGameStep()));
 }
 
-void GameLogicWithComputer::computerGameStep() {
+void GameLogicWithComputer::slotComputerGameStep() {
     if (state == GAMESTATE::SECOND_PLAYER_STEP) {
-        qDebug() << "computerGameStep start";
         state = GAMESTATE::FIRST_PLAYER_STEP;
         shootFromComputer();
 
         if (player1->isShipsDestroyeded()) {
             gameEnd(QString("Lose!"));
-            qDebug() << "Second player win";
         }
     }
 }
 
-void GameLogicWithComputer::signalProcessing() {
+void GameLogicWithComputer::slotProcessing() {
     if (state == GAMESTATE::FIRST_PLAYER_STEP) {
-        Button *field = (Button*)sender();
+        Button *field = (Button *)sender();
         state = GAMESTATE::SECOND_PLAYER_STEP;
-        emit playerClickedField(field);
-        emit beginComputerGameStep();
+        emit signalPlayerClickedField(field);
+        emit signalBeginComputerGameStep();
 
         if (player2->isShipsDestroyeded()) {
             gameEnd(QString("Win!"));
-            qDebug() << "First player win";
         }
     }
 }
@@ -201,35 +198,33 @@ void GameLogicWithComputer::shootFromComputer() {
             //player1->DebugPrintField();
             computer->setPlayerStatus(1);
             computer->addDestroyededFields(fields_around_ship);
-            emit setAroundDestroyededPlayerShipFields(fields_around_ship);
+            emit signalSetAroundDestroyededPlayerShipFields(fields_around_ship);
         }
-        emit setBombHitFromComputer(coordinate);
+        emit signalSetBombHitFromComputer(coordinate);
     }
     else {
         if (computer->getPlayerStatus() == 3)
             computer->setPlayerStatus(4);
 
         player1->setBombHitOnPoint(coordinate);
-        emit setBombMissFromComputer(coordinate);
+        emit signalSetBombMissFromComputer(coordinate);
     }
 }
 
-void GameLogicWithComputer::setShootFromGrid(const QPair<int, int> & coordinate) {
+void GameLogicWithComputer::slotSetShootFromGrid(const QPair<int, int> & coordinate) {
     if (player2->hasShipOnPoint(coordinate)) {
         player2->setBombHitOnPoint(coordinate);
         if (player2->isShipDestroyed(coordinate)) {
             QVector<QPair<int, int>> fields_around_ship = fieldsCoordinatesAroundDestroyededShip(player2,
                 player2->getShipCoordinate(coordinate), player2->getShipOrientation(coordinate));
-            setAroundDestroyededShipInactiveFields(fields_around_ship);
+            emit signalSetAroundDestroyededShipInactiveFields(fields_around_ship);
         }
-        emit setBombHit2LabelGrid(coordinate);
+        emit signalSetBombHit2LabelGrid(coordinate);
     }
     else {
         player2->setBombHitOnPoint(coordinate);
-        emit setBombMiss2LabelGrid(coordinate);
+        emit signalSetBombMiss2LabelGrid(coordinate);
     }
-    //qDebug() << "\n";
-    //player2->DebugPrintField();
 }
 
 GameLogicWithComputer::~GameLogicWithComputer() {
