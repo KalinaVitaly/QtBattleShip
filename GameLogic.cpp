@@ -8,10 +8,6 @@ GameLogicWithComputer::GameLogicWithComputer(Player *player, QObject *parent) :
     computer = new ComputerPlayer;
     player2 = new Player;
 
-//    state = rand() % 2 ?
-//                GAMESTATE::FIRST_PLAYER_STEP :
-//                GAMESTATE::SECOND_PLAYER_STEP;
-
     state = GAMESTATE::FIRST_PLAYER_STEP; //return rand
 
     AutomaticShipsPlacement::setRandomPositionShips(player2);

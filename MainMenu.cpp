@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
-    backgroundShipPixmap(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/BattleShips.jpg")),
+    backgroundShipPixmap(new QPixmap("://images/field/BattleShips.jpg")),
     gameNameLabel(new QLabel("BattleShips", this)),
     mainLayout(new QVBoxLayout(this))
 {

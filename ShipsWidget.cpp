@@ -31,7 +31,8 @@ void ShipsWidget::setChooseShip(int type) { chooseShipType = type; }
 
 void ShipsWidget::updateDigits() {
     for (int i = 1; i <= 4; ++i) {
-        (*digitsLabel)[i]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(haveShips[i]) + ".png");
+        (*digitsLabel)[chooseShipType]->setText(QString::number(haveShips[chooseShipType]));
+        //(*digitsLabel)[i]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(haveShips[i]) + ".png");
     }
 }
 
@@ -53,16 +54,18 @@ void ShipsWidget::slotSetMax() {
 
 void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, QLabel *&label, QPixmap *&pix, QPixmap *&pix2, int i)
 {
+    QFont font("New Century Schoolbook");
+    font.setPointSize(30);
     layout = new QHBoxLayout();
-    //QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(120, 80).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
-    pix = new QPixmap("/home/vitaly/QtProject/BattleShips/images/ships/" + QString::number(i) + ".png");
-    pix2 = new QPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(5 - i) + ".png");
+    pix = new QPixmap(":/images/ships/" + QString::number(i) + ".png");
     button = new QPushButton(*pix, "", this);
     label = new QLabel(this);
 
     button->setIconSize(QSize(120, 120));
     button->setFlat(true);
-    label->setPixmap(*pix2);
+//    label->setPixmap(*pix2);
+    label->setText(QString::number(5 - i));
+    label->setFont(font);
     label->setFixedSize(120, 80);
     label->setAttribute(Qt::WA_TranslucentBackground);
     button->setAttribute(Qt::WA_TranslucentBackground);
@@ -71,22 +74,20 @@ void ShipsWidget::setButtonAndLabel(QHBoxLayout *&layout, QPushButton *&button, 
     layout->addWidget(label, 0, Qt::AlignRight);
     mainLayout->addLayout(layout);
 
-    QObject::connect(button, SIGNAL(clicked()),
-                     this, SLOT(slotShipClicked()));
+    connect(button, SIGNAL(clicked()),
+        this, SLOT(slotShipClicked()));
 }
 
 void ShipsWidget::changeDigitPixMap() {
     --haveShips[chooseShipType];
-    (*digitsLabel)[chooseShipType]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
-                                                 QString::number(haveShips[chooseShipType]) + ".png");
+    (*digitsLabel)[chooseShipType]->setText(QString::number(haveShips[chooseShipType]));
 
     checkingBeforeGameStarting();
 }
 
 void ShipsWidget::returnChangedDigitPixMap() {
     ++haveShips[chooseShipType];
-    (*digitsLabel)[chooseShipType]->setPixmap("/home/vitaly/QtProject/BattleShips/images/digits/" +
-                                                 QString::number(haveShips[chooseShipType]) + ".png");
+    (*digitsLabel)[chooseShipType]->setText(QString::number(haveShips[chooseShipType]));
 
     checkingBeforeGameStarting();
 }

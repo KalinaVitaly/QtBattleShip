@@ -4,7 +4,6 @@
 GridWidget::GridWidget(QSize field_size, QWidget *parent)
     : QWidget(parent),
       gridLayout(new QGridLayout(this)),
-      fieldPixmap(new QPixmap("/home/vitaly/QtProject/BattleShips/images/field/field.jpg")),
       symbolLabel(10),
       digitLabel(10),
       fieldsCount(100),
@@ -32,7 +31,6 @@ void GridWidget::slotSetMissOnField(const QPair<int, int> &pos) {
 }
 
 void GridWidget::slotSetHitOnField(const QPair<int, int> &pos) {
-    qDebug() << "slot set hit on field";
     buttonsSeaFiealds[pos.first + pos.second * 10]->setButtonState("DESTROYEDED_FIELD");
 }
 
@@ -84,7 +82,6 @@ void GridWidget::setGameFields()
     for (size_t i = 0; i < fieldsCount; ++i)
     {
         buttonsSeaFiealds[i] = new Button(this);
-        //buttons_sea_fieald[i]->setIconSize(QSize(80, 80));
         buttonsSeaFiealds[i]->setFixedSize(QSize(80, 80));
         gridLayout->addWidget(buttonsSeaFiealds[i], 1 + i / 10, 1 + i % 10, Qt::AlignCenter);
     }
@@ -92,28 +89,28 @@ void GridWidget::setGameFields()
 
 void GridWidget::setupSymbols(const QSize & size)
 {
-    for (int i = 1; i <= 10; ++i)
-    {
-        QImage("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png").scaled(size).save("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
-        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/symbols/" + QString::number(i) + ".png");
-        symbolsPixmap.push_back(pix);
+    QFont font("New Century Schoolbook");
+    font.setPointSize(30);
+    for (int i = 1; i <= 10; ++i) {
         symbolLabel[i - 1] = new QLabel(this);
-        symbolLabel[i - 1]->setPixmap(symbolsPixmap[i - 1]);
+        symbolLabel[i - 1]->setText(QString('A' + i - 1));
+        symbolLabel[i - 1]->setAlignment(Qt::AlignCenter);
         symbolLabel[i - 1]->setFixedSize(size);
         symbolLabel[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
+        symbolLabel[i - 1]->setFont(font);
         gridLayout->addWidget(symbolLabel[i - 1], 0, i, Qt::AlignCenter);
     }
 }
 
 void GridWidget::setupDigits(const QSize & size)
 {
-    for (int i = 1; i <= 10; ++i)
-    {
-        QImage("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png").scaled(80, 80).save("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
-        QPixmap pix("/home/vitaly/QtProject/BattleShips/images/digits/" + QString::number(i) + ".png");
+    for (int i = 1; i <= 10; ++i) {
+        QFont font("New Century Schoolbook");
+        font.setPointSize(30);
         digitLabel[i - 1] = new QLabel(this);
-        digitPixmap.push_back(pix);
-        digitLabel[i - 1]->setPixmap(digitPixmap[i - 1]);
+        digitLabel[i - 1]->setText(QString::number(i));
+        digitLabel[i - 1]->setFont(font);
+        digitLabel[i - 1]->setAlignment(Qt::AlignCenter);
         digitLabel[i - 1]->setFixedSize(size);
         digitLabel[i - 1]->setAttribute(Qt::WA_TranslucentBackground);
         gridLayout->addWidget(digitLabel[i - 1], i, 0, Qt::AlignCenter);
@@ -122,8 +119,6 @@ void GridWidget::setupDigits(const QSize & size)
 
 
 GridWidget::~GridWidget() {
-    delete fieldPixmap;
-
     for (size_t i = 0; i < fieldsCount; ++i)
         delete buttonsSeaFiealds[i];
 }

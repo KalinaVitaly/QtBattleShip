@@ -47,15 +47,15 @@ void GridLabelWidget::setLabelsStyle(std::array<std::array<int, 10>, 10> field, 
 }
 
 void GridLabelWidget::slotSetBombHitOnLabelGrid(const QPair<int, int> & coordinate) {
-    QImage("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/x.png").scaled(size).
-            save("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/x.png");
-    fieldsLabel[coordinate.second][coordinate.first]->setPixmap(QPixmap("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/x.png"));
+//    QImage(":/images/x.png").scaled(size).
+//            save(":/images/x.png");
+    fieldsLabel[coordinate.second][coordinate.first]->setPixmap(QPixmap(":/images/GridLabelImages/x.png"));
 }
 
 void GridLabelWidget::slotSetBombMissOnLabelGrid(const QPair<int, int> & coordinate) {
-    QImage("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/miss.png").scaled(size).
-            save("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/miss.png");
-    fieldsLabel[coordinate.second][coordinate.first]->setPixmap(QPixmap("/home/vitaly/QtProject/BattleShips/images/GridLabelImages/miss.png"));
+//    QImage(":/images/miss.png").scaled(size).
+//            save(":/images/miss.png");
+    fieldsLabel[coordinate.second][coordinate.first]->setPixmap(QPixmap(":/images/GridLabelImages/miss.png"));
 }
 
 GridLabelWidget::~GridLabelWidget() {

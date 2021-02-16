@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/field/BattleShips.jpg</file>
+        <file>images/GridLabelImages/x.png</file>
+        <file>images/GridLabelImages/miss.png</file>
+        <file>images/ships/4.png</file>
+        <file>images/ships/3.png</file>
+        <file>images/ships/2.png</file>
+        <file>images/ships/1.png</file>
+    </qresource>
+</RCC>

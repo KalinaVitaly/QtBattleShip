@@ -12,9 +12,6 @@ class GridWidget : public QWidget
     Q_OBJECT
 private:
     QGridLayout *gridLayout;
-    QPixmap *fieldPixmap;
-    QVector<QPixmap> symbolsPixmap;
-    QVector<QPixmap> digitPixmap;
     QVector<QLabel *> symbolLabel;
     QVector<QLabel *> digitLabel;
     Button *buttonsSeaFiealds[100];
